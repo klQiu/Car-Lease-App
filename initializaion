@@ -1,0 +1,24 @@
+private void insert() {
+        try {
+            System.out.println("start forname");
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("start connecting");
+            //System.out.println("111");
+            //Class.forName("com.mysql.jdbc.driver");
+            //String url = "jdbc:mysql://192.168.1.70/user";
+            Connection myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            System.out.println("succeed connecting");
+
+            PreparedStatement st =  myConn.prepareStatement("insert into userinfo values (?,?,?,?)");
+            st.setString(1, "rrr@163.com");
+            st.setString(2, "55555");
+            st.setString(3, "Kitty");
+            st.setInt(4,1);
+            st.execute();
+            st.close();
+            myConn.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
