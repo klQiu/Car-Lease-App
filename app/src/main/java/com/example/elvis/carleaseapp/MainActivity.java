@@ -9,6 +9,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -22,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                insert();
             }
         });
     }
@@ -48,5 +52,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void insert() {
+        try {
+            System.out.println("start forname");
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("start connecting");
+            //System.out.println("111");
+            //Class.forName("com.mysql.jdbc.driver");
+            //String url = "jdbc:mysql://192.168.1.70/user";
+            Connection myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            System.out.println("succeed connecting");
+
+            PreparedStatement st =  myConn.prepareStatement("insert into userinfo values (?,?,?,?)");
+            st.setString(1, "rrr@163.com");
+            st.setString(2, "55555");
+            st.setString(3, "Cat");
+            st.setInt(4,1);
+            st.execute();
+            st.close();
+            myConn.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
     }
 }
