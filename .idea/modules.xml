@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CarLeaseApp.iml" filepath="$PROJECT_DIR$/CarLeaseApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Car-Lease-App.iml" filepath="$PROJECT_DIR$/Car-Lease-App.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mysql-connector-java-5.1.44-bin/mysql-connector-java-5.1.44-bin.iml" filepath="$PROJECT_DIR$/mysql-connector-java-5.1.44-bin/mysql-connector-java-5.1.44-bin.iml" />
     </modules>
   </component>
 </project>

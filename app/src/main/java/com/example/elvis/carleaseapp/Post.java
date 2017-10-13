@@ -16,6 +16,7 @@ public class Post {
     private int rentTime;
     private final int userId;
     private final int postId;
+    private String postTime;
 
     public Post(int userId, int postId, String title) {
         this.title = title;
@@ -94,5 +95,9 @@ public class Post {
 
     public int getPostId() {
         return postId;
+    }
+
+    public void setPostTime(String time) {
+        this.postTime = time;
     }
 }

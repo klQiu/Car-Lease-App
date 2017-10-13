@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.elvis.weatherapp.MainActivity">
-
+    tools:context="com.example.elvis.carleaseapp.MainActivity">
 
 
     <LinearLayout
@@ -47,7 +46,16 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linear_layout"/>
-
+        android:layout_below="@+id/linear_layout"
+        android:layout_alignParentStart="true" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|left"
+        android:text="Button"
+        android:onClick="onClick"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="center_vertical|center_horizontal" />
 
 </RelativeLayout>
