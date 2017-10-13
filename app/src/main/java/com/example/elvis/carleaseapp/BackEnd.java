@@ -11,7 +11,7 @@ public class BackEnd {
     public ArrayList<Post> get20Post() {
         return null;
     }
-    public ArrayList<Post> getHisPost() {
+    public ArrayList<Post> getHisPost(User user) {
         return null;
     }
     public void addPost(Post post) {
