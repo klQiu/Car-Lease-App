@@ -27,7 +27,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                insert();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        insert();
+                    }
+                }).start();
+
             }
         });
     }
@@ -69,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             st.setString(1, "rrr@163.com");
             st.setString(2, "55555");
             st.setString(3, "Cat");
-            st.setInt(4,1);
+            st.setInt(4,11);
             st.execute();
             st.close();
             myConn.close();
