@@ -24,7 +24,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.single_post_item, null, false);
+                .inflate(R.layout.single_post_item, parent, false);
 
         return new ViewHolder(itemLayoutView);
     }
