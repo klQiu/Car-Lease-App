@@ -18,6 +18,11 @@ import java.util.List;
 import static android.R.attr.data;
 
 public class BackEnd {
+    private static final String SELECT_ALL_FROM = "SELECT * FROM ";
+    private static final String POST_TABLE = "PostInfo";
+    private static final String ORDER_BY = " ORDER BY ";
+
+    private static final String TAG = BackEnd.class.getSimpleName();
     static public void addUser(User user) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -89,11 +94,6 @@ public class BackEnd {
         return null;
     }
 
-    private static final String SELECT_ALL_FROM = "SELECT * FROM ";
-    private static final String POST_TABLE = "PostInfo";
-    private static final String ORDER_BY = " ORDER BY ";
-
-    private static final String TAG = BackEnd.class.getSimpleName();
 
     public static List<Post> getPosts(int startnum, int endnum) {
         Connection myConn = null;
@@ -177,8 +177,6 @@ public class BackEnd {
             st.setString(11, post.getEmail());
             Log.v(TAG, st.toString());
             st.execute();
-            Toast.makeText(MainActivity.this,
-                    "Your Message", Toast.LENGTH_LONG).show();
             st.close();
             myConn.close();
         }
@@ -204,12 +202,6 @@ public class BackEnd {
         }
 
     }
-    static public void addUser(User user) {
 
-    }
-    static public Boolean checkLogin(String email, String entPassword) {
-        return false;
-
-    }
 
 }
