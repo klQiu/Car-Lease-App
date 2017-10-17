@@ -1,5 +1,8 @@
 package com.example.elvis.carleaseapp;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,12 +13,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static android.R.attr.data;
+
 /**
  * Created by elvis on 2017/10/12.
  */
 
 public class BackEnd {
-
+    private  static final String TAG = BackEnd.class.getSimpleName();
     static public List<Post> getPosts(int numPosts) {
         Connection myConn = null;
         Statement stmt = null;
@@ -76,22 +81,25 @@ public class BackEnd {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
-            st =  myConn.prepareStatement("insert into PostInfo values (?,?,?,?,?,?,?,?,?,?,?)");
+            st =  myConn.prepareStatement("insert into PostInfo values (?,NULL,?,?,?,?,?,?,?,?,?,?)");
             st.setInt(1,post.getUserId());
-            st.setString(3, post.getTitle());
-            st.setString(4, post.getBrand());
-            st.setString(5, post.getColour());
-            st.setInt(6,post.getYear());
-            st.setInt(7,post.getMilage());
-            st.setInt(8,post.getPrice());
-            st.setString(9,post.getRentTime());
-            //Calendar calendar = Calendar.getInstance();
-            //java.util.Date currentDate = calendar.getTime();
-            //java.sql.Date date = new java.sql.Date(currentDate.getTime());
-            //st.setDate(10,date);
-            st.setInt(11, post.getTelephone());
-            st.setString(12, post.getEmail());
+            st.setString(2, post.getTitle());
+            st.setString(3, post.getBrand());
+            st.setString(4, post.getColour());
+            st.setInt(5,post.getYear());
+            st.setInt(6,post.getMilage());
+            st.setInt(7,post.getPrice());
+            st.setString(8,post.getRentTime());
+            Calendar calendar = Calendar.getInstance();
+            java.util.Date currentDate = calendar.getTime();
+            java.sql.Date date = new java.sql.Date(currentDate.getTime());
+            st.setDate(9,date);
+            st.setInt(10, post.getTelephone());
+            st.setString(11, post.getEmail());
+            Log.v(TAG, st.toString());
             st.execute();
+            Toast.makeText(MainActivity.this,
+                    "Your Message", Toast.LENGTH_LONG).show();
             st.close();
             myConn.close();
         }
