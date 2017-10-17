@@ -29,7 +29,8 @@
             android:layout_weight="0.25"
             android:ems="10"
             android:hint="Please enter your car name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:maxLength="25" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,8 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.72"
             android:ems="10"
-            android:hint="Please enter how many years the car is used"
-            android:inputType="numberDecimal" />
+            android:hint="Please enter years that the car is used"
+            android:inputType="numberDecimal"
+            android:maxLength="4" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,7 +81,8 @@
             android:layout_weight="0.72"
             android:ems="10"
             android:hint="Please enter the brand"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:maxLength="15" />
     </LinearLayout>
 
     <LinearLayout
@@ -104,7 +107,8 @@
             android:layout_weight="0.72"
             android:ems="10"
             android:hint="Please enter the colour"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:maxLength="20" />
     </LinearLayout>
 
     <LinearLayout
@@ -129,7 +133,8 @@
             android:layout_weight="0.72"
             android:ems="10"
             android:hint="Please enter the milage of your car"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:maxLength="10" />
     </LinearLayout>
 
     <LinearLayout
@@ -154,7 +159,8 @@
             android:layout_weight="0.72"
             android:ems="10"
             android:hint="Please enter the price per month"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:maxLength="10" />
     </LinearLayout>
 
     <LinearLayout
@@ -227,7 +233,8 @@
             android:layout_weight="0.72"
             android:ems="10"
             android:hint="Please enter the contact's telephone number"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:maxLength="20" />
 
     </LinearLayout>
 

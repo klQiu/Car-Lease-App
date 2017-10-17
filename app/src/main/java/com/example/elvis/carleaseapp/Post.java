@@ -18,7 +18,7 @@ public class Post {
     private int postId;
     private String postTime;
     private String email;
-    private int telephone;
+    private String telephone;
 
     public Post(int userId, String title) {
         this.title = title;
@@ -103,11 +103,11 @@ public class Post {
         this.postTime = time;
     }
 
-    public void setTelephone(int telephone){
+    public void setTelephone(String telephone){
         this.telephone = telephone;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
     public void setEmail (String  email){

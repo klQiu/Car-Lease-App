@@ -1,5 +1,7 @@
 package com.example.elvis.carleaseapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,12 +18,12 @@ import java.util.List;
 
 public class PostForm extends AppCompatActivity {
     private  static final String TAG = PostForm.class.getSimpleName();
+    String rentTime= "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_form);
         Spinner spinner=(Spinner)findViewById(R.id.spinner);
-        String rentTime;
         List<String> list = new ArrayList<String>();
         String[] celebrities = {
                 "",
@@ -32,15 +34,12 @@ public class PostForm extends AppCompatActivity {
                 "one year",
                 "over one year",
         };
-        Log.v(TAG, "clicked Post");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, celebrities);
-
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
-
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1,
                                                int arg2, long arg3) {
@@ -48,8 +47,7 @@ public class PostForm extends AppCompatActivity {
                         int position = spinner.getSelectedItemPosition();
                         if (position != 0)
                             Toast.makeText(getApplicationContext(),"You have selected "+celebrities[+position],Toast.LENGTH_LONG).show();
-                        // TODO Auto-generated method stub
-                        //rentTime = celebrities[+position];
+                            rentTime = spinner.getSelectedItem().toString();
                     }
 
                     @Override
@@ -58,11 +56,9 @@ public class PostForm extends AppCompatActivity {
 
                 }
         );
-
         final Button button = (Button)findViewById(R.id.submit_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.v(TAG, "CLICKED button");
                 EditText edit = (EditText)findViewById(R.id.editTitle);
                 String title = edit.getText().toString();
                 Post post = new Post(0, title);
@@ -85,10 +81,11 @@ public class PostForm extends AppCompatActivity {
                 String email = edit.getText().toString();
                 post.setEmail(email);
                 edit = (EditText)findViewById(R.id.editTelephone);
-                int telephone = Integer.parseInt(edit.getText().toString());
+                String telephone = edit.getText().toString();
                 post.setTelephone(telephone);
-                System.out.println(title);
-                System.out.println(telephone);
+                post.setRentTime(rentTime);
+                Log.v(TAG, "renttime");
+                Log.v(TAG, rentTime);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -96,6 +93,13 @@ public class PostForm extends AppCompatActivity {
                         BackEnd.addPost(post);
                     }
                 }).start();
+                Context context = getApplicationContext();
+                CharSequence text = "Posted!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                Intent myIntent = new Intent(PostForm.this, MainActivity.class);
+                startActivity(myIntent);
             }
         });
     }
