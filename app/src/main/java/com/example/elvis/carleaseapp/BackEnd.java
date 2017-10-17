@@ -1,6 +1,7 @@
 package com.example.elvis.carleaseapp;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,11 +14,15 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by apple on 2017/10/12.
- */
+
+import static android.R.attr.data;
 
 public class BackEnd {
+    private static final String SELECT_ALL_FROM = "SELECT * FROM ";
+    private static final String POST_TABLE = "PostInfo";
+    private static final String ORDER_BY = " ORDER BY ";
+
+    private static final String TAG = BackEnd.class.getSimpleName();
     static public void addUser(User user) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -89,11 +94,6 @@ public class BackEnd {
         return null;
     }
 
-    private static final String SELECT_ALL_FROM = "SELECT * FROM ";
-    private static final String POST_TABLE = "PostInfo";
-    private static final String ORDER_BY = " ORDER BY ";
-
-    private static final String TAG = BackEnd.class.getSimpleName();
 
     public static List<Post> getPosts(int startnum, int endnum) {
         Connection myConn = null;
@@ -113,13 +113,14 @@ public class BackEnd {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 //Retrieve by column name
-                Post post = new Post(rs.getInt("userId"), rs.getInt("postId"), rs.getString("title"));
+                Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
                 post.setBrand(rs.getString("brand"));
                 post.setColour(rs.getString("colour"));
                 post.setYear(rs.getInt("year"));
                 post.setMilage(rs.getInt("milage"));
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
+                post.setPostTime(rs.getDate("postTime").toString());
                 list.add(post);
             }
             rs.close();
@@ -148,6 +149,7 @@ public class BackEnd {
         return list;
     }
 
+
     static public ArrayList<Post> getHisPost(User user) {
         return null;
     }
@@ -175,8 +177,6 @@ public class BackEnd {
             st.setString(11, post.getEmail());
             Log.v(TAG, st.toString());
             st.execute();
-            Toast.makeText(MainActivity.this,
-                    "Your Message", Toast.LENGTH_LONG).show();
             st.close();
             myConn.close();
         }
@@ -200,6 +200,8 @@ public class BackEnd {
                 se.printStackTrace();
             }
         }
+
     }
+
 
 }
