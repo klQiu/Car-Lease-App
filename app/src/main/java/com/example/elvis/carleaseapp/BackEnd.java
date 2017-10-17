@@ -13,15 +13,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+
 import static android.R.attr.data;
 
-/**
- * Created by elvis on 2017/10/12.
- */
-
 public class BackEnd {
-    private  static final String TAG = BackEnd.class.getSimpleName();
-    static public List<Post> getPosts(int numPosts) {
+
+    private static final String SELECT_ALL_FROM = "SELECT * FROM ";
+    private static final String POST_TABLE = "PostInfo";
+    private static final String ORDER_BY = " ORDER BY ";
+
+    private static final String TAG = BackEnd.class.getSimpleName();
+
+    public static List<Post> getPosts(int startnum, int endnum) {
         Connection myConn = null;
         Statement stmt = null;
         List<Post> list = new ArrayList<>();
@@ -29,10 +32,15 @@ public class BackEnd {
             Class.forName("com.mysql.jdbc.Driver");
             myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
             stmt = myConn.createStatement();
-            StringBuffer sql =new StringBuffer();;
-            sql.append("SELECT * FROM PostInfo ORDER BY postTime DESC limit " + Integer.toString(numPosts));
-            ResultSet rs = stmt.executeQuery(sql.toString());
-            while(rs.next()){
+            String start = Integer.toString(startnum);
+            String end = Integer.toString(endnum);
+            String query = SELECT_ALL_FROM +
+                    POST_TABLE +
+                    ORDER_BY +
+                    "postTime DESC limit " + start + ", " + end;
+            Log.v(TAG, query);
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
                 //Retrieve by column name
                 Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
                 post.setBrand(rs.getString("brand"));
@@ -47,14 +55,13 @@ public class BackEnd {
             rs.close();
             myConn.close();
             stmt.close();
-        }
-        catch(SQLException se){
+        } catch (SQLException se) {
             //Handle errors for JDBC
             se.printStackTrace();
-        }catch(Exception e){
+        } catch (Exception e) {
             //Handle errors for Class.forName
             e.printStackTrace();
-        }finally {
+        } finally {
             //finally block used to close resources
             try {
                 if (stmt != null)
@@ -70,6 +77,7 @@ public class BackEnd {
         }
         return list;
     }
+
 
     static public ArrayList<Post> getHisPost(User user) {
         return null;

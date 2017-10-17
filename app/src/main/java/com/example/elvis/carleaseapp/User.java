@@ -1,9 +1,4 @@
 package com.example.elvis.carleaseapp;
-
-/**
- * Created by elvis on 2017/10/12.
- */
-
 public class User {
 
     private String email;
@@ -28,3 +23,4 @@ public class User {
         return this.userID;
     }
 }
+
