@@ -32,14 +32,12 @@ public class BackEnd {
             Class.forName("com.mysql.jdbc.Driver");
             myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
             stmt = myConn.createStatement();
-            StringBuffer sql = new StringBuffer();
             String start = Integer.toString(startnum);
             String end = Integer.toString(endnum);
             String query = SELECT_ALL_FROM +
                     POST_TABLE +
                     ORDER_BY +
                     "postTime DESC limit " + start + ", " + end;
-            sql.append("SELECT * FROM PostInfo ORDER BY postTime DESC limit 0, 2");
             Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
