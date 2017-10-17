@@ -1,10 +1,6 @@
 package com.example.elvis.carleaseapp;
-
-/**
- * Created by apple on 2017/10/12.
- */
-
 public class User {
+
     private String email;
     private String password;
     private int userID;
@@ -27,5 +23,4 @@ public class User {
         return this.userID;
     }
 }
-
 
