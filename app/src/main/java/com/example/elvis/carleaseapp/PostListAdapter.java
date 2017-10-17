@@ -34,8 +34,16 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
         // - replace the contents of the view with that itemsData
         holder.title.setText(postList.get(position).getTitle());
         holder.carColor.setText(postList.get(position).getColour());
-        holder.carYear.setText(Integer.toString(postList.get(position).getYear()));
-        holder.carPrice.setText(Integer.toString(postList.get(position).getPrice()));
+        String postYear = "";
+        String postPrice = "";
+        if(postList.get(position).getYear() != 0) {
+            postYear = Integer.toString(postList.get(position).getYear());
+        }
+        holder.carYear.setText(postYear);
+        if(postList.get(position).getPrice() != 0) {
+            postPrice = Integer.toString(postList.get(position).getPrice());
+        }
+        holder.carPrice.setText(postPrice);
     }
 
     @Override
@@ -69,7 +77,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            //
+            //todo
         }
 
     }
