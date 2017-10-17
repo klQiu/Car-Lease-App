@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
             emailText.setText("");
             passText.setText("");
             TextView warning = (TextView) findViewById(R.id.loginWarning);
-            warning.setText("Failed: Email and Password do't match");
+            warning.setText("Failed: Email and Password don't match");
         }
         else{
             this.finish();
