@@ -1,6 +1,7 @@
 package com.example.elvis.carleaseapp;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,9 +14,8 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by apple on 2017/10/12.
- */
+
+import static android.R.attr.data;
 
 public class BackEnd {
     static public void addUser(User user) {
@@ -113,13 +113,14 @@ public class BackEnd {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 //Retrieve by column name
-                Post post = new Post(rs.getInt("userId"), rs.getInt("postId"), rs.getString("title"));
+                Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
                 post.setBrand(rs.getString("brand"));
                 post.setColour(rs.getString("colour"));
                 post.setYear(rs.getInt("year"));
                 post.setMilage(rs.getInt("milage"));
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
+                post.setPostTime(rs.getDate("postTime").toString());
                 list.add(post);
             }
             rs.close();
@@ -147,6 +148,7 @@ public class BackEnd {
         }
         return list;
     }
+
 
     static public ArrayList<Post> getHisPost(User user) {
         return null;
@@ -200,6 +202,14 @@ public class BackEnd {
                 se.printStackTrace();
             }
         }
+
+    }
+    static public void addUser(User user) {
+
+    }
+    static public Boolean checkLogin(String email, String entPassword) {
+        return false;
+
     }
 
 }
