@@ -89,8 +89,9 @@
 
     <TextView
         android:id="@+id/loginWarning"
-        android:layout_width="0dp"
-        android:layout_height="14dp"
+        android:layout_width="275dp"
+        android:layout_height="20dp"
+        android:textColor="#f00"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toTopOf="@+id/emailText"
@@ -98,7 +99,7 @@
         android:layout_marginEnd="18dp"
         app:layout_constraintRight_toRightOf="@+id/emailText"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="141dp"
+        android:layout_marginBottom="42dp"
         app:layout_constraintLeft_toLeftOf="@+id/emailText"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

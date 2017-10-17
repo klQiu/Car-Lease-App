@@ -1,5 +1,6 @@
 package com.example.elvis.carleaseapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -54,8 +55,9 @@ public class LoginActivity extends AppCompatActivity {
             warning.setText("Failed: Email and Password do't match");
         }
         else{
-            TextView warning = (TextView) findViewById(R.id.loginWarning);
-            warning.setText("Succeed");
+            this.finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
