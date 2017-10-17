@@ -77,16 +77,16 @@ public class PostForm extends AppCompatActivity {
                 post.setColour(colour);
                 edit = (EditText)findViewById(R.id.editMilage);
                 int milage = Integer.parseInt(edit.getText().toString());
-                post.setYear(milage);
+                post.setMilage(milage);
                 edit = (EditText)findViewById(R.id.editPrice);
                 int price = Integer.parseInt(edit.getText().toString());
-                post.setYear(price);
+                post.setPrice(price);
                 edit = (EditText)findViewById(R.id.editEmail);
                 String email = edit.getText().toString();
-                post.setColour(email);
+                post.setEmail(email);
                 edit = (EditText)findViewById(R.id.editTelephone);
                 int telephone = Integer.parseInt(edit.getText().toString());
-                post.setYear(telephone);
+                post.setTelephone(telephone);
                 System.out.println(title);
                 System.out.println(telephone);
                 new Thread(new Runnable() {
