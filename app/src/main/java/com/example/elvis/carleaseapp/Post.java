@@ -13,7 +13,7 @@ public class Post {
     private int milage;
     private int photoIds[];
     private int price;
-    private int rentTime;
+    private String rentTime;
     private final int userId;
     private final int postId;
 
@@ -71,11 +71,11 @@ public class Post {
         this.price = price;
     }
 
-    public int getRentTime() {
+    public String getRentTime() {
         return rentTime;
     }
 
-    public void setRentTime(int rentTime) {
+    public void setRentTime(String rentTime) {
         this.rentTime = rentTime;
     }
 
