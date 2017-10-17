@@ -136,21 +136,24 @@ public class PostFormActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK){
             /* startActivityForResult passes in the uri of the image selected */
             Uri imageUri = data.getData();
-            //Bitmap carBitmap;
-//            try {
-                //carBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                imgBytes = Utils.imgToByteArray(this);  // to be sent to database
+            Bitmap carBitmap;
+            try {
+                carBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                imgBytes = Utils.imgToByteArray(carBitmap);  // to be sent to database
+                Log.v(TAG, "image bytes done");
                 //carImage.setImageBitmap(carBitmap);
-//            } catch (FileNotFoundException e) {
-//                Toast.makeText(this, "error occurred during image selection", Toast.LENGTH_SHORT).show();
-//                e.printStackTrace();
-//            }
+            } catch (FileNotFoundException e) {
+                Toast.makeText(this, "error occurred during image selection", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
 
             Glide.with(getApplicationContext())
                     .load(imageUri)
                     .centerCrop()
                     .into(carImage);    //use Glide library for efficient bitmap using
-            //prevents out of memory error
+                                        //prevents out of memory error
+
+
         }
     }
 }

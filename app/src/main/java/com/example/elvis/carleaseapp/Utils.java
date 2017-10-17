@@ -16,8 +16,8 @@ public class Utils {
      * todo change this
      * @return
      */
-    public static byte[] imgToByteArray(Context context) {
-        Bitmap b = BitmapFactory.decodeResource(context.getResources(),R.drawable.test_img);
+    public static byte[] imgToByteArray(Bitmap b) {
+        //Bitmap b = BitmapFactory.decodeResource(context.getResources(),R.drawable.test_img);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         b.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();

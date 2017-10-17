@@ -131,8 +131,10 @@ public class BackEnd {
 
                 /* get image blob */
                 Blob blob = rs.getBlob("imgBytes");
-                byte[] imgBytes = blob.getBytes(1, (int)blob.length());
-                post.setImgBytes(imgBytes);
+                if(blob != null) {
+                    byte[] imgBytes = blob.getBytes(1, (int)blob.length());
+                    post.setImgBytes(imgBytes);
+                }
                 list.add(post);
             }
             rs.close();
@@ -172,7 +174,7 @@ public class BackEnd {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
-            st =  myConn.prepareStatement("insert into PostInfo values (?,NULL,?,?,?,?,?,?,?,?,?,?)");
+            st =  myConn.prepareStatement("insert into PostInfo values (?,NULL,?,?,?,?,?,?,?,?,?,?,?)");
             st.setInt(1,post.getUserId());
             st.setString(2, post.getTitle());
             st.setString(3, post.getBrand());
@@ -189,7 +191,7 @@ public class BackEnd {
             /* prepare image blob */
             Blob blob = myConn.createBlob();
             blob.setBytes(1, post.getImgBytes());
-            st.setBlob(1, blob);
+            st.setBlob(12, blob);
             blob.free();
 
             Log.v(TAG, st.toString());

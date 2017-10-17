@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     PostListAdapter postListAdapter;
     List<Post> postList;
     private static final int SCROLL_DOWN = 1;
+    private static final int SCROLL_UP = -1;
     private static final int INITIAL_LIST_SIZE = 5;
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 /* test if user scrolled to the end of list */
                 if(!recyclerView.canScrollVertically(SCROLL_DOWN)) {
                     new BackEndTask(MainActivity.this, postList.size(), postList.size() + 2).execute();
+                }
+                else if(!recyclerView.canScrollVertically(SCROLL_UP)) {
+                    new BackEndTask(MainActivity.this, 0, 0).execute();
                 }
             }
         });

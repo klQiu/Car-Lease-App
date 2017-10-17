@@ -19,7 +19,7 @@ public class Post {
     private String postTime;
     private String email;
     private String telephone;
-    private byte[] imgBytes;
+    private byte[] imgBytes = new byte[0];
 
     public Post(int userId, String title) {
         this.title = title;
