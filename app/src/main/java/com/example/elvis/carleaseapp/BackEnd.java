@@ -1,23 +1,23 @@
 package com.example.elvis.carleaseapp;
 
+import android.util.Log;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by apple on 2017/10/12.
  */
 
 public class BackEnd {
-
-    static public ArrayList<Post> get20Post() {
-        return null;
-    }
-    static public ArrayList<Post> getHisPost(User user) {
-        return null;
-    }
-    static public void addPost(Post post) {
-
-    }
     static public void addUser(User user) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -87,6 +87,119 @@ public class BackEnd {
                 }
         }
         return null;
+    }
+
+    private static final String SELECT_ALL_FROM = "SELECT * FROM ";
+    private static final String POST_TABLE = "PostInfo";
+    private static final String ORDER_BY = " ORDER BY ";
+
+    private static final String TAG = BackEnd.class.getSimpleName();
+
+    public static List<Post> getPosts(int startnum, int endnum) {
+        Connection myConn = null;
+        Statement stmt = null;
+        List<Post> list = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            stmt = myConn.createStatement();
+            String start = Integer.toString(startnum);
+            String end = Integer.toString(endnum);
+            String query = SELECT_ALL_FROM +
+                    POST_TABLE +
+                    ORDER_BY +
+                    "postTime DESC limit " + start + ", " + end;
+            Log.v(TAG, query);
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                //Retrieve by column name
+                Post post = new Post(rs.getInt("userId"), rs.getInt("postId"), rs.getString("title"));
+                post.setBrand(rs.getString("brand"));
+                post.setColour(rs.getString("colour"));
+                post.setYear(rs.getInt("year"));
+                post.setMilage(rs.getInt("milage"));
+                post.setPrice(rs.getInt("price"));
+                post.setRentTime(rs.getString("rentTime"));
+                list.add(post);
+            }
+            rs.close();
+            myConn.close();
+            stmt.close();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (myConn != null)
+                    myConn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    static public ArrayList<Post> getHisPost(User user) {
+        return null;
+    }
+
+    static public void addPost(Post post) {
+        Connection myConn = null;
+        PreparedStatement st = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            st =  myConn.prepareStatement("insert into PostInfo values (?,NULL,?,?,?,?,?,?,?,?,?,?)");
+            st.setInt(1,post.getUserId());
+            st.setString(2, post.getTitle());
+            st.setString(3, post.getBrand());
+            st.setString(4, post.getColour());
+            st.setInt(5,post.getYear());
+            st.setInt(6,post.getMilage());
+            st.setInt(7,post.getPrice());
+            st.setString(8,post.getRentTime());
+            Calendar calendar = Calendar.getInstance();
+            java.util.Date currentDate = calendar.getTime();
+            java.sql.Date date = new java.sql.Date(currentDate.getTime());
+            st.setDate(9,date);
+            st.setInt(10, post.getTelephone());
+            st.setString(11, post.getEmail());
+            Log.v(TAG, st.toString());
+            st.execute();
+            Toast.makeText(MainActivity.this,
+                    "Your Message", Toast.LENGTH_LONG).show();
+            st.close();
+            myConn.close();
+        }
+        catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally {
+            //finally block used to close resources
+            try {
+                if (st != null)
+                    st.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (myConn != null)
+                    myConn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
     }
 
 }
