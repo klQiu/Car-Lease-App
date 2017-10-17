@@ -26,4 +26,8 @@
         app:srcCompat="@android:drawable/ic_menu_add" />
 
 
+<<<<<<< HEAD
 </RelativeLayout>
+=======
+</RelativeLayout>
+>>>>>>> d4928d4a89e674693c506c3e691bece3bd2e5a88
