@@ -22,6 +22,7 @@ public class BackEndTask extends AsyncTask<Void, Void, Boolean> {
         this.postList = ((MainActivity) main).postList;
     }
 
+
     @Override
     protected Boolean doInBackground(Void... params) {
         List<Post> newList = BackEnd.getPosts(start_num, end_num);

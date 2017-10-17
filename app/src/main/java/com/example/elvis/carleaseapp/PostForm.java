@@ -85,7 +85,7 @@ public class PostForm extends AppCompatActivity {
                 String email = edit.getText().toString();
                 post.setEmail(email);
                 edit = (EditText)findViewById(R.id.editTelephone);
-                int telephone = Integer.parseInt(edit.getText().toString());
+                String telephone = edit.getText().toString();
                 post.setTelephone(telephone);
                 System.out.println(title);
                 System.out.println(telephone);
