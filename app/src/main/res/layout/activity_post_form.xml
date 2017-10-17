@@ -237,6 +237,30 @@
             android:maxLength="20" />
 
     </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+
+        <Button
+            android:id="@+id/loadimage"
+            android:onClick="selectFromGallery"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Image"
+            />
+        <TextView
+            android:id="@+id/targeturi"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+        <ImageView
+            android:id="@+id/targetimage"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            />
+    </LinearLayout>
 
     <Button
         android:id="@+id/submit_button"
