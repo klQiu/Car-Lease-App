@@ -1,5 +1,6 @@
 package com.example.elvis.carleaseapp;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,9 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -110,7 +114,6 @@ public class BackEnd {
                     POST_TABLE +
                     ORDER_BY +
                     "postTime DESC limit " + start + ", " + end;
-            Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 //Retrieve by column name
@@ -170,10 +173,9 @@ public class BackEnd {
             st.setInt(6,post.getMilage());
             st.setInt(7,post.getPrice());
             st.setString(8,post.getRentTime());
-            Calendar calendar = Calendar.getInstance();
-            java.util.Date currentDate = calendar.getTime();
-            java.sql.Date date = new java.sql.Date(currentDate.getTime());
-            st.setDate(9,date);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            st.setString(9,dateFormat.format(date));
             st.setString(10, post.getTelephone());
             st.setString(11, post.getEmail());
             Log.v(TAG, st.toString());
