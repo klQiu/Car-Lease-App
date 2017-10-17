@@ -18,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -134,15 +136,21 @@ public class PostFormActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK){
             /* startActivityForResult passes in the uri of the image selected */
             Uri imageUri = data.getData();
-            Bitmap carBitmap;
-            try {
-                carBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+            //Bitmap carBitmap;
+//            try {
+                //carBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                 imgBytes = Utils.imgToByteArray(this);  // to be sent to database
-                carImage.setImageBitmap(carBitmap);
-            } catch (FileNotFoundException e) {
-                Toast.makeText(this, "error occurred during image selection", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
+                //carImage.setImageBitmap(carBitmap);
+//            } catch (FileNotFoundException e) {
+//                Toast.makeText(this, "error occurred during image selection", Toast.LENGTH_SHORT).show();
+//                e.printStackTrace();
+//            }
+
+            Glide.with(getApplicationContext())
+                    .load(imageUri)
+                    .centerCrop()
+                    .into(carImage);    //use Glide library for efficient bitmap using
+            //prevents out of memory error
         }
     }
 }

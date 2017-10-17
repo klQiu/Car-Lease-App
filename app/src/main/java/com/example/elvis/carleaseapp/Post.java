@@ -104,6 +104,10 @@ public class Post {
         this.postTime = time;
     }
 
+    public String getPostTime() {
+        return postTime;
+    }
+
     public void setTelephone(String telephone){
         this.telephone = telephone;
     }
