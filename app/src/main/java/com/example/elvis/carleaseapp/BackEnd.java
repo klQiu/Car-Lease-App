@@ -1,17 +1,22 @@
 package com.example.elvis.carleaseapp;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,6 +28,7 @@ public class BackEnd {
     private static final String ORDER_BY = " ORDER BY ";
 
     private static final String TAG = BackEnd.class.getSimpleName();
+
     static public void addUser(User user) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -109,7 +115,6 @@ public class BackEnd {
                     POST_TABLE +
                     ORDER_BY +
                     "postTime DESC limit " + start + ", " + end;
-            Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 //Retrieve by column name
@@ -121,6 +126,15 @@ public class BackEnd {
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
                 post.setPostTime(rs.getDate("postTime").toString());
+                post.setTelephone(rs.getString("telephone"));
+                post.setEmail(rs.getString("email"));
+
+                /* get image blob */
+                Blob blob = rs.getBlob("imgBytes");
+                if(blob != null) {
+                    byte[] imgBytes = blob.getBytes(1, (int)blob.length());
+                    post.setImgBytes(imgBytes);
+                }
                 list.add(post);
             }
             rs.close();
@@ -160,7 +174,7 @@ public class BackEnd {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
-            st =  myConn.prepareStatement("insert into PostInfo values (?,NULL,?,?,?,?,?,?,?,?,?,?)");
+            st =  myConn.prepareStatement("insert into PostInfo values (?,NULL,?,?,?,?,?,?,?,?,?,?,?)");
             st.setInt(1,post.getUserId());
             st.setString(2, post.getTitle());
             st.setString(3, post.getBrand());
@@ -169,12 +183,17 @@ public class BackEnd {
             st.setInt(6,post.getMilage());
             st.setInt(7,post.getPrice());
             st.setString(8,post.getRentTime());
-            Calendar calendar = Calendar.getInstance();
-            java.util.Date currentDate = calendar.getTime();
-            java.sql.Date date = new java.sql.Date(currentDate.getTime());
-            st.setDate(9,date);
-            st.setInt(10, post.getTelephone());
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            st.setString(9,dateFormat.format(date));
+            st.setString(10, post.getTelephone());
             st.setString(11, post.getEmail());
+            /* prepare image blob */
+            Blob blob = myConn.createBlob();
+            blob.setBytes(1, post.getImgBytes());
+            st.setBlob(12, blob);
+            blob.free();
+
             Log.v(TAG, st.toString());
             st.execute();
             st.close();
