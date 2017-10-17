@@ -2,8 +2,6 @@ package com.example.elvis.carleaseapp;
 
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 
 import android.support.v7.app.AppCompatActivity;
 
@@ -13,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void post(View view){
-        Intent myIntent = new Intent(MainActivity.this, PostForm.class);
+        Intent myIntent = new Intent(MainActivity.this, PostFormActivity.class);
         startActivity(myIntent);
     }
 
@@ -95,47 +92,6 @@ public class MainActivity extends AppCompatActivity {
         new DisplayImageTask().execute();
     }
 
-    private void insertImage() {
-        try {
-
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
-            PreparedStatement st =  myConn.prepareStatement("insert into TestImage values (NULL,?)");
-            //todo
-            //byte[] buffer = "some data".getBytes();
-            byte[] buffer = imgToByteArray();
-            Blob blob = myConn.createBlob();
-            blob.setBytes(1, buffer);
-            st.setBlob(1, blob);
-            blob.free(); //??needed??
-
-            st.execute();
-            st.close();
-            myConn.close();
-        }
-        catch (Exception exc) {
-            exc.printStackTrace();
-        }
-    }
-
-
-    /**
-     * uses a test image
-     * todo change this
-     * @return
-     */
-    private byte[] imgToByteArray() {
-        Bitmap b = BitmapFactory.decodeResource(getResources(),R.drawable.test_img);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        b.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
-    }
-
-    private Bitmap byteArrayToImage(byte[] imgBytes) {
-        Bitmap b = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length); //Convert bytearray to bitmap
-        return b;
-    }
-
 
     /**
      * Gets a blob from database and display the image on UI
@@ -153,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             if(result) {
-                Bitmap b = byteArrayToImage(imgBytes);
+                Bitmap b = Utils.byteArrayToImage(imgBytes);
                 ImageView testImg = (ImageView) findViewById(R.id.testImg);
                 testImg.setImageBitmap(b);
             }

@@ -22,16 +22,18 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostForm extends AppCompatActivity {
-    private  static final String TAG = PostForm.class.getSimpleName();
+public class PostFormActivity extends AppCompatActivity {
+    private  static final String TAG = PostFormActivity.class.getSimpleName();
     String rentTime= "";
-    TextView textTargetUri;
-    ImageView targetImage;
+    ImageView carImage;
+    byte[] imgBytes = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_form);
-        Spinner spinner=(Spinner)findViewById(R.id.spinner);
+        carImage = (ImageView) findViewById(R.id.car_image);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         List<String> list = new ArrayList<String>();
         String[] celebrities = {
                 "",
@@ -74,7 +76,10 @@ public class PostForm extends AppCompatActivity {
             public void onClick(View v) {
                 EditText edit = (EditText)findViewById(R.id.editTitle);
                 String title = edit.getText().toString();
+                //todo change userid to real owner's id after login is done
                 Post post = new Post(0, title);
+
+                /* prepare a new post to add to database */
                 edit = (EditText)findViewById(R.id.editYear);
                 int year = Integer.parseInt(edit.getText().toString());
                 post.setYear(year);
@@ -97,8 +102,10 @@ public class PostForm extends AppCompatActivity {
                 String telephone = edit.getText().toString();
                 post.setTelephone(telephone);
                 post.setRentTime(rentTime);
-                Log.v(TAG, "renttime");
                 Log.v(TAG, rentTime);
+                post.setImgBytes(imgBytes);
+
+                //todo change this using async task
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -106,19 +113,15 @@ public class PostForm extends AppCompatActivity {
                         BackEnd.addPost(post);
                     }
                 }).start();
-                Context context = getApplicationContext();
-                CharSequence text = "Posted!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-                Intent myIntent = new Intent(PostForm.this, MainActivity.class);
+
+                Toast.makeText(getApplicationContext(), "Posted!", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(PostFormActivity.this, MainActivity.class);
                 startActivity(myIntent);
             }
         });
     }
 
     public void selectFromGallery(View view) {
-        // TODO Auto-generated method stub
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 0);
@@ -126,18 +129,18 @@ public class PostForm extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK){
-            Uri targetUri = data.getData();
-            textTargetUri.setText(targetUri.toString());
-            Bitmap bitmap;
+            /* startActivityForResult passes in the uri of the image selected */
+            Uri imageUri = data.getData();
+            Bitmap carBitmap;
             try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                targetImage.setImageBitmap(bitmap);
+                carBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                imgBytes = Utils.imgToByteArray(this);  // to be sent to database
+                carImage.setImageBitmap(carBitmap);
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
+                Toast.makeText(this, "error occurred during image selection", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }

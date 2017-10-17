@@ -21,12 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".PostForm"></activity>
+        <activity android:name=".PostFormActivity"></activity>
 
     </application>
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/fixBugs
 
 </manifest>

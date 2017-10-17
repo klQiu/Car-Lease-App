@@ -19,6 +19,7 @@ public class Post {
     private String postTime;
     private String email;
     private String telephone;
+    private byte[] imgBytes;
 
     public Post(int userId, String title) {
         this.title = title;
@@ -116,5 +117,13 @@ public class Post {
 
     public String getEmail() {
         return email;
+    }
+
+    public byte[] getImgBytes() {
+        return imgBytes;
+    }
+
+    public void setImgBytes(byte[] imgBytes) {
+        this.imgBytes = imgBytes;
     }
 }

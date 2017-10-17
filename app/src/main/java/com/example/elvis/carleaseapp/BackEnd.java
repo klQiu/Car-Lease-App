@@ -28,6 +28,7 @@ public class BackEnd {
     private static final String ORDER_BY = " ORDER BY ";
 
     private static final String TAG = BackEnd.class.getSimpleName();
+
     static public void addUser(User user) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -125,6 +126,13 @@ public class BackEnd {
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
                 post.setPostTime(rs.getDate("postTime").toString());
+                post.setTelephone(rs.getString("telephone"));
+                post.setEmail(rs.getString("email"));
+
+                /* get image blob */
+                Blob blob = rs.getBlob("imgBytes");
+                byte[] imgBytes = blob.getBytes(1, (int)blob.length());
+                post.setImgBytes(imgBytes);
                 list.add(post);
             }
             rs.close();
@@ -178,6 +186,12 @@ public class BackEnd {
             st.setString(9,dateFormat.format(date));
             st.setString(10, post.getTelephone());
             st.setString(11, post.getEmail());
+            /* prepare image blob */
+            Blob blob = myConn.createBlob();
+            blob.setBytes(1, post.getImgBytes());
+            st.setBlob(1, blob);
+            blob.free();
+
             Log.v(TAG, st.toString());
             st.execute();
             st.close();
