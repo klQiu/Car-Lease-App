@@ -13,16 +13,18 @@ public class Post {
     private int milage;
     private int photoIds[];
     private int price;
-    private int rentTime;
+    private String rentTime;
     private final int userId;
-    private final int postId;
+    private int postId;
     private String postTime;
+    private String email;
+    private int telephone;
 
-    public Post(int userId, int postId, String title) {
+    public Post(int userId, String title) {
         this.title = title;
         this.userId = userId;
-        this.postId = postId;
     }
+    public void getPostId(int postId) {this.postId = postId; }
 
     public String getTitle() {
         return title;
@@ -72,11 +74,11 @@ public class Post {
         this.price = price;
     }
 
-    public int getRentTime() {
+    public String getRentTime() {
         return rentTime;
     }
 
-    public void setRentTime(int rentTime) {
+    public void setRentTime(String rentTime) {
         this.rentTime = rentTime;
     }
 
@@ -99,5 +101,20 @@ public class Post {
 
     public void setPostTime(String time) {
         this.postTime = time;
+    }
+
+    public void setTelephone(int telephone){
+        this.telephone = telephone;
+    }
+
+    public int getTelephone() {
+        return telephone;
+    }
+    public void setEmail (String  email){
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

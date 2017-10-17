@@ -53,8 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.72"
             android:ems="10"
-            android:hint="Please enter how long the car is used"
-            android:inputType="textPersonName" />
+            android:hint="Please enter how many years the car is used"
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
@@ -129,7 +129,7 @@
             android:layout_weight="0.72"
             android:ems="10"
             android:hint="Please enter the milage of your car"
-            android:inputType="textPersonName" />
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
@@ -154,12 +154,13 @@
             android:layout_weight="0.72"
             android:ems="10"
             android:hint="Please enter the price per month"
-            android:inputType="textPersonName" />
+            android:inputType="numberDecimal"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:weightSum="1">
 
         <TextView
@@ -177,5 +178,66 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/EmailView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.12"
+            android:text="Email"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editEmail"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.72"
+            android:ems="10"
+            android:hint="Please enter the contact's email"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/TelephoneView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telephone"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editTelephone"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.72"
+            android:ems="10"
+            android:hint="Please enter the contact's telephone number"
+            android:inputType="numberDecimal" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|right"
+        android:text="Post" />
 
 </LinearLayout>
