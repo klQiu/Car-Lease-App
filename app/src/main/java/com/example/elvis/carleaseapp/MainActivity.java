@@ -18,7 +18,11 @@ import java.sql.*;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int SCROLL_DOWN = 1;
     private static final int SCROLL_UP = -1;
     private static final int INITIAL_LIST_SIZE = 5;
+    String filter= "postTime";
+    String Order= "DESC";
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -60,7 +66,73 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Spinner spinner1 = (Spinner) findViewById(R.id.filterSpinner);
+        List<String> list1 = new ArrayList<String>();
+        String[] celebrities = {
+                "",
+                "Price",
+                "Milage",
+                "postTime",
+                "Year"
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, celebrities);
+        spinner1.setAdapter(adapter);
+        spinner1.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                               int arg2, long arg3) {
+
+                        int position = spinner1.getSelectedItemPosition();
+                        if (position != 0)
+                            Toast.makeText(getApplicationContext(),"You have selected "+celebrities[+position],Toast.LENGTH_LONG).show();
+                        filter = spinner1.getSelectedItem().toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                    }
+
+                }
+        );
+
+        Spinner spinner2 = (Spinner) findViewById(R.id.orderSpinner);
+        List<String> list2 = new ArrayList<String>();
+        String[] orders = {
+                "",
+                "ASC",
+                "DESC",
+        };
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, orders);
+        spinner2.setAdapter(adapter2);
+        spinner2.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                               int arg2, long arg3) {
+
+                        int position = spinner2.getSelectedItemPosition();
+                        if (position != 0)
+                            Toast.makeText(getApplicationContext(),"You have selected "+orders[+position],Toast.LENGTH_LONG).show();
+                        Order = spinner2.getSelectedItem().toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                    }
+
+                }
+        );
+
+
+
     }
+
 
 
     public void showLogin(View view) {

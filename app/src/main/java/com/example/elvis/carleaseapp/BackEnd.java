@@ -163,6 +163,67 @@ public class BackEnd {
         return list;
     }
 
+    public static List<Post> filterPosts(int startnum, int endnum, String filter, String order) {
+        Connection myConn = null;
+        Statement stmt = null;
+        List<Post> list = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            stmt = myConn.createStatement();
+            String start = Integer.toString(startnum);
+            String end = Integer.toString(endnum);
+            String query = SELECT_ALL_FROM +
+                    POST_TABLE +
+                    ORDER_BY +
+                    filter + order +" limit " + start + ", " + end;
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                //Retrieve by column name
+                Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
+                post.setBrand(rs.getString("brand"));
+                post.setColour(rs.getString("colour"));
+                post.setYear(rs.getInt("year"));
+                post.setMilage(rs.getInt("milage"));
+                post.setPrice(rs.getInt("price"));
+                post.setRentTime(rs.getString("rentTime"));
+                post.setPostTime(rs.getDate("postTime").toString());
+                post.setTelephone(rs.getString("telephone"));
+                post.setEmail(rs.getString("email"));
+
+                /* get image blob */
+                Blob blob = rs.getBlob("imgBytes");
+                if(blob != null) {
+                    byte[] imgBytes = blob.getBytes(1, (int)blob.length());
+                    post.setImgBytes(imgBytes);
+                }
+                list.add(post);
+            }
+            rs.close();
+            myConn.close();
+            stmt.close();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (myConn != null)
+                    myConn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return list;
+    }
 
     static public ArrayList<Post> getHisPost(User user) {
         return null;
