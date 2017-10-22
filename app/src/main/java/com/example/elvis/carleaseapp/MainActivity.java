@@ -2,19 +2,23 @@ package com.example.elvis.carleaseapp;
 
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+
+import android.os.Bundle;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import java.io.ByteArrayOutputStream;
 import java.sql.*;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     PostListAdapter postListAdapter;
     List<Post> postList;
     private static final int SCROLL_DOWN = 1;
+    private static final int SCROLL_UP = -1;
     private static final int INITIAL_LIST_SIZE = 5;
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -48,16 +53,24 @@ public class MainActivity extends AppCompatActivity {
                 super.onScrolled(recyclerView, dx, dy);
                 /* test if user scrolled to the end of list */
                 if(!recyclerView.canScrollVertically(SCROLL_DOWN)) {
-                    //Log.v(TAG, "entering async task; postList size: " + postList.size());
                     new BackEndTask(MainActivity.this, postList.size(), postList.size() + 2).execute();
+                }
+                else if(!recyclerView.canScrollVertically(SCROLL_UP)) {
+                    new BackEndTask(MainActivity.this, 0, 0).execute();
                 }
             }
         });
     }
 
+
+    public void showLogin(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
     public void post(View view){
-        Intent myIntent = new Intent(MainActivity.this, PostForm.class);
+        Intent myIntent = new Intent(MainActivity.this, PostFormActivity.class);
         startActivity(myIntent);
     }
-    
+
 }

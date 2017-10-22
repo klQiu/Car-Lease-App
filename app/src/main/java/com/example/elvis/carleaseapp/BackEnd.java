@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,12 +23,83 @@ import java.util.List;
 import static android.R.attr.data;
 
 public class BackEnd {
-
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
     private static final String POST_TABLE = "PostInfo";
     private static final String ORDER_BY = " ORDER BY ";
 
     private static final String TAG = BackEnd.class.getSimpleName();
+
+    static public void addUser(User user) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            PreparedStatement st =  myConn.prepareStatement("insert into userinfo values (?,?)");
+            st.setString(1, user.getEmail());
+            st.setString(2, user.getPassword());
+            st.execute();
+            st.close();
+            myConn.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    /**
+     @param email - email user entered
+     @param entPassword - password user entered
+     @return if email matches the password, return User, else return null
+     */
+    static public User checkLogin(String email, String entPassword) {
+        Connection myConn = null;
+        Statement stmt = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            stmt = myConn.createStatement();
+            StringBuffer sql = new StringBuffer();
+            sql.append("SELECT * FROM userinfo WHERE email='" + email + "'AND password='" + entPassword+"'");
+            ResultSet rs = stmt.executeQuery(sql.toString());
+
+            int count = 0;
+            while (rs.next()){
+                count++;
+            }
+
+            if(count == 1) {
+                System.out.println("find");
+                rs.first();
+                User user = new User(rs.getString("email"), rs.getString("password"), rs.getInt("userId"));
+                stmt.close();
+                myConn.close();
+                return user;
+            }
+            else {
+                stmt.close();
+                myConn.close();
+                return null;
+            }
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+
+            if(stmt != null)
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            if(myConn != null)
+                try {
+                    myConn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+        return null;
+    }
+
 
     public static List<Post> getPosts(int startnum, int endnum) {
         Connection myConn = null;
@@ -53,6 +126,15 @@ public class BackEnd {
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
                 post.setPostTime(rs.getDate("postTime").toString());
+                post.setTelephone(rs.getString("telephone"));
+                post.setEmail(rs.getString("email"));
+
+                /* get image blob */
+                Blob blob = rs.getBlob("imgBytes");
+                if(blob != null) {
+                    byte[] imgBytes = blob.getBytes(1, (int)blob.length());
+                    post.setImgBytes(imgBytes);
+                }
                 list.add(post);
             }
             rs.close();
@@ -92,7 +174,7 @@ public class BackEnd {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
-            st =  myConn.prepareStatement("insert into PostInfo values (?,NULL,?,?,?,?,?,?,?,?,?,?)");
+            st =  myConn.prepareStatement("insert into PostInfo values (?,NULL,?,?,?,?,?,?,?,?,?,?,?)");
             st.setInt(1,post.getUserId());
             st.setString(2, post.getTitle());
             st.setString(3, post.getBrand());
@@ -106,6 +188,12 @@ public class BackEnd {
             st.setString(9,dateFormat.format(date));
             st.setString(10, post.getTelephone());
             st.setString(11, post.getEmail());
+            /* prepare image blob */
+            Blob blob = myConn.createBlob();
+            blob.setBytes(1, post.getImgBytes());
+            st.setBlob(12, blob);
+            blob.free();
+
             Log.v(TAG, st.toString());
             st.execute();
             st.close();
@@ -131,12 +219,8 @@ public class BackEnd {
                 se.printStackTrace();
             }
         }
-    }
-    static public void addUser(User user) {
 
     }
-    static public Boolean checkLogin(String email, String entPassword) {
-        return false;
-    }
+
 
 }
