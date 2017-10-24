@@ -122,7 +122,7 @@ public class BackEnd {
                 post.setBrand(rs.getString("brand"));
                 post.setColour(rs.getString("colour"));
                 post.setYear(rs.getInt("year"));
-                post.setMilage(rs.getInt("milage"));
+                post.setMileage(rs.getInt("Mileage"));
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
                 post.setPostTime(rs.getDate("postTime").toString());
@@ -173,10 +173,13 @@ public class BackEnd {
             stmt = myConn.createStatement();
             String start = Integer.toString(startnum);
             String end = Integer.toString(endnum);
+
             String query = SELECT_ALL_FROM +
                     POST_TABLE +
                     ORDER_BY +
-                    filter + order +" limit " + start + ", " + end;
+                    filter + " " + order + " limit " + start + ", " + end;
+
+            Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 //Retrieve by column name
@@ -184,7 +187,7 @@ public class BackEnd {
                 post.setBrand(rs.getString("brand"));
                 post.setColour(rs.getString("colour"));
                 post.setYear(rs.getInt("year"));
-                post.setMilage(rs.getInt("milage"));
+                post.setMileage(rs.getInt("Mileage"));
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
                 post.setPostTime(rs.getDate("postTime").toString());
@@ -241,7 +244,7 @@ public class BackEnd {
             st.setString(3, post.getBrand());
             st.setString(4, post.getColour());
             st.setInt(5,post.getYear());
-            st.setInt(6,post.getMilage());
+            st.setInt(6,post.getMileage());
             st.setInt(7,post.getPrice());
             st.setString(8,post.getRentTime());
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

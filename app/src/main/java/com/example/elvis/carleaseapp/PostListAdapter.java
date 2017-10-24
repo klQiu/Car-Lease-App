@@ -80,7 +80,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
         private TextView carBrand;
         private TextView carColor;
         private TextView carYear;
-        private TextView carMilage;
+        private TextView carMileage;
         private TextView carPrice;
         private TextView rentTime;
         private TextView postTime;
@@ -95,7 +95,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
             this.carBrand = (TextView) itemLayoutView.findViewById(R.id.car_brand);
             //this.carColor = (TextView) itemLayoutView.findViewById(R.id.car_color);
             this.carYear = (TextView) itemLayoutView.findViewById(R.id.car_year);
-            //this.carMilage = (TextView) itemLayoutView.findViewById(R.id.car_milage);
+            //this.carMileage = (TextView) itemLayoutView.findViewById(R.id.car_Mileage);
             this.carPrice = (TextView) itemLayoutView.findViewById(R.id.car_price);
             //this.rentTime = (TextView) itemLayoutView.findViewById(R.id.car_rentTime);
             this.postTime = (TextView) itemLayoutView.findViewById(R.id.car_postTime);

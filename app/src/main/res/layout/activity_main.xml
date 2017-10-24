@@ -22,24 +22,24 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:id="@+id/mloginBt"
+        android:id="@+id/mloginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#FF4081"
         android:textColor="#fff"
         android:onClick="showLogin"
         android:text="Login"
-        android:layout_alignBaseline="@+id/Filter"
-        android:layout_alignBottom="@+id/Filter"
-        android:layout_toStartOf="@+id/Filter" />
+        android:layout_alignBaseline="@+id/filter"
+        android:layout_alignBottom="@+id/filter"
+        android:layout_toStartOf="@+id/filter" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/post_recycler"
+        android:id="@+id/postRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/mloginBt" />
+        android:layout_below="@+id/mloginBtn" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -62,14 +62,6 @@
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
-
-    <Button
-        android:id="@+id/Filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filter"
-        android:layout_below="@+id/filterSpinner"
-        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
 
