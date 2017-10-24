@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.postListAdapter = new PostListAdapter(postList);
         recyclerView.setAdapter(postListAdapter);
-        new DisplayListTask(this, 0, INITIAL_LIST_SIZE).execute();
+        new DisplayListTask(0, INITIAL_LIST_SIZE).execute();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 super.onScrolled(recyclerView, dx, dy);
                 /* test if user scrolled to the end of list */
                 if (!recyclerView.canScrollVertically(SCROLL_DOWN)) {
-                    new DisplayListTask(MainActivity.this, postList.size(), postList.size() + 2).execute();
+                    new DisplayListTask(postList.size(), postList.size() + 2).execute();
                 } else if (!recyclerView.canScrollVertically(SCROLL_UP)) {
-                    new DisplayListTask(MainActivity.this, 0, 0).execute();
+                    new DisplayListTask(0, 0).execute();
                 }
             }
         });
@@ -142,24 +142,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class DisplayListTask extends AsyncTask<Void, Void, Boolean> {
-        private PostListAdapter postListAdapter;
-        private List<Post> postList;
         private final int start_num;
         private final int end_num;
 
         //todo refactor out context, postlistadapter and postlist
-        DisplayListTask(Context main, int start_num, int end_num) {
+        DisplayListTask(int start_num, int end_num) {
             this.start_num = start_num;
             this.end_num = end_num;
-            this.postListAdapter = ((MainActivity) main).postListAdapter;
-            this.postList = ((MainActivity) main).postList;
         }
 
 
         @Override
         protected Boolean doInBackground(Void... params) {
             List<Post> newList = BackEnd.filterPosts(start_num, end_num, filter, order);
-            this.postList.addAll(newList);
+            postList.addAll(newList);
             //todo return false for database error
             return true;
         }
@@ -173,16 +169,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class ChangeListUponFilterTask extends AsyncTask<Void, Void, Boolean> {
-        //private PostListAdapter postListAdapter;
-        //private List<Post> postList;
         private final int start_num;
         private final int end_num;
 
         ChangeListUponFilterTask(int start_num, int end_num) {
             this.start_num = start_num;
             this.end_num = end_num;
-           // this.postListAdapter = postListAdapter;
-            //this.postList = postList;
         }
 
 
