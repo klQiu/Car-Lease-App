@@ -10,16 +10,18 @@
         android:id="@+id/filterSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:dropDownWidth="110dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toEndOf="@+id/testImg" />
 
     <Spinner
         android:id="@+id/orderSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:dropDownWidth="110dp"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/fab"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignEnd="@+id/fab"
+        android:layout_marginEnd="31dp" />
 
     <Button
         android:id="@+id/mloginBtn"
@@ -29,9 +31,8 @@
         android:textColor="#fff"
         android:onClick="showLogin"
         android:text="Login"
-        android:layout_alignBaseline="@+id/filter"
-        android:layout_alignBottom="@+id/filter"
-        android:layout_toStartOf="@+id/filter" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/postRecycler"

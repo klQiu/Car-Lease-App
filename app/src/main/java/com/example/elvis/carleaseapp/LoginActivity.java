@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.example.elvis.carleaseapp.BackEnd;
 
-import java.io.Console;
-
 public class LoginActivity extends AppCompatActivity {
 
     @Override

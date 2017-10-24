@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         Spinner characteristicSpinner = (Spinner) findViewById(R.id.filterSpinner);
         String[] characteristicFilter = {
-                "",
+                "Filter",
                 "postTime",
                 "price",
                 "mileage",
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         Spinner orderSpinner = (Spinner) findViewById(R.id.orderSpinner);
         String[] orders = {
-                "",
+                "Order",
                 "DESC",
                 "ASC"
         };

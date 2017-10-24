@@ -1,9 +1,6 @@
 package com.example.elvis.carleaseapp;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,7 +12,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.*;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
