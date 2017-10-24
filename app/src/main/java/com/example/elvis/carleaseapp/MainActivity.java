@@ -17,13 +17,13 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-    PostListAdapter postListAdapter;
-    List<Post> postList;
+    private PostListAdapter postListAdapter;
+    private List<Post> postList;
     private static final int SCROLL_DOWN = 1;
     private static final int SCROLL_UP = -1;
     private static final int INITIAL_LIST_SIZE = 5;
-    String filter = "postTime";
-    String order = "DESC";
+    private String filter = "postTime";
+    private String order = "DESC";
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override

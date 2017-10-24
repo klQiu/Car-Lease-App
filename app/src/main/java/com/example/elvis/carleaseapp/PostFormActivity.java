@@ -15,18 +15,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class PostFormActivity extends AppCompatActivity {
     private  static final String TAG = PostFormActivity.class.getSimpleName();
-    String rentTime= "";
-    ImageView carImage;
-    byte[] imgBytes = null;
+    private String rentTime = "";
+    private ImageView carImage;
+    private byte[] imgBytes = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +58,7 @@ public class PostFormActivity extends AppCompatActivity {
 
                     @Override
                     public void onNothingSelected(AdapterView<?> arg0) {
+                        rentTime = "";
                     }
 
                 }
