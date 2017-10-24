@@ -1,6 +1,5 @@
 package com.example.elvis.carleaseapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -36,9 +34,8 @@ public class PostFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_form);
         carImage = (ImageView) findViewById(R.id.car_image);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        List<String> list = new ArrayList<String>();
         String[] timeFilter = {
-                "",
+                "Please select how long to rent",
                 "10 days",
                 "one month",
                 "three months",

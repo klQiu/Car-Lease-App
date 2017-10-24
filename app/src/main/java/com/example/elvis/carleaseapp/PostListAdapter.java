@@ -1,6 +1,5 @@
 package com.example.elvis.carleaseapp;
 
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,13 +77,13 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
 
         private TextView title;
         private TextView carBrand;
-        private TextView carColor;
+        //private TextView carColor;
         private TextView carYear;
-        private TextView carMileage;
+        //private TextView carMileage;
         private TextView carPrice;
-        private TextView rentTime;
+        //private TextView rentTime;
         private TextView postTime;
-        private TextView telephone;
+        //private TextView telephone;
         private TextView email;
         private ImageView carImg;
 
