@@ -121,22 +121,22 @@
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/MilageView"
+                android:id="@+id/MileageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
-                android:text="Milage"
+                android:text="Mileage"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editMilage"
+                android:id="@+id/editMileage"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the milage of your car"
+                android:hint="Please enter the mileage of your car"
                 android:inputType="numberDecimal"
                 android:maxLength="10" />
         </LinearLayout>

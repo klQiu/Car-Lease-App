@@ -37,7 +37,7 @@ public class PostFormActivity extends AppCompatActivity {
         carImage = (ImageView) findViewById(R.id.car_image);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         List<String> list = new ArrayList<String>();
-        String[] celebrities = {
+        String[] timeFilter = {
                 "",
                 "10 days",
                 "one month",
@@ -48,7 +48,7 @@ public class PostFormActivity extends AppCompatActivity {
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, celebrities);
+                this, android.R.layout.simple_spinner_item, timeFilter);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
@@ -58,7 +58,7 @@ public class PostFormActivity extends AppCompatActivity {
 
                         int position = spinner.getSelectedItemPosition();
                         if (position != 0)
-                            Toast.makeText(getApplicationContext(),"You have selected "+celebrities[+position],Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"You have selected "+timeFilter[+position],Toast.LENGTH_LONG).show();
                             rentTime = spinner.getSelectedItem().toString();
                     }
 
@@ -91,9 +91,9 @@ public class PostFormActivity extends AppCompatActivity {
                 edit = (EditText)findViewById(R.id.editColour);
                 String colour = edit.getText().toString();
                 post.setColour(colour);
-                edit = (EditText)findViewById(R.id.editMilage);
-                int milage = Integer.parseInt(edit.getText().toString());
-                post.setMilage(milage);
+                edit = (EditText)findViewById(R.id.editMileage);
+                int mileage = Integer.parseInt(edit.getText().toString());
+                post.setMileage(mileage);
                 edit = (EditText)findViewById(R.id.editPrice);
                 int price = Integer.parseInt(edit.getText().toString());
                 post.setPrice(price);
