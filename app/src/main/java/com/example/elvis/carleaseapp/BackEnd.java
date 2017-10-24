@@ -1,9 +1,6 @@
 package com.example.elvis.carleaseapp;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,24 +12,24 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.*;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-
-import static android.R.attr.data;
 
 public class BackEnd {
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
     private static final String POST_TABLE = "PostInfo";
     private static final String ORDER_BY = " ORDER BY ";
+    private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
+    private static final String SERVER = "jdbc:mysql://23.229.238.67:3306/carLeaseUser";
+    private static final String USER_NAME = "betty";
+    private static final String PASSWORD = "cfy970213";
 
     private static final String TAG = BackEnd.class.getSimpleName();
 
     static public void addUser(User user) {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            Class.forName(DRIVER_NAME);
+            Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
             PreparedStatement st =  myConn.prepareStatement("insert into userinfo values (?,?)");
             st.setString(1, user.getEmail());
             st.setString(2, user.getPassword());
@@ -54,8 +51,8 @@ public class BackEnd {
         Connection myConn = null;
         Statement stmt = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
             stmt = myConn.createStatement();
             StringBuffer sql = new StringBuffer();
             sql.append("SELECT * FROM userinfo WHERE email='" + email + "'AND password='" + entPassword+"'");
@@ -100,21 +97,23 @@ public class BackEnd {
         return null;
     }
 
-
-    public static List<Post> getPosts(int startnum, int endnum) {
+    public static List<Post> filterPosts(int startnum, int endnum, String filter, String order) {
         Connection myConn = null;
         Statement stmt = null;
         List<Post> list = new ArrayList<>();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
             stmt = myConn.createStatement();
             String start = Integer.toString(startnum);
             String end = Integer.toString(endnum);
+
             String query = SELECT_ALL_FROM +
                     POST_TABLE +
                     ORDER_BY +
-                    "postTime DESC limit " + start + ", " + end;
+                    filter + " " + order + " limit " + start + ", " + end;
+
+            Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 //Retrieve by column name
@@ -122,7 +121,7 @@ public class BackEnd {
                 post.setBrand(rs.getString("brand"));
                 post.setColour(rs.getString("colour"));
                 post.setYear(rs.getInt("year"));
-                post.setMilage(rs.getInt("milage"));
+                post.setMileage(rs.getInt("mileage"));
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
                 post.setPostTime(rs.getDate("postTime").toString());
@@ -163,7 +162,6 @@ public class BackEnd {
         return list;
     }
 
-
     static public ArrayList<Post> getHisPost(User user) {
         return null;
     }
@@ -172,15 +170,15 @@ public class BackEnd {
         Connection myConn = null;
         PreparedStatement st = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
             st =  myConn.prepareStatement("insert into PostInfo values (?,NULL,?,?,?,?,?,?,?,?,?,?,?)");
             st.setInt(1,post.getUserId());
             st.setString(2, post.getTitle());
             st.setString(3, post.getBrand());
             st.setString(4, post.getColour());
             st.setInt(5,post.getYear());
-            st.setInt(6,post.getMilage());
+            st.setInt(6,post.getMileage());
             st.setInt(7,post.getPrice());
             st.setString(8,post.getRentTime());
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

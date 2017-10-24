@@ -1,6 +1,5 @@
 package com.example.elvis.carleaseapp;
 
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,13 +77,13 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
 
         private TextView title;
         private TextView carBrand;
-        private TextView carColor;
+        //private TextView carColor;
         private TextView carYear;
-        private TextView carMilage;
+        //private TextView carMileage;
         private TextView carPrice;
-        private TextView rentTime;
+        //private TextView rentTime;
         private TextView postTime;
-        private TextView telephone;
+        //private TextView telephone;
         private TextView email;
         private ImageView carImg;
 
@@ -95,7 +94,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
             this.carBrand = (TextView) itemLayoutView.findViewById(R.id.car_brand);
             //this.carColor = (TextView) itemLayoutView.findViewById(R.id.car_color);
             this.carYear = (TextView) itemLayoutView.findViewById(R.id.car_year);
-            //this.carMilage = (TextView) itemLayoutView.findViewById(R.id.car_milage);
+            //this.carMileage = (TextView) itemLayoutView.findViewById(R.id.car_mileage);
             this.carPrice = (TextView) itemLayoutView.findViewById(R.id.car_price);
             //this.rentTime = (TextView) itemLayoutView.findViewById(R.id.car_rentTime);
             this.postTime = (TextView) itemLayoutView.findViewById(R.id.car_postTime);

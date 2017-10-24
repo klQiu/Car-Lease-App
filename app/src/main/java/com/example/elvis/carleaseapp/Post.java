@@ -10,7 +10,7 @@ public class Post {
     private String brand;
     private String colour;
     private int year;
-    private int milage;
+    private int mileage;
     private int photoIds[];
     private int price;
     private String rentTime;
@@ -59,12 +59,12 @@ public class Post {
         this.year = year;
     }
 
-    public int getMilage() {
-        return milage;
+    public int getMileage() {
+        return mileage;
     }
 
-    public void setMilage(int milage) {
-        this.milage = milage;
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
     }
 
     public int getPrice() {
