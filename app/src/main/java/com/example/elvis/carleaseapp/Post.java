@@ -63,8 +63,8 @@ public class Post {
         return mileage;
     }
 
-    public void setMileage(int Mileage) {
-        this.mileage = Mileage;
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
     }
 
     public int getPrice() {

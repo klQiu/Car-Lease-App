@@ -121,7 +121,7 @@ public class BackEnd {
                 post.setBrand(rs.getString("brand"));
                 post.setColour(rs.getString("colour"));
                 post.setYear(rs.getInt("year"));
-                post.setMileage(rs.getInt("Mileage"));
+                post.setMileage(rs.getInt("mileage"));
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
                 post.setPostTime(rs.getDate("postTime").toString());

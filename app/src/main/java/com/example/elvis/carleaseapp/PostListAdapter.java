@@ -94,7 +94,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
             this.carBrand = (TextView) itemLayoutView.findViewById(R.id.car_brand);
             //this.carColor = (TextView) itemLayoutView.findViewById(R.id.car_color);
             this.carYear = (TextView) itemLayoutView.findViewById(R.id.car_year);
-            //this.carMileage = (TextView) itemLayoutView.findViewById(R.id.car_Mileage);
+            //this.carMileage = (TextView) itemLayoutView.findViewById(R.id.car_mileage);
             this.carPrice = (TextView) itemLayoutView.findViewById(R.id.car_price);
             //this.rentTime = (TextView) itemLayoutView.findViewById(R.id.car_rentTime);
             this.postTime = (TextView) itemLayoutView.findViewById(R.id.car_postTime);
