@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.elvis.carleaseapp.RegisterActivity">
+
+    <TextView
+        android:id="@+id/RegTitle"
+        android:textSize="34dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="71dp"
+        android:text="Join CarLease" />
+
+    <EditText
+        android:id="@+id/RegEmailEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="182dp"
+        android:ems="12"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/RegPswEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/RegEmailEt"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/RegRePswEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/RegPswEt"
+        android:layout_alignEnd="@+id/RegPswEt" />
+
+    <Button
+        android:id="@+id/RegRegBt"
+        android:onClick="regAccout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RegRePswEt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp"
+        android:text="Register" />
+
+    <TextView
+        android:id="@+id/RegWarningTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/RegRePswEt"
+        android:layout_alignStart="@+id/RegRePswEt"
+        android:layout_below="@+id/RegRePswEt"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:textColor="#f00" />
+</RelativeLayout>

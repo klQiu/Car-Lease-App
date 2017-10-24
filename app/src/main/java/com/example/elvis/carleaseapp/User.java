@@ -8,10 +8,14 @@ public class User {
     public User(){
         this.email = "";
     };
-    public User(String email, String password, int userID) {
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.userID = userID;
+    }
+    public User(String email, String password, int id) {
+        this.email = email;
+        this.password = password;
+        this.userID = id;
     }
 
     public String getEmail() {

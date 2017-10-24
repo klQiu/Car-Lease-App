@@ -33,7 +33,7 @@ public class BackEnd {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection myConn = DriverManager.getConnection("jdbc:mysql://23.229.238.67:3306/carLeaseUser", "betty", "cfy970213");
-            PreparedStatement st =  myConn.prepareStatement("insert into userinfo values (?,?)");
+            PreparedStatement st =  myConn.prepareStatement("insert into userinfo values (?,?,NULL)");
             st.setString(1, user.getEmail());
             st.setString(2, user.getPassword());
             st.execute();
