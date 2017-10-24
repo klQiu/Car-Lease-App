@@ -1,105 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="12dp"
     tools:context="com.example.elvis.carleaseapp.LoginActivity">
 
 
     <EditText
         android:id="@+id/emailText"
-        android:layout_width="250dp"
-        android:layout_height="49dp"
-        android:ems="10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:hint="Email"
         android:inputType="textPersonName"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="159dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.753" />
+        android:layout_marginTop="184dp"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/passwordText"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:ems="12"
+        android:hint="Password"
         android:inputType="textPassword"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/emailText"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/emailText" />
+        android:layout_below="@+id/emailText"
+        android:layout_alignStart="@+id/emailText" />
 
     <Button
         android:id="@+id/LoginBt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="61dp"
         android:text="Login"
         android:onClick="login"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordText"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        android:layout_below="@+id/passwordText"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/EmailTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textSize="33px"
-        tools:layout_constraintBottom_creator="1"
-        android:layout_marginStart="26dp"
-        app:layout_constraintBottom_toBottomOf="@+id/emailText"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="7dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
-    <TextView
-        android:id="@+id/passwordTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:textSize="33px"
-        tools:layout_constraintBottom_creator="1"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/passwordText"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="9dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
-    <Button
         android:id="@+id/regBt"
-        android:layout_width="123dp"
-        android:layout_height="48dp"
-        android:text="register"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="68dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Haven't had an account? Register now"
+        android:onClick="showReg"
+        android:clickable="true"
+        android:layout_marginTop="56dp"
+        android:layout_below="@+id/LoginBt"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/loginWarning"
         android:layout_width="275dp"
         android:layout_height="20dp"
         android:textColor="#f00"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/emailText"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
-        app:layout_constraintRight_toRightOf="@+id/emailText"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="42dp"
-        app:layout_constraintLeft_toLeftOf="@+id/emailText"
-        app:layout_constraintHorizontal_bias="1.0" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/passwordText"
+        android:layout_alignStart="@+id/passwordText" />
+
+    <TextView
+        android:id="@+id/loginTitle"
+        android:textSize="34dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="71dp"
+        android:text="Login to CarLease" />
+</RelativeLayout>

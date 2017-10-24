@@ -30,7 +30,8 @@ public class BackEnd {
         try {
             Class.forName(DRIVER_NAME);
             Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
-            PreparedStatement st =  myConn.prepareStatement("insert into userinfo values (?,?)");
+            PreparedStatement st =  myConn.prepareStatement("insert into userinfo values (?,?,NULL)");
+
             st.setString(1, user.getEmail());
             st.setString(2, user.getPassword());
             st.execute();
