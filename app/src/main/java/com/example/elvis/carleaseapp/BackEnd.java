@@ -19,6 +19,7 @@ import java.util.List;
 public class BackEnd {
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
     private static final String POST_TABLE = "PostInfo";
+    private static final String USER_TABLE = "userinfo";
     private static final String ORDER_BY = " ORDER BY ";
     private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
     private static final String SERVER = "jdbc:mysql://23.229.238.67:3306/carLeaseUser";
@@ -38,6 +39,21 @@ public class BackEnd {
             st.execute();
             st.close();
             myConn.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    static public void deleteUser(User user) {
+        try {
+            Class.forName(DRIVER_NAME);
+            Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+
+            Statement stmt = myConn.createStatement();
+            String userEmail = user.getEmail();
+            String query = "DELETE FROM " + USER_TABLE + " WHERE email='" + userEmail + "'";
+            stmt.executeUpdate(query);
         }
         catch (Exception exc) {
             exc.printStackTrace();
