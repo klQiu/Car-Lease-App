@@ -162,11 +162,11 @@ public class BackEnd {
         }
         return list;
     }
-
+/*
     static public ArrayList<Post> getHisPost(User user) {
         return null;
     }
-
+*/
     static public void addPost(Post post) {
         Connection myConn = null;
         PreparedStatement st = null;
