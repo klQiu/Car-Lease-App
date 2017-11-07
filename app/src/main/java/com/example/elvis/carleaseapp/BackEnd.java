@@ -1,6 +1,7 @@
 package com.example.elvis.carleaseapp;
 
 import android.util.Log;
+
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +12,6 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.sql.*;
 import java.util.Date;
 import java.util.List;
 

@@ -154,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
         private final int start_num;
         private final int end_num;
 
+        private Long tsbefore;
+
         //todo refactor out context, postlistadapter and postlist
         DisplayListTask(int start_num, int end_num) {
             this.start_num = start_num;
@@ -163,6 +165,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            Long tsLong = System.currentTimeMillis()/1000;
+            String ts = tsLong.toString();
+            Log.v(TAG, "init before load picture time is " + ts);
+            tsbefore = tsLong;
+
             List<Post> newList = BackEnd.filterPosts(start_num, end_num, filter, order);
             postList.addAll(newList);
             //todo return false for database error
@@ -173,6 +180,10 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             if(result) {
                 postListAdapter.notifyDataSetChanged();
+                Long tsLong = System.currentTimeMillis()/1000;
+                String ts = tsLong.toString();
+                Log.v(TAG, "init after load picture time is " + ts);
+                Log.v(TAG, "init load picture difference is" + (tsLong - tsbefore));
             }
         }
     }
@@ -180,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
     private class ChangeListUponFilterTask extends AsyncTask<Void, Void, Boolean> {
         private final int start_num;
         private final int end_num;
+
+        private Long tsbefore;
 
         ChangeListUponFilterTask(int start_num, int end_num) {
             this.start_num = start_num;
@@ -189,6 +202,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            Long tsLong = System.currentTimeMillis()/1000;
+            String ts = tsLong.toString();
+            Log.v(TAG, "filter time is " + ts);
+            tsbefore = tsLong;
+
             postList = BackEnd.filterPosts(start_num, end_num, filter, order);
             //todo return false for database error
             return true;
@@ -198,6 +216,11 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             if(result) {
                 postListAdapter.updateInnerList(postList);
+
+                Long tsLong = System.currentTimeMillis()/1000;
+                String ts = tsLong.toString();
+                Log.v(TAG, "filter time is " + ts);
+                Log.v(TAG, "filter time difference is " + (tsLong - tsbefore));
             }
         }
     }
