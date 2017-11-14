@@ -24,14 +24,14 @@ public class PostFormActivity extends AppCompatActivity {
     private String rentTime = "";
     private ImageView carImage;
     private byte[] imgBytes = null;
+    private static final int IMG_SIZE_LIMIT = 1000;    // in bytes
+    private Button submitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_form);
-        Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-        Post post = (Post)bundle.getSerializable("post_to_edit");
+
         carImage = (ImageView) findViewById(R.id.car_image);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         String[] timeFilter = {
@@ -71,8 +71,8 @@ public class PostFormActivity extends AppCompatActivity {
 
 
 
-        final Button button = (Button)findViewById(R.id.submit_button);
-        button.setOnClickListener(new View.OnClickListener() {
+        submitBtn = (Button)findViewById(R.id.submit_button);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText edit = (EditText)findViewById(R.id.editTitle);
                 String title = edit.getText().toString();
@@ -127,6 +127,21 @@ public class PostFormActivity extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
+    private void displayImage(byte[] imgBytes, Uri imageUri) {
+        if(imgBytes.length / IMG_SIZE_LIMIT > 500) {
+            Toast.makeText(this, "Image too large, change to another one", Toast.LENGTH_LONG).show();
+            submitBtn.setEnabled(false);
+        }
+        else {
+            this.imgBytes = imgBytes;
+            Glide.with(getApplicationContext())
+                    .load(imageUri)
+                    .centerCrop()
+                    .into(carImage);
+            submitBtn.setEnabled(true);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -137,19 +152,17 @@ public class PostFormActivity extends AppCompatActivity {
             Bitmap carBitmap;
             try {
                 carBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                imgBytes = Utils.imgToByteArray(carBitmap);  // to be sent to database
+                byte[] imgBuffer;
+                imgBuffer = Utils.imgToByteArray(carBitmap);  // to be sent to database
                 Log.v(TAG, "image bytes done");
                 //carImage.setImageBitmap(carBitmap);
+                Log.v(TAG, "image bytes done, img bytes: " + imgBuffer.length / 1000 + " KB");
+                displayImage(imgBuffer, imageUri);
             } catch (FileNotFoundException e) {
                 Toast.makeText(this, "error occurred during image selection", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 
-            Glide.with(getApplicationContext())
-                    .load(imageUri)
-                    .centerCrop()
-                    .into(carImage);    //use Glide library for efficient bitmap using
-                                        //prevents out of memory error
 
 
         }

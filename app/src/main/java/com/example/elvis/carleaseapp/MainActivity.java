@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private String filter = "postTime";
     private String order = "DESC";
     private static final String TAG = MainActivity.class.getSimpleName();
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,8 +141,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showLogin(MenuItem mi) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        if(Current.getCurUser() == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void post(View view) {

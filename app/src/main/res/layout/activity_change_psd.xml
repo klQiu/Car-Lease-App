@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.elvis.carleaseapp.ChangePsdActivity">
+
+    <TextView
+        android:id="@+id/changePsdView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="71dp"
+        android:text="Change Password" />
+
+    <EditText
+        android:id="@+id/oldPsdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="182dp"
+        android:hint="Confirm Old Password"
+        android:ems="12"
+        android:inputType="textPassword"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/newPsdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/oldPsdText"
+        android:layout_centerVertical="true"
+        android:hint="Enter New Password"
+        android:ems="12"
+        android:layout_below="@+id/oldPsdText"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/conNewPsdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Confrim New password"
+        android:ems="12"
+        android:inputType="textPassword"
+        android:layout_below="@+id/newPsdText"
+        android:layout_alignStart="@+id/newPsdText" />
+
+    <Button
+        android:id="@+id/changePsdBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/conNewPsdText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp"
+        android:onClick="subNewPsd"
+        android:text="Submit" />
+
+    <TextView
+        android:id="@+id/changePsdMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/conNewPsdText"
+        android:textColor="#f00"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
+
+</RelativeLayout>

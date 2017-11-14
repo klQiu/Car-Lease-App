@@ -1,4 +1,3 @@
-
 package com.example.elvis.carleaseapp;
 
 import android.util.Log;
@@ -18,8 +17,8 @@ import java.util.List;
 
 public class BackEnd {
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
-    private static final String POST_TABLE = "PostInfo";
     private static final String USER_TABLE = "userinfo";
+    private static final String POST_TABLE = "PostInfo";
     private static final String ORDER_BY = " ORDER BY ";
     private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
     private static final String SERVER = "jdbc:mysql://23.229.238.67:3306/carLeaseUser";
@@ -28,7 +27,7 @@ public class BackEnd {
 
     private static final String TAG = BackEnd.class.getSimpleName();
 
-    static public void addUser(User user) {
+   static public void addUser(User user) {
         try {
             Class.forName(DRIVER_NAME);
             Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
@@ -115,6 +114,21 @@ public class BackEnd {
         return null;
     }
 
+    public static void changePsd(String email, String newPsd) {
+        Connection myConn = null;
+        Statement stmt = null;
+        try{
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            stmt = myConn.createStatement();
+            String sql = "UPDATE " + USER_TABLE + " SET password=" + newPsd + " WHERE email=" + email;
+            stmt.executeUpdate(sql);
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
     public static List<Post> filterPosts(int startnum, int endnum, String filter, String order) {
         Connection myConn = null;
         Statement stmt = null;
@@ -191,7 +205,7 @@ public class BackEnd {
 
             String query = SELECT_ALL_FROM +
                     POST_TABLE +
-                    "WHERE userId = " + user.getID() +
+                    " WHERE userId = " + user.getID() +
                     ORDER_BY +
                     "postTime DESC" ;
 
@@ -243,6 +257,7 @@ public class BackEnd {
         }
         return list;
     }
+
 
     static public void addPost(Post post) {
         Connection myConn = null;
@@ -392,4 +407,5 @@ public class BackEnd {
 
     }
 }
+
 

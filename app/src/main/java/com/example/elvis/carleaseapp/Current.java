@@ -5,15 +5,12 @@ package com.example.elvis.carleaseapp;
  */
 
 public class Current {
-    private static User curUser = null;
+    private static User curUser;
 
     public static void addCurUser(User user){
-        curUser = user;
+        curUser = new User(user.getEmail(), user.getPassword(), user.getID());
     }
 
-    public static User getCurUser() {
-        return curUser;
-    }
 
     public static int getCurUserID()    {
         if(curUser != null)
@@ -25,4 +22,9 @@ public class Current {
     public static void deleteCurUser(){
         curUser = null;
     }
+
+    public static User getCurUser(){
+        return curUser;
+    }
 }
+
