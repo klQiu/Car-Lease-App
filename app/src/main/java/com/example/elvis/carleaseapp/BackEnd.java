@@ -1,5 +1,3 @@
-
-
 package com.example.elvis.carleaseapp;
 
 import android.util.Log;
@@ -19,8 +17,8 @@ import java.util.List;
 
 public class BackEnd {
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
-    private static final String POST_TABLE = "PostInfo";
     private static final String USER_TABLE = "userinfo";
+    private static final String POST_TABLE = "PostInfo";
     private static final String ORDER_BY = " ORDER BY ";
     private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
     private static final String SERVER = "jdbc:mysql://23.229.238.67:3306/carLeaseUser";
@@ -245,6 +243,7 @@ public class BackEnd {
         return list;
     }
 
+
     static public void addPost(Post post) {
         Connection myConn = null;
         PreparedStatement st = null;
@@ -356,7 +355,3 @@ public class BackEnd {
 }
 
 
-
-    
-
-   
