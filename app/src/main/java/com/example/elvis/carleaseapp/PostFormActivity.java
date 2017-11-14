@@ -29,6 +29,9 @@ public class PostFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_form);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        Post post = (Post)bundle.getSerializable("post_to_edit");
         carImage = (ImageView) findViewById(R.id.car_image);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         String[] timeFilter = {

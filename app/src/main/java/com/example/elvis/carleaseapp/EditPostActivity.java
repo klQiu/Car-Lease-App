@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import java.io.FileNotFoundException;
@@ -29,7 +30,28 @@ public class EditPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        Post post = (Post)bundle.getSerializable("post_to_edit");
         carImage = (ImageView) findViewById(R.id.Updatecar_image);
+
+        EditText editTitle = (EditText)findViewById(R.id.UpdateTitle);
+        editTitle.setText(post.getTitle(), TextView.BufferType.EDITABLE);
+        EditText editYear = (EditText)findViewById(R.id.UpdateYear);
+        editYear.setText(post.getYear(), TextView.BufferType.EDITABLE);
+        EditText editBrand = (EditText)findViewById(R.id.UpdateBrand);
+        editBrand.setText(post.getBrand(), TextView.BufferType.EDITABLE);
+        EditText editColour = (EditText)findViewById(R.id.UpdateColour);
+        editColour.setText(post.getColour(), TextView.BufferType.EDITABLE);
+        EditText editMileage = (EditText)findViewById(R.id.UpdateMileage);
+        editMileage.setText(post.getMileage(), TextView.BufferType.EDITABLE);
+        EditText editPrice = (EditText)findViewById(R.id.UpdatePrice);
+        editPrice.setText(post.getPrice(), TextView.BufferType.EDITABLE);
+        EditText editTelephone = (EditText)findViewById(R.id.UpdateTelephone);
+        editTelephone.setText(post.getTelephone(), TextView.BufferType.EDITABLE);
+        EditText editEmail = (EditText)findViewById(R.id.UpdateEmail);
+        editEmail.setText(post.getEmail(), TextView.BufferType.EDITABLE);
+
         Spinner spinner = (Spinner) findViewById(R.id.Updatespinner);
         String[] timeFilter = {
                 "Please select how long to rent",
@@ -65,10 +87,21 @@ public class EditPostActivity extends AppCompatActivity {
         );
 
 
+        final Button deleteButton = (Button)findViewById(R.id.Delete_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
+                        BackEnd.deletePost(post);;
+                    }
+                }).start();
+            }
+        });
+        EditText edit = (EditText)findViewById(R.id.UpdateTitle);
 
-
-        final Button button = (Button)findViewById(R.id.update_button);
+        final Button button = (Button)findViewById(R.id.Update_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText edit = (EditText)findViewById(R.id.UpdateTitle);
