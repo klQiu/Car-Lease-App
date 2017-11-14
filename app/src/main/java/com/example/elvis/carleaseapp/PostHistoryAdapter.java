@@ -1,6 +1,9 @@
 package com.example.elvis.carleaseapp;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +57,9 @@ public class PostHistoryAdapter extends RecyclerView.Adapter<PostHistoryAdapter.
 
 
     // inner class to hold a reference to each item of RecyclerView
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private final String TAG = ViewHolder.class.getSimpleName();
         private TextView title;
         private TextView carBrand;
         private ImageView carImg;
@@ -66,11 +70,19 @@ public class PostHistoryAdapter extends RecyclerView.Adapter<PostHistoryAdapter.
             this.title = (TextView) itemLayoutView.findViewById(R.id.txtCarTitle);
             this.carBrand = (TextView) itemLayoutView.findViewById(R.id.txtCarBrand);
             this.carImg = (ImageView) itemLayoutView.findViewById(R.id.imgCar);
+            itemLayoutView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            //todo
+            Log.v(TAG, "in on click");
+            int itemPos = getLayoutPosition();
+            Post post = postList.get(itemPos);
+            Intent mIntent = new Intent(view.getContext(), EditPostActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("post_to_edit", post);
+            mIntent.putExtras(bundle);
+            view.getContext().startActivity(mIntent);
         }
 
     }

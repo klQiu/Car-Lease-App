@@ -4,13 +4,33 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static com.example.elvis.carleaseapp.BackEnd.addUser;
+import static com.example.elvis.carleaseapp.BackEnd.checkLogin;
+import static com.example.elvis.carleaseapp.BackEnd.deleteUser;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Created by elvis on 2017/11/6.
  */
 
 public class BackEndTest {
+    String testEmail = "car@gmail.com";
+    String testPassword = "11111";
+    User testUser = new User(testEmail, testPassword);
+
+    @Test
+    public void addUserAndLoginTest() throws Exception {
+        testUser.setEmail(testEmail);
+        testUser.setPassword(testPassword);
+        addUser(testUser);
+        User getUser = checkLogin(testEmail, testPassword);
+        assertNotEquals(getUser, null);
+        assertEquals("Email should be the same", testEmail, getUser.getEmail());
+        assertEquals("Password should be the same", testPassword, getUser.getPassword());
+        deleteUser(testUser);
+    }
+
     @Test
     public void filterTest() {
         List<Post> list = BackEnd.filterPosts(1, 2, "postTime", "DESC");

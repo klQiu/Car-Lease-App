@@ -192,7 +192,7 @@ public class BackEnd {
 
             String query = SELECT_ALL_FROM +
                     POST_TABLE +
-                    "WHERE userId = " + user.getID() +
+                    " WHERE userId = " + user.getID() +
                     ORDER_BY +
                     "postTime DESC" ;
 
