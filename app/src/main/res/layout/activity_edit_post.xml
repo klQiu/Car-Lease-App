@@ -271,7 +271,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="bottom|right"
-            android:text="Post" />
+            android:text="Update" />
 
         <Button
             android:id="@+id/Delete_button"

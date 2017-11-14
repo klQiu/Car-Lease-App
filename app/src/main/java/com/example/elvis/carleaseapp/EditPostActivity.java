@@ -111,40 +111,54 @@ public class EditPostActivity extends AppCompatActivity {
                 EditText edit = (EditText)findViewById(R.id.UpdateTitle);
                 String title = edit.getText().toString();
                 int userId = Current.getCurUserID();
-                Post post = new Post(userId, title);
+                Post post1 = new Post(userId, title);
 
                 /* prepare a new post to add to database */
                 edit = (EditText)findViewById(R.id.UpdateYear);
                 int year = Integer.parseInt(edit.getText().toString());
-                post.setYear(year);
+                post1.setYear(year);
                 edit = (EditText)findViewById(R.id.UpdateBrand);
                 String brand = edit.getText().toString();
-                post.setBrand(brand);
+                post1.setBrand(brand);
                 edit = (EditText)findViewById(R.id.UpdateColour);
                 String colour = edit.getText().toString();
-                post.setColour(colour);
+                post1.setColour(colour);
                 edit = (EditText)findViewById(R.id.UpdateMileage);
                 int mileage = Integer.parseInt(edit.getText().toString());
-                post.setMileage(mileage);
+                post1.setMileage(mileage);
                 edit = (EditText)findViewById(R.id.UpdatePrice);
                 int price = Integer.parseInt(edit.getText().toString());
-                post.setPrice(price);
+                post1.setPrice(price);
                 edit = (EditText)findViewById(R.id.UpdateEmail);
                 String email = edit.getText().toString();
-                post.setEmail(email);
+                post1.setEmail(email);
                 edit = (EditText)findViewById(R.id.UpdateTelephone);
                 String telephone = edit.getText().toString();
-                post.setTelephone(telephone);
-                post.setRentTime(rentTime);
+                post1.setTelephone(telephone);
+                if(rentTime != ""  &&  rentTime !="Please select how long to rent"){
+                    post1.setRentTime(rentTime);
+                }
+                else{
+                    post1.setRentTime(post.getRentTime());
+                }
+                post1.setPostId(post.getPostId());
+                post1.setPostTime(post.getPostTime());
                 Log.v(TAG, rentTime);
-                post.setImgBytes(imgBytes);
+                if(imgBytes != null){
+                    post1.setImgBytes(imgBytes);
+                }
+                else{
+                    imgBytes = post.getImgBytes();
+                    post1.setImgBytes(imgBytes);
+                }
+
 
                 //todo change this using async task
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
 
-                        BackEnd.updatePost(post);
+                        BackEnd.updatePost(post1);
                     }
                 }).start();
 

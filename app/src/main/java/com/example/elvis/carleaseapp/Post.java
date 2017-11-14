@@ -118,6 +118,7 @@ public class Post implements Serializable{
     public String getTelephone() {
         return telephone;
     }
+
     public void setEmail (String  email){
         this.email = email;
     }

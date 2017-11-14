@@ -156,6 +156,7 @@ public class BackEnd {
                 post.setMileage(rs.getInt("mileage"));
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
+                //to do : post.setaccurateposttime
                 post.setPostTime(rs.getDate("postTime").toString());
                 post.setTelephone(rs.getString("telephone"));
                 post.setEmail(rs.getString("email"));
@@ -359,7 +360,7 @@ public class BackEnd {
             Class.forName(DRIVER_NAME);
             myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
             st =  myConn.prepareStatement
-                    ("update PostInfo set title = ?, brand = ?,colour = ?,year = ?,mileage = ?,price = ?,remtTime = ?,postTime = ?,telephone = ?,email = ?,imgBytes = ? where postID = ?");
+                    ("update PostInfo set title = ?, brand = ?,colour = ?,year = ?,mileage = ?,price = ?,rentTime = ?,postTime = ?,telephone = ?,email = ?,imgBytes = ? where postID = ?");
             st.setString(1, post.getTitle());
             st.setString(2, post.getBrand());
             st.setString(3, post.getColour());
