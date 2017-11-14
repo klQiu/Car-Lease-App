@@ -8,7 +8,7 @@ public class Current {
     private static User curUser = null;
 
     public static void addCurUser(User user){
-        curUser = user;
+        curUser = new User(user.getEmail(), user.getPassword(), user.getID());
     }
 
     public static void deleteCurUser(){
