@@ -11,6 +11,14 @@ public class Current {
         curUser = new User(user.getEmail(), user.getPassword(), user.getID());
     }
 
+
+    public static int getCurUserID()    {
+        if(curUser != null)
+            return curUser.getID();
+        else
+            return 0;
+    }
+
     public static void deleteCurUser(){
         curUser = null;
     }
@@ -19,3 +27,4 @@ public class Current {
         return curUser;
     }
 }
+

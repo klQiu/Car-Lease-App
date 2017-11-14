@@ -1,10 +1,12 @@
 package com.example.elvis.carleaseapp;
 
+import java.io.Serializable;
+
 /**
  * Created by elvis on 2017/10/10.
  */
 
-public class Post {
+public class Post implements Serializable{
 
     private String title;
     private String brand;
