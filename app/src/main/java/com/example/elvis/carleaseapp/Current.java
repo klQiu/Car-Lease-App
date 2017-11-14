@@ -14,4 +14,8 @@ public class Current {
     public static void deleteCurUser(){
         curUser = null;
     }
+
+    public static User getCurUser(){
+        return curUser;
+    }
 }
