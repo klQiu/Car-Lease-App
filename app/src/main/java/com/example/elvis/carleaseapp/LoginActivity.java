@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             warning.setText("Failed: Email and Password don't match");
         }
         else{
+            Current.addCurUser(newUser);
             this.finish();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
