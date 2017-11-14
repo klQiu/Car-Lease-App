@@ -10,6 +10,7 @@
         android:id="@+id/hisBt"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:onClick="viewHistory"
         android:text="View Post History"
         android:layout_marginBottom="20dp"
         android:layout_above="@+id/lovedBt"

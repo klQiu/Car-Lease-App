@@ -29,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private String order = "DESC";
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    public void gotoProfileActivity(View view) {
+        startActivity(new Intent(this, ProfileActivity.class));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
