@@ -27,7 +27,8 @@ public class Post implements Serializable{
         this.title = title;
         this.userId = userId;
     }
-    public void getPostId(int postId) {this.postId = postId; }
+
+    public void setPostId(int postId) {this.postId = postId; }
 
     public String getTitle() {
         return title;

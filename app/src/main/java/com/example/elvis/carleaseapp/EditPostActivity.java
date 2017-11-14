@@ -33,6 +33,7 @@ public class EditPostActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         Post post = (Post)bundle.getSerializable("post_to_edit");
+        Log.v(TAG, Integer.toString(post.getPostId()));
         carImage = (ImageView) findViewById(R.id.Updatecar_image);
 
         EditText editTitle = (EditText)findViewById(R.id.UpdateTitle);
@@ -97,6 +98,9 @@ public class EditPostActivity extends AppCompatActivity {
                         BackEnd.deletePost(post);;
                     }
                 }).start();
+                Toast.makeText(getApplicationContext(), "Deleted!", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(EditPostActivity.this, MainActivity.class);
+                startActivity(myIntent);
             }
         });
         //EditText edit = (EditText)findViewById(R.id.UpdateTitle);

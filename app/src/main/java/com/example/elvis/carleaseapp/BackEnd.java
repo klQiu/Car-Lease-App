@@ -223,6 +223,7 @@ public class BackEnd {
                 post.setPostTime(rs.getDate("postTime").toString());
                 post.setTelephone(rs.getString("telephone"));
                 post.setEmail(rs.getString("email"));
+                post.setPostId(rs.getInt("postID"));
 
                 /* get image blob */
                 Blob blob = rs.getBlob("imgBytes");
@@ -323,11 +324,10 @@ public class BackEnd {
             stmt = myConn.createStatement();
 
             String query = "DELETE FROM " + POST_TABLE +
-                    "WHERE postId = " + post.getPostId();
+                    " WHERE postId = " + post.getPostId();
 
             Log.v(TAG, query);
-            ResultSet rs = stmt.executeQuery(query);
-            rs.close();
+            stmt.executeUpdate(query);
             myConn.close();
             stmt.close();
         } catch (SQLException se) {
