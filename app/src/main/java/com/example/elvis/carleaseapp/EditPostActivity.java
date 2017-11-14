@@ -38,15 +38,15 @@ public class EditPostActivity extends AppCompatActivity {
         EditText editTitle = (EditText)findViewById(R.id.UpdateTitle);
         editTitle.setText(post.getTitle(), TextView.BufferType.EDITABLE);
         EditText editYear = (EditText)findViewById(R.id.UpdateYear);
-        editYear.setText(post.getYear(), TextView.BufferType.EDITABLE);
+        editYear.setText(Integer.toString(post.getYear()), TextView.BufferType.EDITABLE);
         EditText editBrand = (EditText)findViewById(R.id.UpdateBrand);
         editBrand.setText(post.getBrand(), TextView.BufferType.EDITABLE);
         EditText editColour = (EditText)findViewById(R.id.UpdateColour);
         editColour.setText(post.getColour(), TextView.BufferType.EDITABLE);
         EditText editMileage = (EditText)findViewById(R.id.UpdateMileage);
-        editMileage.setText(post.getMileage(), TextView.BufferType.EDITABLE);
+        editMileage.setText(Integer.toString(post.getMileage()), TextView.BufferType.EDITABLE);
         EditText editPrice = (EditText)findViewById(R.id.UpdatePrice);
-        editPrice.setText(post.getPrice(), TextView.BufferType.EDITABLE);
+        editPrice.setText(Integer.toString(post.getPrice()), TextView.BufferType.EDITABLE);
         EditText editTelephone = (EditText)findViewById(R.id.UpdateTelephone);
         editTelephone.setText(post.getTelephone(), TextView.BufferType.EDITABLE);
         EditText editEmail = (EditText)findViewById(R.id.UpdateEmail);
@@ -99,7 +99,7 @@ public class EditPostActivity extends AppCompatActivity {
                 }).start();
             }
         });
-        EditText edit = (EditText)findViewById(R.id.UpdateTitle);
+        //EditText edit = (EditText)findViewById(R.id.UpdateTitle);
 
         final Button button = (Button)findViewById(R.id.Update_button);
         button.setOnClickListener(new View.OnClickListener() {
