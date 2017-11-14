@@ -11,7 +11,20 @@ public class Current {
         curUser = user;
     }
 
+
+    public static User getCurUser() {
+        return curUser;
+    }
+
+    public static int getCurUserID()    {
+        if(curUser != null)
+            return curUser.getID();
+        else
+            return 0;
+    }
+
     public static void deleteCurUser(){
         curUser = null;
     }
 }
+

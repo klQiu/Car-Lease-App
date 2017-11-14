@@ -73,8 +73,8 @@ public class PostFormActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText edit = (EditText)findViewById(R.id.editTitle);
                 String title = edit.getText().toString();
-                //todo change userid to real owner's id after login is done
-                Post post = new Post(0, title);
+                int userId = Current.getCurUserID();
+                Post post = new Post(userId, title);
 
                 /* prepare a new post to add to database */
                 edit = (EditText)findViewById(R.id.editYear);
