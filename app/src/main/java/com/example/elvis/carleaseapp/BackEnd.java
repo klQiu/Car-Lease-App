@@ -114,6 +114,21 @@ public class BackEnd {
         return null;
     }
 
+    public static void changePsd(String email, String newPsd) {
+        Connection myConn = null;
+        Statement stmt = null;
+        try{
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            stmt = myConn.createStatement();
+            String sql = "UPDATE " + USER_TABLE + " SET password=" + newPsd + " WHERE email=" + email;
+            stmt.executeUpdate(sql);
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
     public static List<Post> filterPosts(int startnum, int endnum, String filter, String order) {
         Connection myConn = null;
         Statement stmt = null;
