@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private String filter = "postTime";
     private String order = "DESC";
     private static final String TAG = MainActivity.class.getSimpleName();
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

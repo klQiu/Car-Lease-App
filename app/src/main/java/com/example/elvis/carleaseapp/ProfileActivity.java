@@ -20,5 +20,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void signOut(View view) {
 
+    public void viewHistory(View view) {
+        startActivity(new Intent(this, HistoryActivity.class));
+
     }
 }
