@@ -13,7 +13,15 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
     }
 
+    public void changePsd(View view) {
+        Intent intent = new Intent(this, ChangePsdActivity.class);
+        startActivity(intent);
+    }
+
+    public void signOut(View view) {
+
     public void viewHistory(View view) {
         startActivity(new Intent(this, HistoryActivity.class));
+
     }
 }

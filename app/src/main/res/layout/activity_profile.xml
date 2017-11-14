@@ -23,7 +23,8 @@
         android:text="Change Password"
         android:layout_marginBottom="20dp"
         android:layout_above="@+id/signOutBt"
-        android:layout_alignStart="@+id/signOutBt" />
+        android:layout_alignStart="@+id/signOutBt"
+        android:onClick="changePsd"/>
 
     <Button
         android:id="@+id/signOutBt"
@@ -32,7 +33,8 @@
         android:layout_marginBottom="90dp"
         android:text="Sign Out"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="signOut"/>
 
     <ImageView
         android:id="@+id/imageView"
