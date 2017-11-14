@@ -5,7 +5,7 @@ package com.example.elvis.carleaseapp;
  */
 
 public class Current {
-    private static User curUser = null;
+    private static User curUser;
 
     public static void addCurUser(User user){
         curUser = new User(user.getEmail(), user.getPassword(), user.getID());
