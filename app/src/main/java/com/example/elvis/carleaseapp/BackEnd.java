@@ -1,4 +1,5 @@
 
+
 package com.example.elvis.carleaseapp;
 
 import android.util.Log;
@@ -28,7 +29,7 @@ public class BackEnd {
 
     private static final String TAG = BackEnd.class.getSimpleName();
 
-    static public void addUser(User user) {
+   static public void addUser(User user) {
         try {
             Class.forName(DRIVER_NAME);
             Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
@@ -114,7 +115,7 @@ public class BackEnd {
         }
         return null;
     }
-
+  
     public static List<Post> filterPosts(int startnum, int endnum, String filter, String order) {
         Connection myConn = null;
         Statement stmt = null;
@@ -354,3 +355,8 @@ public class BackEnd {
     }
 }
 
+
+
+    
+
+   

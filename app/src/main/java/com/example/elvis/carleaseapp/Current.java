@@ -11,6 +11,7 @@ public class Current {
         curUser = user;
     }
 
+
     public static User getCurUser() {
         return curUser;
     }
@@ -26,3 +27,4 @@ public class Current {
         curUser = null;
     }
 }
+
