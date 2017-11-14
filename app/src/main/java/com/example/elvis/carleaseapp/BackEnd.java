@@ -313,6 +313,45 @@ public class BackEnd {
 
     }
 
+    static public void deletePost(Post post) {
+        Connection myConn = null;
+        Statement stmt = null;
+        List<Post> list = new ArrayList<>();
+        try {
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            stmt = myConn.createStatement();
+
+            String query = "DELETE FROM " + POST_TABLE +
+                    "WHERE postId = " + post.getPostId();
+
+            Log.v(TAG, query);
+            ResultSet rs = stmt.executeQuery(query);
+            rs.close();
+            myConn.close();
+            stmt.close();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (myConn != null)
+                    myConn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+
     static public void updatePost(Post post) {
         Connection myConn = null;
         PreparedStatement st = null;

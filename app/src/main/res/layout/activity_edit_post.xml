@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -263,15 +264,24 @@
         </LinearLayout>
 
 
-
         <Button
-            android:id="@+id/update_button"
+            android:id="@+id/Update_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="bottom|right"
-            android:text="Update" />
+            android:text="Post" />
+
+        <Button
+            android:id="@+id/Delete_button"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="bottom|right"
+            android:text="Delete  Post"
+            android:layout_weight="0.44" />
 
 
     </LinearLayout>
