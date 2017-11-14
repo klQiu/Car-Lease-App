@@ -156,7 +156,6 @@ public class BackEnd {
                 post.setMileage(rs.getInt("mileage"));
                 post.setPrice(rs.getInt("price"));
                 post.setRentTime(rs.getString("rentTime"));
-                //to do : post.setaccurateposttime
                 post.setPostTime(rs.getDate("postTime").toString());
                 post.setTelephone(rs.getString("telephone"));
                 post.setEmail(rs.getString("email"));

@@ -103,7 +103,6 @@ public class EditPostActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-        //EditText edit = (EditText)findViewById(R.id.UpdateTitle);
 
         final Button button = (Button)findViewById(R.id.Update_button);
         button.setOnClickListener(new View.OnClickListener() {
