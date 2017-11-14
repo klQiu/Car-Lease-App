@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.elvis.carleaseapp.ProfileActivity">
+
+    <Button
+        android:id="@+id/hisBt"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:onClick="viewHistory"
+        android:text="View Post History"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/lovedBt"
+        android:layout_alignStart="@+id/signOutBt" />
+
+    <Button
+        android:id="@+id/psdBt"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Change Password"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/signOutBt"
+        android:layout_alignStart="@+id/signOutBt"
+        android:onClick="changePsd"/>
+
+    <Button
+        android:id="@+id/signOutBt"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="90dp"
+        android:text="Sign Out"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="signOut"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/user"
+        android:layout_marginBottom="60dp"
+        android:layout_above="@+id/hisBt"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/lovedBt"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Loved"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/psdBt"
+        android:layout_alignStart="@+id/hisBt" />
+</RelativeLayout>

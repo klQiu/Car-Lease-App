@@ -28,7 +28,11 @@
         <activity
             android:name=".PostFormActivity"
             android:label="Add New Post" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ChangePsdActivity"></activity>
+        <activity android:name=".HistoryActivity"></activity>
+        <activity android:name=".EditPostActivity"></activity>
     </application>
 
 </manifest>
