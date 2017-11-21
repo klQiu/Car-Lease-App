@@ -44,8 +44,6 @@ public class EditPostActivity extends AppCompatActivity {
         Log.v(TAG, Integer.toString(post.getPostId()));
         carImage = (ImageView) findViewById(R.id.Updatecar_image);
         updatePlaceSelected = post.getTitle();
-//        EditText editTitle = (EditText)findViewById(R.id.UpdateTitle);
-//        editTitle.setText(post.getTitle(), TextView.BufferType.EDITABLE);
         EditText editYear = (EditText)findViewById(R.id.UpdateYear);
         editYear.setText(Integer.toString(post.getYear()), TextView.BufferType.EDITABLE);
         EditText editBrand = (EditText)findViewById(R.id.UpdateBrand);
@@ -94,11 +92,7 @@ public class EditPostActivity extends AppCompatActivity {
                 "one year",
                 "over one year",
         };
-//        int i;
-//        for( i = 0; i< 7; i++){
-//            if(time.equals(timeFilter[i]))
-//                break;
-//        }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, timeFilter);
         spinner.setAdapter(adapter);
@@ -245,7 +239,6 @@ public class EditPostActivity extends AppCompatActivity {
                     imgBytes = Utils.imgToByteArray(carBitmap);  // to be sent to database
                 }
                 Log.v(TAG, "image bytes done");
-                //carImage.setImageBitmap(carBitmap);
             } catch (FileNotFoundException e) {
                 Toast.makeText(this, "error occurred during image selection", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();

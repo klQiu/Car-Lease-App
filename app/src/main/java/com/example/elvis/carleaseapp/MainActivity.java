@@ -105,13 +105,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Spinner characteristicSpinner = (Spinner) findViewById(R.id.filterSpinner);
-//        String[] characteristicFilter = {
-//                "Filter",
-//                "postTime",
-//                "price",
-//                "mileage",
-//                "year"
-//        };
 
         String[] characteristicFilter = {
                 "Sort by",
@@ -125,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, characteristicFilter);
         characteristicSpinner.setAdapter(adapter);
-        //characteristicSpinner.setSelection(1);
         characteristicSpinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -169,38 +161,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-//        Spinner orderSpinner = (Spinner) findViewById(R.id.orderSpinner);
-//        String[] orders = {
-//                "Order",
-//                "DESC",
-//                "ASC"
-//        };
-//
-//        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(
-//                this, android.R.layout.simple_spinner_item, orders);
-//        orderSpinner.setAdapter(adapter2);
-//        //orderSpinner.setSelection(1);
-//        orderSpinner.setOnItemSelectedListener(
-//                new AdapterView.OnItemSelectedListener() {
-//                    @Override
-//                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-//                                               int arg2, long arg3) {
-//                        Log.v(TAG, "on item selected orders filter");
-//                        int position = orderSpinner.getSelectedItemPosition();
-//                        if(position != 0) {
-//                            Toast.makeText(getApplicationContext(), "You have selected " + orders[+position], Toast.LENGTH_LONG).show();
-//                            order = orderSpinner.getSelectedItem().toString();
-//                            new ChangeListUponFilterTask(0, INITIAL_LIST_SIZE).execute();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onNothingSelected(AdapterView<?> arg0) {
-//                        order = "DESC";
-//                    }
-//
-//                }
-//        );
     }
 
     @Override
