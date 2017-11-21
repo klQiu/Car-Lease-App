@@ -6,32 +6,46 @@
     android:layout_height="match_parent"
     tools:context="com.example.elvis.carleaseapp.ProfileActivity">
 
+    <ImageView
+        android:id="@+id/profileBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/profile"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="-5dp"/>
+
     <Button
         android:id="@+id/hisBt"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:gravity="left|center_vertical"
+        android:drawableLeft="@drawable/history_1"
+        android:textSize="18dp"
         android:onClick="viewHistory"
-        android:text="View Post History"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@+id/lovedBt"
-        android:layout_alignStart="@+id/signOutBt" />
+        android:text="   View Post History"
+        android:layout_below="@+id/profileBg"/>
 
     <Button
         android:id="@+id/psdBt"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Change Password"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@+id/signOutBt"
-        android:layout_alignStart="@+id/signOutBt"
+        android:textAllCaps="false"
+        android:textSize="18dp"
+        android:gravity="left|center_vertical"
+        android:drawableLeft="@drawable/change_psd"
+        android:text="   Change Password"
+        android:layout_below="@+id/lovedBt"
         android:onClick="changePsd"/>
 
     <Button
         android:id="@+id/signOutBt"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="90dp"
+        android:textAllCaps="false"
         android:text="Sign Out"
+        android:textSize="18dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="signOut"/>
@@ -47,10 +61,13 @@
 
     <Button
         android:id="@+id/lovedBt"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Loved"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@+id/psdBt"
-        android:layout_alignStart="@+id/hisBt" />
+        android:textAllCaps="false"
+        android:drawableLeft="@drawable/love"
+        android:textSize="18dp"
+        android:gravity="left|center_vertical"
+        android:text="   Loved"
+        android:layout_below="@+id/hisBt"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
