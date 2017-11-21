@@ -33,7 +33,6 @@
         <activity android:name=".ChangePsdActivity"></activity>
         <activity android:name=".HistoryActivity"></activity>
         <activity android:name=".EditPostActivity"></activity>
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC9aVYf0Tm-jAZQi5f-cQUtIuc7ydSC9pg"/>
