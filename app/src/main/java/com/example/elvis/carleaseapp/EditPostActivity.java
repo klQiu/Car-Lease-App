@@ -25,6 +25,7 @@ public class EditPostActivity extends AppCompatActivity {
     private String rentTime = "";
     private ImageView carImage;
     private byte[] imgBytes = null;
+    private static final int IMG_SIZE_LIMIT = 1000;    // in bytes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class EditPostActivity extends AppCompatActivity {
         editTelephone.setText(post.getTelephone(), TextView.BufferType.EDITABLE);
         EditText editEmail = (EditText)findViewById(R.id.UpdateEmail);
         editEmail.setText(post.getEmail(), TextView.BufferType.EDITABLE);
-
+        String time = post.getRentTime();
         Glide.with(this)
                 .load(post.getImgBytes())
                 .centerCrop()
@@ -68,10 +69,15 @@ public class EditPostActivity extends AppCompatActivity {
                 "one year",
                 "over one year",
         };
-
+//        int i;
+//        for( i = 0; i< 7; i++){
+//            if(time.equals(timeFilter[i]))
+//                break;
+//        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, timeFilter);
         spinner.setAdapter(adapter);
+        spinner.setSelection(adapter.getPosition(time));
         spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -112,65 +118,83 @@ public class EditPostActivity extends AppCompatActivity {
         final Button button = (Button)findViewById(R.id.Update_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText edit = (EditText)findViewById(R.id.UpdateTitle);
-                String title = edit.getText().toString();
-                int userId = Current.getCurUserID();
-                Post post1 = new Post(userId, title);
-
-                /* prepare a new post to add to database */
-                edit = (EditText)findViewById(R.id.UpdateYear);
-                int year = Integer.parseInt(edit.getText().toString());
-                post1.setYear(year);
-                edit = (EditText)findViewById(R.id.UpdateBrand);
-                String brand = edit.getText().toString();
-                post1.setBrand(brand);
-                edit = (EditText)findViewById(R.id.UpdateColour);
-                String colour = edit.getText().toString();
-                post1.setColour(colour);
-                edit = (EditText)findViewById(R.id.UpdateMileage);
-                int mileage = Integer.parseInt(edit.getText().toString());
-                post1.setMileage(mileage);
-                edit = (EditText)findViewById(R.id.UpdatePrice);
-                int price = Integer.parseInt(edit.getText().toString());
-                post1.setPrice(price);
-                edit = (EditText)findViewById(R.id.UpdateEmail);
-                String email = edit.getText().toString();
-                post1.setEmail(email);
-                edit = (EditText)findViewById(R.id.UpdateTelephone);
-                String telephone = edit.getText().toString();
-                post1.setTelephone(telephone);
-                if(rentTime != ""  &&  rentTime !="Please select how long to rent"){
-                    post1.setRentTime(rentTime);
+                if( ((EditText)findViewById(R.id.UpdateTitle)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.UpdateYear)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.UpdateBrand)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.UpdateColour)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.UpdateMileage)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.UpdatePrice)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.UpdateEmail)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.UpdateTelephone)).getText().toString().trim().length() == 0 ||
+                        rentTime.equals("")){
+                    Toast.makeText(getApplicationContext(), "You should fill in all information", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    post1.setRentTime(post.getRentTime());
-                }
-                post1.setPostId(post.getPostId());
-                post1.setPostTime(post.getPostTime());
-                Log.v(TAG, rentTime);
-                if(imgBytes != null){
-                    post1.setImgBytes(imgBytes);
-                }
-                else{
-                    imgBytes = post.getImgBytes();
-                    post1.setImgBytes(imgBytes);
+                    updatePost(post);
                 }
 
-
-                //todo change this using async task
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        BackEnd.updatePost(post1);
-                    }
-                }).start();
-
-                Toast.makeText(getApplicationContext(), "Updated!", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(EditPostActivity.this, MainActivity.class);
-                startActivity(myIntent);
             }
         });
+    }
+
+    public void updatePost(Post post){
+        EditText edit = (EditText)findViewById(R.id.UpdateTitle);
+        String title = edit.getText().toString();
+        int userId = Current.getCurUserID();
+        Post post1 = new Post(userId, title);
+
+                /* prepare a new post to add to database */
+        edit = (EditText)findViewById(R.id.UpdateYear);
+        int year = Integer.parseInt(edit.getText().toString());
+        post1.setYear(year);
+        edit = (EditText)findViewById(R.id.UpdateBrand);
+        String brand = edit.getText().toString();
+        post1.setBrand(brand);
+        edit = (EditText)findViewById(R.id.UpdateColour);
+        String colour = edit.getText().toString();
+        post1.setColour(colour);
+        edit = (EditText)findViewById(R.id.UpdateMileage);
+        int mileage = Integer.parseInt(edit.getText().toString());
+        post1.setMileage(mileage);
+        edit = (EditText)findViewById(R.id.UpdatePrice);
+        int price = Integer.parseInt(edit.getText().toString());
+        post1.setPrice(price);
+        edit = (EditText)findViewById(R.id.UpdateEmail);
+        String email = edit.getText().toString();
+        post1.setEmail(email);
+        edit = (EditText)findViewById(R.id.UpdateTelephone);
+        String telephone = edit.getText().toString();
+        post1.setTelephone(telephone);
+        if(rentTime != ""  &&  rentTime !="Please select how long to rent"){
+            post1.setRentTime(rentTime);
+        }
+        else{
+            post1.setRentTime(post.getRentTime());
+        }
+        post1.setPostId(post.getPostId());
+        post1.setPostTime(post.getPostTime());
+        Log.v(TAG, rentTime);
+        if(imgBytes != null){
+            post1.setImgBytes(imgBytes);
+        }
+        else{
+            imgBytes = post.getImgBytes();
+            post1.setImgBytes(imgBytes);
+        }
+
+
+        //todo change this using async task
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                BackEnd.updatePost(post1);
+            }
+        }).start();
+
+        Toast.makeText(getApplicationContext(), "Updated!", Toast.LENGTH_SHORT).show();
+        Intent myIntent = new Intent(EditPostActivity.this, MainActivity.class);
+        startActivity(myIntent);
     }
 
     public void selectFromGallery(View view) {
@@ -189,7 +213,12 @@ public class EditPostActivity extends AppCompatActivity {
             Bitmap carBitmap;
             try {
                 carBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                imgBytes = Utils.imgToByteArray(carBitmap);  // to be sent to database
+                if(Utils.imgToByteArray(carBitmap).length / IMG_SIZE_LIMIT > 500) {
+                    Toast.makeText(this, "Image too large, change to another one", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    imgBytes = Utils.imgToByteArray(carBitmap);  // to be sent to database
+                }
                 Log.v(TAG, "image bytes done");
                 //carImage.setImageBitmap(carBitmap);
             } catch (FileNotFoundException e) {

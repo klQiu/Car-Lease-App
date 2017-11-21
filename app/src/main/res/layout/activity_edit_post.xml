@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter years that the car is used"
+                android:hint="Please enter years that the car is bought"
                 android:inputType="numberDecimal"
                 android:maxLength="4" />
         </LinearLayout>
