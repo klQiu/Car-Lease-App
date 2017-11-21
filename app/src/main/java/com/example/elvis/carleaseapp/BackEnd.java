@@ -141,7 +141,7 @@ public class BackEnd {
             String end = Integer.toString(endnum);
 
             String query = SELECT_ALL_FROM + POST_TABLE;
-            if(!location.equals("")) {
+            if(!"".equals(location)) {
                 query += " WHERE title = '" + location + "'";
             }
             query += ORDER_BY + filter + " " + order + " limit " + start + ", " + end;
