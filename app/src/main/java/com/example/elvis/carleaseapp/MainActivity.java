@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private PostListAdapter postListAdapter;
     private List<Post> postList;
     private static final int SCROLL_DOWN = 1;
-    private static final int SCROLL_UP = -1;
     private static final int INITIAL_LIST_SIZE = 5;
     private String filter = "postTime";
     private String order = "DESC";
@@ -57,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 /* test if user scrolled to the end of list */
                 if (!recyclerView.canScrollVertically(SCROLL_DOWN)) {
                     new DisplayListTask(postList.size(), postList.size() + 2).execute();
-                } else if (!recyclerView.canScrollVertically(SCROLL_UP)) {
-                    new DisplayListTask(0, 0).execute();
                 }
             }
         });
@@ -160,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
         private final int start_num;
         private final int end_num;
 
-        //todo refactor out context, postlistadapter and postlist
         DisplayListTask(int start_num, int end_num) {
             this.start_num = start_num;
             this.end_num = end_num;
@@ -170,9 +166,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             List<Post> newList = BackEnd.filterPosts(start_num, end_num, filter, order);
-            postList.addAll(newList);
+            if(newList.size() > 0) {
+                postList.addAll(newList);
+                return true;
+            }
+            else return false;
             //todo return false for database error
-            return true;
+
         }
 
         @Override

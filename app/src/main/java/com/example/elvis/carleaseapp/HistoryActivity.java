@@ -37,7 +37,8 @@ public class HistoryActivity extends AppCompatActivity {
     private class DisplayListTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
-            User user = new User("hehe", "111", 0);
+            //User user = new User("hehe", "111", 0);
+            User user = Current.getCurUser();
             List<Post> newList = BackEnd.getHisPost(user);
             postList.addAll(newList);
             //todo return false for database error
