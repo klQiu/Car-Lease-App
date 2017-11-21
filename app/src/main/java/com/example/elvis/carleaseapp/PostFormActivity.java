@@ -17,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+
 import java.io.FileNotFoundException;
 
 
@@ -27,6 +32,7 @@ public class PostFormActivity extends AppCompatActivity {
     private byte[] imgBytes = null;
     private static final int IMG_SIZE_LIMIT = 1000;    // in bytes
     private Button submitBtn;
+    private String placeSelected = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,24 @@ public class PostFormActivity extends AppCompatActivity {
                 "one year",
                 "over one year",
         };
+
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.editTitle);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO:Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName());
+                placeSelected = place.getName().toString();
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO:Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, timeFilter);
@@ -79,7 +103,7 @@ public class PostFormActivity extends AppCompatActivity {
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if( ((EditText)findViewById(R.id.editTitle)).getText().toString().trim().length() == 0 ||
+                if( //((EditText)findViewById(R.id.editTitle)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editYear)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editBrand)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editColour)).getText().toString().trim().length() == 0 ||
@@ -87,8 +111,7 @@ public class PostFormActivity extends AppCompatActivity {
                         ((EditText)findViewById(R.id.editPrice)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editEmail)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editTelephone)).getText().toString().trim().length() == 0 ||
-                        rentTime.equals("")  || imgBytes == null){
-                    Log.v(TAG, ((EditText)findViewById(R.id.editTitle)).getText().toString());
+                        rentTime.equals("")  || imgBytes == null || placeSelected == ""){
                     Log.v(TAG, rentTime);
                     Toast.makeText(getApplicationContext(), "You should fill in all information", Toast.LENGTH_LONG).show();
                 }
@@ -100,13 +123,13 @@ public class PostFormActivity extends AppCompatActivity {
     }
 
     public void submit(){
-        EditText edit = (EditText)findViewById(R.id.editTitle);
-        String title = edit.getText().toString();
+//        EditText edit = (EditText)findViewById(R.id.editTitle);
+//        String title = edit.getText().toString();
         int userId = Current.getCurUserID();
-        Post post = new Post(userId, title);
+        Post post = new Post(userId, placeSelected);
 
                 /* prepare a new post to add to database */
-        edit = (EditText)findViewById(R.id.editYear);
+        EditText edit = (EditText)findViewById(R.id.editYear);
         int year = Integer.parseInt(edit.getText().toString());
         post.setYear(year);
         edit = (EditText)findViewById(R.id.editBrand);

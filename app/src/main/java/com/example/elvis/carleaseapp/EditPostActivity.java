@@ -17,7 +17,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+
 import java.io.FileNotFoundException;
+
 
 
 public class EditPostActivity extends AppCompatActivity {
@@ -25,6 +31,7 @@ public class EditPostActivity extends AppCompatActivity {
     private String rentTime = "";
     private ImageView carImage;
     private byte[] imgBytes = null;
+    private String updatePlaceSelected = "";
     private static final int IMG_SIZE_LIMIT = 1000;    // in bytes
 
     @Override
@@ -36,9 +43,9 @@ public class EditPostActivity extends AppCompatActivity {
         Post post = (Post)bundle.getSerializable("post_to_edit");
         Log.v(TAG, Integer.toString(post.getPostId()));
         carImage = (ImageView) findViewById(R.id.Updatecar_image);
-
-        EditText editTitle = (EditText)findViewById(R.id.UpdateTitle);
-        editTitle.setText(post.getTitle(), TextView.BufferType.EDITABLE);
+        updatePlaceSelected = post.getTitle();
+//        EditText editTitle = (EditText)findViewById(R.id.UpdateTitle);
+//        editTitle.setText(post.getTitle(), TextView.BufferType.EDITABLE);
         EditText editYear = (EditText)findViewById(R.id.UpdateYear);
         editYear.setText(Integer.toString(post.getYear()), TextView.BufferType.EDITABLE);
         EditText editBrand = (EditText)findViewById(R.id.UpdateBrand);
@@ -58,6 +65,24 @@ public class EditPostActivity extends AppCompatActivity {
                 .load(post.getImgBytes())
                 .centerCrop()
                 .into(carImage);
+
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.UpdateTitle);
+        autocompleteFragment.setText(updatePlaceSelected);
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO:Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName());
+                updatePlaceSelected = place.getName().toString();
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO:Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
 
         Spinner spinner = (Spinner) findViewById(R.id.Updatespinner);
         String[] timeFilter = {
@@ -118,7 +143,7 @@ public class EditPostActivity extends AppCompatActivity {
         final Button button = (Button)findViewById(R.id.Update_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if( ((EditText)findViewById(R.id.UpdateTitle)).getText().toString().trim().length() == 0 ||
+                if( //((EditText)findViewById(R.id.UpdateTitle)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateYear)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateBrand)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateColour)).getText().toString().trim().length() == 0 ||
@@ -126,7 +151,7 @@ public class EditPostActivity extends AppCompatActivity {
                         ((EditText)findViewById(R.id.UpdatePrice)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateEmail)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateTelephone)).getText().toString().trim().length() == 0 ||
-                        rentTime.equals("")){
+                        rentTime.equals("") || updatePlaceSelected.equals("")){
                     Toast.makeText(getApplicationContext(), "You should fill in all information", Toast.LENGTH_LONG).show();
                 }
                 else{
@@ -138,13 +163,13 @@ public class EditPostActivity extends AppCompatActivity {
     }
 
     public void updatePost(Post post){
-        EditText edit = (EditText)findViewById(R.id.UpdateTitle);
-        String title = edit.getText().toString();
+       // EditText edit = (EditText)findViewById(R.id.UpdateTitle);
+        //String title = edit.getText().toString();
         int userId = Current.getCurUserID();
-        Post post1 = new Post(userId, title);
+        Post post1 = new Post(userId, updatePlaceSelected);
 
                 /* prepare a new post to add to database */
-        edit = (EditText)findViewById(R.id.UpdateYear);
+        EditText edit = (EditText)findViewById(R.id.UpdateYear);
         int year = Integer.parseInt(edit.getText().toString());
         post1.setYear(year);
         edit = (EditText)findViewById(R.id.UpdateBrand);
