@@ -38,10 +38,14 @@ public class PostHistoryAdapter extends RecyclerView.Adapter<PostHistoryAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
-        holder.title.setText(postList.get(position).getTitle());
-        holder.carBrand.setText(postList.get(position).getBrand());
 
-        //Bitmap b = Utils.byteArrayToImage(postList.get(position).getImgBytes());
+        String priceStr = "";
+        if (postList.get(position).getPrice() != 0) {
+            priceStr = Integer.toString(postList.get(position).getPrice());
+        }
+        holder.price.setText(priceStr);
+
+        holder.carBrand.setText(postList.get(position).getBrand());
         Glide.with(holder.carImg.getContext())
                     .load(postList.get(position).getImgBytes())
                     .centerCrop()
@@ -60,14 +64,14 @@ public class PostHistoryAdapter extends RecyclerView.Adapter<PostHistoryAdapter.
      class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final String TAG = ViewHolder.class.getSimpleName();
-        private TextView title;
+        private TextView price;
         private TextView carBrand;
         private ImageView carImg;
 
 
         private ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            this.title = (TextView) itemLayoutView.findViewById(R.id.txtCarTitle);
+            this.price = (TextView) itemLayoutView.findViewById(R.id.txtCarPrice);
             this.carBrand = (TextView) itemLayoutView.findViewById(R.id.txtCarBrand);
             this.carImg = (ImageView) itemLayoutView.findViewById(R.id.imgCar);
             itemLayoutView.setOnClickListener(this);

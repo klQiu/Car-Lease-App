@@ -15,6 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private String filter = "postTime";
     private String order = "DESC";
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    private String location = ""; // the location where teh user wants to lease a car
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +46,43 @@ public class MainActivity extends AppCompatActivity {
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
 
-        this.postList = new ArrayList<>();
+        /*--------- setting up autocomplete fragment --------*/
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.search_autocomplete_fragment);
+
+        // listener for selecting current location
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                Log.i(TAG, "Place: " + place.getName());
+                location = place.getName().toString();
+                new ChangeListUponFilterTask(0, INITIAL_LIST_SIZE).execute();
+            }
+
+            @Override
+            public void onError(Status status) {
+                location = "";
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
+        // listener for deselecting current location
+        autocompleteFragment.getView().findViewById(R.id.place_autocomplete_clear_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autocompleteFragment.setText("");
+                autocompleteFragment.setHint(getText(R.string.autocomplete_search));
+
+                // clear the list
+                location = "";
+                new DisplayListTask(0, INITIAL_LIST_SIZE).execute();
+            }
+        });
+
 
         /*--------- setting up recycler view --------*/
+        this.postList = new ArrayList<>();
+
         RecyclerView recyclerView;
         recyclerView = (RecyclerView) findViewById(R.id.postRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -167,14 +209,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            List<Post> newList = BackEnd.filterPosts(start_num, end_num, filter, order);
+            List<Post> newList = BackEnd.filterPosts(start_num, end_num, filter, order, location);
             if(newList.size() > 0) {
                 postList.addAll(newList);
                 return true;
             }
             else return false;
-            //todo return false for database error
-
         }
 
         @Override
@@ -197,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            postList = BackEnd.filterPosts(start_num, end_num, filter, order);
+            postList = BackEnd.filterPosts(start_num, end_num, filter, order, location);
             //todo return false for database error
             return true;
         }
@@ -209,4 +249,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+//    private class ChangeListUponFilterTask extends AsyncTask<Void, Void, Boolean> {
+//        private String location;
+//
+//        ChangeListUponFilterTask(String location) {
+//            this.location = location;
+//        }
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//            postList = BackEnd.searchSameLocation(location);
+//            //todo return false for database error
+//            return true;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean result) {
+//            if(result) {
+//                postListAdapter.updateInnerList(postList);
+//            }
+//        }
+//    }
+
 }

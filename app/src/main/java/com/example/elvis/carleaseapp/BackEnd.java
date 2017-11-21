@@ -129,7 +129,7 @@ public class BackEnd {
         }
     }
 
-    public static List<Post> filterPosts(int startnum, int endnum, String filter, String order) {
+    public static List<Post> filterPosts(int startnum, int endnum, String filter, String order, String location) {
         Connection myConn = null;
         Statement stmt = null;
         List<Post> list = new ArrayList<>();
@@ -140,32 +140,16 @@ public class BackEnd {
             String start = Integer.toString(startnum);
             String end = Integer.toString(endnum);
 
-            String query = SELECT_ALL_FROM +
-                    POST_TABLE +
-                    ORDER_BY +
-                    filter + " " + order + " limit " + start + ", " + end;
+            String query = SELECT_ALL_FROM + POST_TABLE;
+            if(!location.equals("")) {
+                query += " WHERE title = '" + location + "'";
+            }
+            query += ORDER_BY + filter + " " + order + " limit " + start + ", " + end;
 
             Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                //Retrieve by column name
-                Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
-                post.setBrand(rs.getString("brand"));
-                post.setColour(rs.getString("colour"));
-                post.setYear(rs.getInt("year"));
-                post.setMileage(rs.getInt("mileage"));
-                post.setPrice(rs.getInt("price"));
-                post.setRentTime(rs.getString("rentTime"));
-                post.setPostTime(rs.getDate("postTime").toString());
-                post.setTelephone(rs.getString("telephone"));
-                post.setEmail(rs.getString("email"));
-
-                /* get image blob */
-                Blob blob = rs.getBlob("imgBytes");
-                if(blob != null) {
-                    byte[] imgBytes = blob.getBytes(1, (int)blob.length());
-                    post.setImgBytes(imgBytes);
-                }
+                Post post = getPostFromRs(rs);
                 list.add(post);
             }
             rs.close();
@@ -212,25 +196,7 @@ public class BackEnd {
             Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                //Retrieve by column name
-                Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
-                post.setBrand(rs.getString("brand"));
-                post.setColour(rs.getString("colour"));
-                post.setYear(rs.getInt("year"));
-                post.setMileage(rs.getInt("mileage"));
-                post.setPrice(rs.getInt("price"));
-                post.setRentTime(rs.getString("rentTime"));
-                post.setPostTime(rs.getDate("postTime").toString());
-                post.setTelephone(rs.getString("telephone"));
-                post.setEmail(rs.getString("email"));
-                post.setPostId(rs.getInt("postID"));
-
-                /* get image blob */
-                Blob blob = rs.getBlob("imgBytes");
-                if(blob != null) {
-                    byte[] imgBytes = blob.getBytes(1, (int)blob.length());
-                    post.setImgBytes(imgBytes);
-                }
+                Post post = getPostFromRs(rs);
                 list.add(post);
             }
             rs.close();
@@ -405,6 +371,29 @@ public class BackEnd {
             }
         }
 
+    }
+
+
+    static private Post getPostFromRs(ResultSet rs) throws SQLException{
+        //Retrieve by column name
+        Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
+        post.setBrand(rs.getString("brand"));
+        post.setColour(rs.getString("colour"));
+        post.setYear(rs.getInt("year"));
+        post.setMileage(rs.getInt("mileage"));
+        post.setPrice(rs.getInt("price"));
+        post.setRentTime(rs.getString("rentTime"));
+        post.setPostTime(rs.getDate("postTime").toString());
+        post.setTelephone(rs.getString("telephone"));
+        post.setEmail(rs.getString("email"));
+
+        /* get image blob */
+        Blob blob = rs.getBlob("imgBytes");
+        if(blob != null) {
+            byte[] imgBytes = blob.getBytes(1, (int)blob.length());
+            post.setImgBytes(imgBytes);
+        }
+        return post;
     }
 }
 
