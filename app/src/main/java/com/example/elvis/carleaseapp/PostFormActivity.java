@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+
 import java.io.FileNotFoundException;
 
 
@@ -26,6 +32,7 @@ public class PostFormActivity extends AppCompatActivity {
     private byte[] imgBytes = null;
     private static final int IMG_SIZE_LIMIT = 1000;    // in bytes
     private Button submitBtn;
+    private String placeSelected = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,24 @@ public class PostFormActivity extends AppCompatActivity {
                 "over one year",
         };
 
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.editTitle);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO:Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName());
+                placeSelected = place.getName().toString();
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO:Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, timeFilter);
         spinner.setAdapter(adapter);
@@ -54,9 +79,12 @@ public class PostFormActivity extends AppCompatActivity {
                                                int arg2, long arg3) {
 
                         int position = spinner.getSelectedItemPosition();
-                        if (position != 0)
-                            Toast.makeText(getApplicationContext(),"You have selected "+timeFilter[+position],Toast.LENGTH_LONG).show();
+                        if (position != 0) {
+                            Toast.makeText(getApplicationContext(), "You have selected " + timeFilter[+position], Toast.LENGTH_LONG).show();
                             rentTime = spinner.getSelectedItem().toString();
+                        }
+                        else
+                            rentTime = "";
                     }
 
                     @Override
@@ -72,53 +100,72 @@ public class PostFormActivity extends AppCompatActivity {
 
 
         submitBtn = (Button)findViewById(R.id.submit_button);
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText edit = (EditText)findViewById(R.id.editTitle);
-                String title = edit.getText().toString();
-                int userId = Current.getCurUserID();
-                Post post = new Post(userId, title);
-
-                /* prepare a new post to add to database */
-                edit = (EditText)findViewById(R.id.editYear);
-                int year = Integer.parseInt(edit.getText().toString());
-                post.setYear(year);
-                edit = (EditText)findViewById(R.id.editBrand);
-                String brand = edit.getText().toString();
-                post.setBrand(brand);
-                edit = (EditText)findViewById(R.id.editColour);
-                String colour = edit.getText().toString();
-                post.setColour(colour);
-                edit = (EditText)findViewById(R.id.editMileage);
-                int mileage = Integer.parseInt(edit.getText().toString());
-                post.setMileage(mileage);
-                edit = (EditText)findViewById(R.id.editPrice);
-                int price = Integer.parseInt(edit.getText().toString());
-                post.setPrice(price);
-                edit = (EditText)findViewById(R.id.editEmail);
-                String email = edit.getText().toString();
-                post.setEmail(email);
-                edit = (EditText)findViewById(R.id.editTelephone);
-                String telephone = edit.getText().toString();
-                post.setTelephone(telephone);
-                post.setRentTime(rentTime);
-                Log.v(TAG, rentTime);
-                post.setImgBytes(imgBytes);
-
-                //todo change this using async task
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        BackEnd.addPost(post);
-                    }
-                }).start();
-
-                Toast.makeText(getApplicationContext(), "Posted!", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(PostFormActivity.this, MainActivity.class);
-                startActivity(myIntent);
+                if( //((EditText)findViewById(R.id.editTitle)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.editYear)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.editBrand)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.editColour)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.editMileage)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.editPrice)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.editEmail)).getText().toString().trim().length() == 0 ||
+                        ((EditText)findViewById(R.id.editTelephone)).getText().toString().trim().length() == 0 ||
+                        rentTime.equals("")  || imgBytes == null || placeSelected == ""){
+                    Log.v(TAG, rentTime);
+                    Toast.makeText(getApplicationContext(), "You should fill in all information", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    submit();
+                }
             }
         });
+    }
+
+    public void submit(){
+//        EditText edit = (EditText)findViewById(R.id.editTitle);
+//        String title = edit.getText().toString();
+        int userId = Current.getCurUserID();
+        Post post = new Post(userId, placeSelected);
+
+                /* prepare a new post to add to database */
+        EditText edit = (EditText)findViewById(R.id.editYear);
+        int year = Integer.parseInt(edit.getText().toString());
+        post.setYear(year);
+        edit = (EditText)findViewById(R.id.editBrand);
+        String brand = edit.getText().toString();
+        post.setBrand(brand);
+        edit = (EditText)findViewById(R.id.editColour);
+        String colour = edit.getText().toString();
+        post.setColour(colour);
+        edit = (EditText)findViewById(R.id.editMileage);
+        int mileage = Integer.parseInt(edit.getText().toString());
+        post.setMileage(mileage);
+        edit = (EditText)findViewById(R.id.editPrice);
+        int price = Integer.parseInt(edit.getText().toString());
+        post.setPrice(price);
+        edit = (EditText)findViewById(R.id.editEmail);
+        String email = edit.getText().toString();
+        post.setEmail(email);
+        edit = (EditText)findViewById(R.id.editTelephone);
+        String telephone = edit.getText().toString();
+        post.setTelephone(telephone);
+        post.setRentTime(rentTime);
+        Log.v(TAG, rentTime);
+        post.setImgBytes(imgBytes);
+
+        //todo change this using async task
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                BackEnd.addPost(post);
+            }
+        }).start();
+
+        Toast.makeText(getApplicationContext(), "Posted!", Toast.LENGTH_SHORT).show();
+        Intent myIntent = new Intent(PostFormActivity.this, MainActivity.class);
+        startActivity(myIntent);
     }
 
     public void selectFromGallery(View view) {
@@ -128,18 +175,17 @@ public class PostFormActivity extends AppCompatActivity {
     }
 
     private void displayImage(byte[] imgBytes, Uri imageUri) {
-        if(imgBytes.length / IMG_SIZE_LIMIT > 500) {
-            Toast.makeText(this, "Image too large, change to another one", Toast.LENGTH_LONG).show();
-            submitBtn.setEnabled(false);
-        }
-        else {
+//        if(imgBytes.length / IMG_SIZE_LIMIT > 500) {
+//            Toast.makeText(this, "Image too large, change to another one", Toast.LENGTH_LONG).show();
+//            submitBtn.setEnabled(false);
+//        }
+//        else {
             this.imgBytes = imgBytes;
             Glide.with(getApplicationContext())
                     .load(imageUri)
                     .centerCrop()
                     .into(carImage);
-            submitBtn.setEnabled(true);
-        }
+//        }
     }
 
     @Override
@@ -157,7 +203,12 @@ public class PostFormActivity extends AppCompatActivity {
                 Log.v(TAG, "image bytes done");
                 //carImage.setImageBitmap(carBitmap);
                 Log.v(TAG, "image bytes done, img bytes: " + imgBuffer.length / 1000 + " KB");
-                displayImage(imgBuffer, imageUri);
+                if(imgBuffer.length / IMG_SIZE_LIMIT > 500) {
+                    Toast.makeText(this, "Image too large, change to another one", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    displayImage(imgBuffer, imageUri);
+                }
             } catch (FileNotFoundException e) {
                 Toast.makeText(this, "error occurred during image selection", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();

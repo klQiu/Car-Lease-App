@@ -105,12 +105,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Spinner characteristicSpinner = (Spinner) findViewById(R.id.filterSpinner);
+//        String[] characteristicFilter = {
+//                "Filter",
+//                "postTime",
+//                "price",
+//                "mileage",
+//                "year"
+//        };
+
         String[] characteristicFilter = {
-                "Filter",
-                "postTime",
-                "price",
-                "mileage",
-                "year"
+                "Sort by",
+                "newest posts",
+                "price: high to low",
+                "price: low to high",
+                "mileage: low to high",
+                "year of manufacture: most to least recent"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -126,7 +135,27 @@ public class MainActivity extends AppCompatActivity {
                         int position = characteristicSpinner.getSelectedItemPosition();
                         if(position != 0) {
                             Toast.makeText(getApplicationContext(), "You have selected " + characteristicFilter[+position], Toast.LENGTH_LONG).show();
-                            filter = characteristicSpinner.getSelectedItem().toString();
+                            String filterSelected = characteristicSpinner.getSelectedItem().toString();
+                            if(filterSelected.equals("newest posts"))   {
+                                filter = "postTime";
+                                order = "DESC";
+                            }
+                            else if(filterSelected.equals("price: high to low"))   {
+                                filter = "price";
+                                order = "DESC";
+                            }
+                            else if(filterSelected.equals("price: low to high"))   {
+                                filter = "price";
+                                order = "ASC";
+                            }
+                            else if(filterSelected.equals("mileage: low to high"))   {
+                                filter = "mileage";
+                                order = "ASC";
+                            }
+                            else{
+                                filter = "year";
+                                order = "DESC";
+                            }
                             new ChangeListUponFilterTask(0, INITIAL_LIST_SIZE).execute();
                         }
                     }
@@ -140,38 +169,38 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        Spinner orderSpinner = (Spinner) findViewById(R.id.orderSpinner);
-        String[] orders = {
-                "Order",
-                "DESC",
-                "ASC"
-        };
-
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, orders);
-        orderSpinner.setAdapter(adapter2);
-        //orderSpinner.setSelection(1);
-        orderSpinner.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                               int arg2, long arg3) {
-                        Log.v(TAG, "on item selected orders filter");
-                        int position = orderSpinner.getSelectedItemPosition();
-                        if(position != 0) {
-                            Toast.makeText(getApplicationContext(), "You have selected " + orders[+position], Toast.LENGTH_LONG).show();
-                            order = orderSpinner.getSelectedItem().toString();
-                            new ChangeListUponFilterTask(0, INITIAL_LIST_SIZE).execute();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                        order = "DESC";
-                    }
-
-                }
-        );
+//        Spinner orderSpinner = (Spinner) findViewById(R.id.orderSpinner);
+//        String[] orders = {
+//                "Order",
+//                "DESC",
+//                "ASC"
+//        };
+//
+//        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(
+//                this, android.R.layout.simple_spinner_item, orders);
+//        orderSpinner.setAdapter(adapter2);
+//        //orderSpinner.setSelection(1);
+//        orderSpinner.setOnItemSelectedListener(
+//                new AdapterView.OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                               int arg2, long arg3) {
+//                        Log.v(TAG, "on item selected orders filter");
+//                        int position = orderSpinner.getSelectedItemPosition();
+//                        if(position != 0) {
+//                            Toast.makeText(getApplicationContext(), "You have selected " + orders[+position], Toast.LENGTH_LONG).show();
+//                            order = orderSpinner.getSelectedItem().toString();
+//                            new ChangeListUponFilterTask(0, INITIAL_LIST_SIZE).execute();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> arg0) {
+//                        order = "DESC";
+//                    }
+//
+//                }
+//        );
     }
 
     @Override
