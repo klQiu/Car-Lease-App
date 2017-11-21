@@ -12,6 +12,8 @@ import java.util.List;
 
 /**
  * Created by LucyZhao on 2017/10/12.
+ * Source:
+ * https://github.com/hardworker93/carousels/blob/master/src/com/example/carousels/RowRecyclerAdapter.java
  */
 
 public class PostListMainAdapter extends RecyclerView.Adapter<PostListMainAdapter.ViewHolder> {
@@ -62,10 +64,11 @@ public class PostListMainAdapter extends RecyclerView.Adapter<PostListMainAdapte
     // inner class to hold a reference to each item of RecyclerView
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private  RecyclerView mRecyclerViewRow;
+        private RecyclerView mRecyclerViewRow;
+
         private ViewHolder(View itemView) {
             super(itemView);
-            mRecyclerViewRow =(RecyclerView)itemView.findViewById(R.id.row_recycler);
+            mRecyclerViewRow = (RecyclerView) itemView.findViewById(R.id.row_recycler);
         }
 
     }

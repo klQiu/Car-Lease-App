@@ -23,19 +23,12 @@
             android:orientation="vertical">
 
 
-            <TextView
-                android:id="@+id/car_brand_txt"
-                style="@style/PostItemTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="brand: " />
-
-            <!--        <TextView
-                        android:id="@+id/car_color_txt"
-                        style="@style/PostItemTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="color: " /> -->
+            <!--    <TextView
+                    android:id="@+id/car_color_txt"
+                    style="@style/PostItemTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="color: " />  -->
 
             <TextView
                 android:id="@+id/car_year_txt"
@@ -44,26 +37,20 @@
                 android:layout_height="wrap_content"
                 android:text="year: " />
 
-            <!--       <TextView
-                       android:id="@+id/car_milage_txt"
-                       style="@style/PostItemTextStyle"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="mileage: " /> -->
-
             <TextView
-                android:id="@+id/car_price_txt"
+                android:id="@+id/car_mileage_txt"
                 style="@style/PostItemTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="price: " />
+                android:text="mileage: " />
 
-            <!--       <TextView
-                       android:id="@+id/car_rentTime_txt"
-                       style="@style/PostItemTextStyle"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="renting period: " /> -->
+
+            <TextView
+                android:id="@+id/car_rentTime_txt"
+                style="@style/PostItemTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="renting period: " />
 
             <TextView
                 android:id="@+id/car_postTime_txt"
@@ -80,12 +67,12 @@
                 android:layout_height="wrap_content"
                 android:text="location: " />
 
-            <!--        <TextView
-                        android:id="@+id/car_telephone_txt"
-                        style="@style/PostItemTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="owner phone: " /> -->
+            <TextView
+                android:id="@+id/car_telephone_txt"
+                style="@style/PostItemTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="owner phone: " />
 
             <TextView
                 android:id="@+id/car_email_txt"
@@ -102,13 +89,6 @@
             android:orientation="vertical">
 
 
-            <TextView
-                android:id="@+id/car_brand"
-                style="@style/PostItemTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="" />
-
             <!--        <TextView
                         android:id="@+id/car_color"
                         style="@style/PostItemTextStyle"
@@ -123,26 +103,20 @@
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <!--       <TextView
-                       android:id="@+id/car_milage"
-                       style="@style/PostItemTextStyle"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="" />  -->
-
             <TextView
-                android:id="@+id/car_price"
+                android:id="@+id/car_mileage"
                 style="@style/PostItemTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <!--       <TextView
-                       android:id="@+id/car_rentTime"
-                       style="@style/PostItemTextStyle"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="" />  -->
+
+            <TextView
+                android:id="@+id/car_rentTime"
+                style="@style/PostItemTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
 
             <TextView
                 android:id="@+id/car_postTime"
@@ -158,12 +132,12 @@
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <!--        <TextView
-                        android:id="@+id/car_telephone"
-                        style="@style/PostItemTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="" />  -->
+            <TextView
+                android:id="@+id/car_telephone"
+                style="@style/PostItemTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
 
             <TextView
                 android:id="@+id/car_email"
