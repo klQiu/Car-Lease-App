@@ -19,6 +19,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void signOut(View view) {
+        Current.deleteCurUser();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     }
 
