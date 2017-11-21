@@ -249,26 +249,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-//    private class ChangeListUponFilterTask extends AsyncTask<Void, Void, Boolean> {
-//        private String location;
-//
-//        ChangeListUponFilterTask(String location) {
-//            this.location = location;
-//        }
-//        @Override
-//        protected Boolean doInBackground(Void... params) {
-//            postList = BackEnd.searchSameLocation(location);
-//            //todo return false for database error
-//            return true;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Boolean result) {
-//            if(result) {
-//                postListAdapter.updateInnerList(postList);
-//            }
-//        }
-//    }
+    
 
 }
