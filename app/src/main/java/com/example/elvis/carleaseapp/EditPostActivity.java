@@ -53,6 +53,11 @@ public class EditPostActivity extends AppCompatActivity {
         EditText editEmail = (EditText)findViewById(R.id.UpdateEmail);
         editEmail.setText(post.getEmail(), TextView.BufferType.EDITABLE);
 
+        Glide.with(this)
+                .load(post.getImgBytes())
+                .centerCrop()
+                .into(carImage);
+
         Spinner spinner = (Spinner) findViewById(R.id.Updatespinner);
         String[] timeFilter = {
                 "Please select how long to rent",
