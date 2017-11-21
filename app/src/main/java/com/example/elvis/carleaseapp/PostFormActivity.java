@@ -59,7 +59,7 @@ public class PostFormActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO:Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
-                placeSelected = place.getName().toString();
+                placeSelected = place.getAddress().toString();
             }
 
             @Override

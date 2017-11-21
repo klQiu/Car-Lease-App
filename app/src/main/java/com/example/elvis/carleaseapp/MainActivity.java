@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPlaceSelected(Place place) {
                 Log.i(TAG, "Place: " + place.getName());
-                location = place.getName().toString();
+                location = place.getAddress().toString();
                 new ChangeListUponFilterTask(0, INITIAL_LIST_SIZE).execute();
             }
 
@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         private final int end_num;
 
         DisplayListTask(int start_num, int end_num) {
+            Log.v(TAG, "in displaylist task");
             this.start_num = start_num;
             this.end_num = end_num;
         }
