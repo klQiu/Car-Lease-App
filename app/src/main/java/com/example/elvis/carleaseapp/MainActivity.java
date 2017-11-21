@@ -20,7 +20,8 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-    private PostListAdapter postListAdapter;
+    //private PostListAdapter postListAdapter;
+    private PostListMainAdapter postListAdapter;
     private List<Post> postList;
     private static final int SCROLL_DOWN = 1;
     private static final int INITIAL_LIST_SIZE = 5;
@@ -45,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.postRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        this.postListAdapter = new PostListAdapter(postList);
+        this.postListAdapter = new PostListMainAdapter(postList, this);
+//        this.postListAdapter = new PostListAdapter(postList);
         recyclerView.setAdapter(postListAdapter);
+
         new DisplayListTask(0, INITIAL_LIST_SIZE).execute();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
