@@ -24,7 +24,6 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    }
 
     public void viewHistory(View view) {
         startActivity(new Intent(this, HistoryActivity.class));
