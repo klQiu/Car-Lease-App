@@ -1,5 +1,7 @@
 package com.example.elvis.carleaseapp;
 
+import com.google.gson.Gson;
+
 public class User {
 
     private String email;
@@ -44,15 +46,15 @@ public class User {
     }
 
 
-//    public static User createUser(String json) {
-//        Gson gson = new Gson();
-//        return gson.fromJson(json, User.class);
-//    }
-//
-//    public String serializeUser() {
-//        Gson gson = new Gson();
-//        return gson.toJson(this);
-//    }
+    public static User createUser(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, User.class);
+    }
+
+    public String serializeUser() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
 
 }
 

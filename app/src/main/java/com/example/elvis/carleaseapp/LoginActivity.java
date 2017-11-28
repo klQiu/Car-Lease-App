@@ -2,9 +2,11 @@ package com.example.elvis.carleaseapp;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.example.elvis.carleaseapp.BackEnd;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,13 @@ public class LoginActivity extends AppCompatActivity {
         EditText password = (EditText) findViewById(R.id.passwordText);
         password.setTypeface(Typeface.DEFAULT);
         password.setTransformationMethod(new PasswordTransformationMethod());
+
+        User savedUser = Current.retrieveUserFromPref(this);
+        if(savedUser != null) {
+            Log.v(TAG, "user has signed in before");
+            Current.addCurUser(savedUser);
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
     }
 
     public void login(View view) {
@@ -64,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             warning.setText("Failed: Email and Password don't match");
         }
         else{
-            Current.addCurUser(newUser);
+            Current.addCurUser(newUser, getApplicationContext());
             this.finish();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
