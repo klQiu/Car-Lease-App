@@ -1,4 +1,5 @@
 package com.example.elvis.carleaseapp;
+
 public class User {
 
     private String email;
@@ -41,6 +42,17 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+//    public static User createUser(String json) {
+//        Gson gson = new Gson();
+//        return gson.fromJson(json, User.class);
+//    }
+//
+//    public String serializeUser() {
+//        Gson gson = new Gson();
+//        return gson.toJson(this);
+//    }
 
 }
 
