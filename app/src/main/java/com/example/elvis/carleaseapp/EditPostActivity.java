@@ -24,6 +24,7 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import java.io.FileNotFoundException;
 
+import static com.example.elvis.carleaseapp.PostFormActivity.EMAIL_ADDRESS_PATTERN;
 
 
 public class EditPostActivity extends AppCompatActivity {
@@ -143,7 +144,10 @@ public class EditPostActivity extends AppCompatActivity {
         final Button button = (Button)findViewById(R.id.Update_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if( //((EditText)findViewById(R.id.UpdateTitle)).getText().toString().trim().length() == 0 ||
+                if(!EMAIL_ADDRESS_PATTERN.matcher(((EditText)findViewById(R.id.UpdateEmail)).getText().toString()).matches()){
+                    Toast.makeText(getApplicationContext(), "Please enter an email address.", Toast.LENGTH_LONG).show();
+                }
+                else if( //((EditText)findViewById(R.id.UpdateTitle)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateYear)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateBrand)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateColour)).getText().toString().trim().length() == 0 ||

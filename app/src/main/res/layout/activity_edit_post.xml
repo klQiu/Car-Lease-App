@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="1">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,28 +20,27 @@
 
             <TextView
                 android:id="@+id/UpdateTitleView"
-                android:layout_width="53dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Title"
+                android:text="Location"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <fragment
                 android:id="@+id/UpdateTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <!--<EditText-->
-                <!--android:id="@+id/UpdateTitle"-->
-                <!--android:layout_width="250dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.25"-->
-                <!--android:ems="10"-->
-                <!--android:hint="Please enter your car name"-->
-                <!--android:inputType="textPersonName"-->
-                <!--android:maxLength="25" />-->
+            <!--android:id="@+id/UpdateTitle"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.25"-->
+            <!--android:ems="10"-->
+            <!--android:hint="Please enter your car name"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:maxLength="25" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -247,25 +247,23 @@
                 android:maxLength="20" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/Updateloadimage"
-                android:onClick="selectFromGallery"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Change Image"
-                />
+                android:onClick="selectFromGallery"
+                android:text="Change Image" />
 
             <ImageView
                 android:id="@+id/Updatecar_image"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                />
+                android:layout_height="200dp" />
         </LinearLayout>
 
 
@@ -285,8 +283,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="bottom|right"
-            android:text="Delete  Post"
-            android:layout_weight="0.44" />
+            android:layout_weight="0.44"
+            android:text="Delete  Post" />
 
 
     </LinearLayout>

@@ -23,6 +23,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import java.io.FileNotFoundException;
+import java.util.regex.Pattern;
 
 
 public class PostFormActivity extends AppCompatActivity {
@@ -103,8 +104,10 @@ public class PostFormActivity extends AppCompatActivity {
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if( //((EditText)findViewById(R.id.editTitle)).getText().toString().trim().length() == 0 ||
-                        ((EditText)findViewById(R.id.editYear)).getText().toString().trim().length() == 0 ||
+                if(!EMAIL_ADDRESS_PATTERN.matcher(((EditText)findViewById(R.id.editEmail)).getText().toString()).matches()){
+                    Toast.makeText(getApplicationContext(), "Please enter an email address.", Toast.LENGTH_LONG).show();
+                }
+                else if( ((EditText)findViewById(R.id.editYear)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editBrand)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editColour)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editMileage)).getText().toString().trim().length() == 0 ||
@@ -113,7 +116,7 @@ public class PostFormActivity extends AppCompatActivity {
                         ((EditText)findViewById(R.id.editTelephone)).getText().toString().trim().length() == 0 ||
                         rentTime.equals("")  || imgBytes == null || placeSelected == ""){
                     Log.v(TAG, rentTime);
-                    Toast.makeText(getApplicationContext(), "You should fill in all information", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "You should fill in all information.", Toast.LENGTH_LONG).show();
                 }
                 else{
                     submit();
@@ -173,6 +176,17 @@ public class PostFormActivity extends AppCompatActivity {
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 0);
     }
+
+    public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
 
     private void displayImage(byte[] imgBytes, Uri imageUri) {
 //        if(imgBytes.length / IMG_SIZE_LIMIT > 500) {
