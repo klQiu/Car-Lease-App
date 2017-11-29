@@ -34,17 +34,47 @@ public class MainActivity extends AppCompatActivity {
     private String order = "DESC";
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private String location = ""; // the location where teh user wants to lease a car
+    private String location = ""; // the location where the user wants to lease a car
+
+    private RecyclerView.OnScrollListener mOnScrollListener;
+    private boolean scrollListenerEnabled = true;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
+
+
+        /*--------- setting up recycler view --------*/
+        this.postList = new ArrayList<>();
+
+        RecyclerView recyclerView;
+        recyclerView = (RecyclerView) findViewById(R.id.postRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        this.postListAdapter = new PostListMainAdapter(postList, this);
+
+        recyclerView.setAdapter(postListAdapter);
+
+        new DisplayListTask(0, INITIAL_LIST_SIZE).execute();
+
+        mOnScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                /* test if user scrolled to the end of list */
+                if (!recyclerView.canScrollVertically(SCROLL_DOWN) && scrollListenerEnabled) {
+                    Log.v(TAG, "loading more items... post list size is " + postList.size());
+                    new DisplayListTask(postList.size(), postList.size() + 2).execute();
+                }
+            }
+        };
+
+        recyclerView.addOnScrollListener(mOnScrollListener);
 
         /*--------- setting up autocomplete fragment --------*/
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
@@ -70,40 +100,22 @@ public class MainActivity extends AppCompatActivity {
         autocompleteFragment.getView().findViewById(R.id.place_autocomplete_clear_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Disable the onScrollListener to prevent it triggering
+                // when "clear" is clicked
+                // Re-enable it when new list populates the recycler view
+                scrollListenerEnabled = false;
+
                 autocompleteFragment.setText("");
                 autocompleteFragment.setHint(getText(R.string.autocomplete_search));
-
                 // clear the list
                 location = "";
-                new DisplayListTask(0, INITIAL_LIST_SIZE).execute();
+                postList = new ArrayList<>();
+                postListAdapter.updateInnerList(postList);
+                new ChangeListUponFilterTask(0, INITIAL_LIST_SIZE).execute();
             }
         });
 
-
-        /*--------- setting up recycler view --------*/
-        this.postList = new ArrayList<>();
-
-        RecyclerView recyclerView;
-        recyclerView = (RecyclerView) findViewById(R.id.postRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        this.postListAdapter = new PostListMainAdapter(postList, this);
-
-        recyclerView.setAdapter(postListAdapter);
-
-        new DisplayListTask(0, INITIAL_LIST_SIZE).execute();
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                /* test if user scrolled to the end of list */
-                if (!recyclerView.canScrollVertically(SCROLL_DOWN)) {
-                    new DisplayListTask(postList.size(), postList.size() + 2).execute();
-                }
-            }
-        });
-
+        /*--------- setting up spinner --------*/
         Spinner characteristicSpinner = (Spinner) findViewById(R.id.filterSpinner);
 
         String[] characteristicFilter = {
@@ -193,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
         DisplayListTask(int start_num, int end_num) {
             this.start_num = start_num;
             this.end_num = end_num;
+            Log.v(TAG, "location is: " + location);
         }
 
 
@@ -200,7 +213,11 @@ public class MainActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             List<Post> newList = BackEnd.filterPosts(start_num, end_num, filter, order, location);
             if(newList.size() > 0) {
+                Log.v(TAG, "display list task triggered : new list size: " + newList.size());
                 postList.addAll(newList);
+                for(Post post: postList) {
+                    Log.v(TAG, "post list item: " + post.getBrand());
+                }
                 return true;
             }
             else return false;
@@ -236,6 +253,8 @@ public class MainActivity extends AppCompatActivity {
             if(result) {
                 postListAdapter.updateInnerList(postList);
             }
+            if(!scrollListenerEnabled)
+                scrollListenerEnabled = true;
         }
     }
 
