@@ -107,7 +107,7 @@ public class PostFormActivity extends AppCompatActivity {
                 if(!EMAIL_ADDRESS_PATTERN.matcher(((EditText)findViewById(R.id.editEmail)).getText().toString()).matches()){
                     Toast.makeText(getApplicationContext(), "Please enter an email address.", Toast.LENGTH_LONG).show();
                 }
-                else if(((EditText)findViewById(R.id.editYear)).getText().toString().trim().length() == 0 ||
+                else if( ((EditText)findViewById(R.id.editYear)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editBrand)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editColour)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.editMileage)).getText().toString().trim().length() == 0 ||
