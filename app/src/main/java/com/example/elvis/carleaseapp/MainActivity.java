@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private String order = "DESC";
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private String location = ""; // the location where teh user wants to lease a car
+    private String location = ""; // the location where the user wants to lease a car
 
     private RecyclerView.OnScrollListener mOnScrollListener;
     private boolean scrollListenerEnabled = true;
@@ -253,7 +253,8 @@ public class MainActivity extends AppCompatActivity {
             if(result) {
                 postListAdapter.updateInnerList(postList);
             }
-            scrollListenerEnabled = true;
+            if(!scrollListenerEnabled)
+                scrollListenerEnabled = true;
         }
     }
 
