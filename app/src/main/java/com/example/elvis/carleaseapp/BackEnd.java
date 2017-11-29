@@ -140,7 +140,7 @@ public class BackEnd {
         }
     }
 
-    public static List<Post> filterPosts(int startnum, int endnum, String filter, String order) {
+    public static List<Post> filterPosts(int startnum, int endnum, String filter, String order, String location) {
         Connection myConn = null;
         Statement stmt = null;
         List<Post> list = new ArrayList<>();
@@ -151,32 +151,16 @@ public class BackEnd {
             String start = Integer.toString(startnum);
             String end = Integer.toString(endnum);
 
-            String query = SELECT_ALL_FROM +
-                    POST_TABLE +
-                    ORDER_BY +
-                    filter + " " + order + " limit " + start + ", " + end;
+            String query = SELECT_ALL_FROM + POST_TABLE;
+            if(!"".equals(location)) {
+                query += " WHERE title = '" + location + "'";
+            }
+            query += ORDER_BY + filter + " " + order + " limit " + start + ", " + end;
 
             Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                //Retrieve by column name
-                Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
-                post.setBrand(rs.getString("brand"));
-                post.setColour(rs.getString("colour"));
-                post.setYear(rs.getInt("year"));
-                post.setMileage(rs.getInt("mileage"));
-                post.setPrice(rs.getInt("price"));
-                post.setRentTime(rs.getString("rentTime"));
-                post.setPostTime(rs.getDate("postTime").toString());
-                post.setTelephone(rs.getString("telephone"));
-                post.setEmail(rs.getString("email"));
-
-                /* get image blob */
-                Blob blob = rs.getBlob("imgBytes");
-                if(blob != null) {
-                    byte[] imgBytes = blob.getBytes(1, (int)blob.length());
-                    post.setImgBytes(imgBytes);
-                }
+                Post post = getPostFromRs(rs);
                 list.add(post);
             }
             rs.close();
@@ -223,24 +207,7 @@ public class BackEnd {
             Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                //Retrieve by column name
-                Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
-                post.setBrand(rs.getString("brand"));
-                post.setColour(rs.getString("colour"));
-                post.setYear(rs.getInt("year"));
-                post.setMileage(rs.getInt("mileage"));
-                post.setPrice(rs.getInt("price"));
-                post.setRentTime(rs.getString("rentTime"));
-                post.setPostTime(rs.getDate("postTime").toString());
-                post.setTelephone(rs.getString("telephone"));
-                post.setEmail(rs.getString("email"));
-
-                /* get image blob */
-                Blob blob = rs.getBlob("imgBytes");
-                if(blob != null) {
-                    byte[] imgBytes = blob.getBytes(1, (int)blob.length());
-                    post.setImgBytes(imgBytes);
-                }
+                Post post = getPostFromRs(rs);
                 list.add(post);
             }
             rs.close();
@@ -324,6 +291,44 @@ public class BackEnd {
 
     }
 
+    static public void deletePost(Post post) {
+        Connection myConn = null;
+        Statement stmt = null;
+        List<Post> list = new ArrayList<>();
+        try {
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            stmt = myConn.createStatement();
+
+            String query = "DELETE FROM " + POST_TABLE +
+                    " WHERE postId = " + post.getPostId();
+
+            Log.v(TAG, query);
+            stmt.executeUpdate(query);
+            myConn.close();
+            stmt.close();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (myConn != null)
+                    myConn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+
     static public void updatePost(Post post) {
         Connection myConn = null;
         PreparedStatement st = null;
@@ -331,7 +336,7 @@ public class BackEnd {
             Class.forName(DRIVER_NAME);
             myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
             st =  myConn.prepareStatement
-                    ("update PostInfo set title = ?, brand = ?,colour = ?,year = ?,mileage = ?,price = ?,remtTime = ?,postTime = ?,telephone = ?,email = ?,imgBytes = ? where postID = ?");
+                    ("update PostInfo set title = ?, brand = ?,colour = ?,year = ?,mileage = ?,price = ?,rentTime = ?,postTime = ?,telephone = ?,email = ?,imgBytes = ? where postID = ?");
             st.setString(1, post.getTitle());
             st.setString(2, post.getBrand());
             st.setString(3, post.getColour());
@@ -377,6 +382,29 @@ public class BackEnd {
             }
         }
 
+    }
+
+
+    static private Post getPostFromRs(ResultSet rs) throws SQLException{
+        //Retrieve by column name
+        Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
+        post.setBrand(rs.getString("brand"));
+        post.setColour(rs.getString("colour"));
+        post.setYear(rs.getInt("year"));
+        post.setMileage(rs.getInt("mileage"));
+        post.setPrice(rs.getInt("price"));
+        post.setRentTime(rs.getString("rentTime"));
+        post.setPostTime(rs.getDate("postTime").toString());
+        post.setTelephone(rs.getString("telephone"));
+        post.setEmail(rs.getString("email"));
+
+        /* get image blob */
+        Blob blob = rs.getBlob("imgBytes");
+        if(blob != null) {
+            byte[] imgBytes = blob.getBytes(1, (int)blob.length());
+            post.setImgBytes(imgBytes);
+        }
+        return post;
     }
 }
 

@@ -27,7 +27,8 @@ public class Post implements Serializable{
         this.title = title;
         this.userId = userId;
     }
-    public void getPostId(int postId) {this.postId = postId; }
+
+    public void setPostId(int postId) {this.postId = postId; }
 
     public String getTitle() {
         return title;
@@ -117,6 +118,7 @@ public class Post implements Serializable{
     public String getTelephone() {
         return telephone;
     }
+
     public void setEmail (String  email){
         this.email = email;
     }

@@ -5,11 +5,13 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -26,6 +28,8 @@ import static java.security.AccessController.getContext;
 
 public class LoginActivity extends AppCompatActivity {
     PopupWindow popUpWindow;
+    private static final String TAG = LoginActivity.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,13 @@ public class LoginActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View warnLayout = inflater.inflate(R.layout.warn, null);
         popUpWindow = new PopupWindow(warnLayout,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT,true);
+
+        User savedUser = Current.retrieveUserFromPref(this);
+        if(savedUser != null) {
+            Log.v(TAG, "user has signed in before");
+            Current.addCurUser(savedUser);
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
     }
 
     public void login(View view) {
@@ -95,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
             popUpWindow.update(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
         }
         else{
-            Current.addCurUser(newUser);
+            Current.addCurUser(newUser, getApplicationContext());
             this.finish();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
