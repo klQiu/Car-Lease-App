@@ -384,7 +384,6 @@ public class BackEnd {
 
     }
 
-
     static private Post getPostFromRs(ResultSet rs) throws SQLException{
         //Retrieve by column name
         Post post = new Post(rs.getInt("userId"),  rs.getString("title"));
@@ -405,6 +404,78 @@ public class BackEnd {
             post.setImgBytes(imgBytes);
         }
         return post;
+    }
+
+    static public void star(User user, Post post) {
+        try {
+            Class.forName(DRIVER_NAME);
+            Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            PreparedStatement st =  myConn.prepareStatement("insert into starRelation values (?,?)");
+
+            st.setInt(1, user.getID());
+            st.setInt(2, post.getPostId());
+            st.execute();
+            st.close();
+            myConn.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    static public List<Post> getStarPost(User user) {
+        Connection myConn = null;
+        Statement stmt = null;
+        List<Post> postList = new ArrayList<>();
+        List<Integer> postId = new ArrayList<>();
+        int id;
+        try {
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            stmt = myConn.createStatement();
+
+            String query = SELECT_ALL_FROM +
+                    "starRelation" +
+                    " WHERE user_id = " + user.getID();
+
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                id = rs.getInt("post_id");
+                postId.add(id);
+            }
+
+            for(int i=0; i < postId.size(); i++) {
+                query = SELECT_ALL_FROM + POST_TABLE + "WHERE post_id = " + postId.get(i);
+                rs = stmt.executeQuery(query);
+                while(rs.next()){
+                    Post post = getPostFromRs(rs);
+                    postList.add(post);
+                }
+            }
+            rs.close();
+            myConn.close();
+            stmt.close();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (myConn != null)
+                    myConn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return postList;
     }
 }
 
