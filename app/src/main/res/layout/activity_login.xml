@@ -2,69 +2,98 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="12dp"
+    android:background="@drawable/bg2"
     tools:context="com.example.elvis.carleaseapp.LoginActivity">
 
 
     <EditText
         android:id="@+id/emailText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="12"
         android:hint="Email"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
         android:inputType="textEmailAddress"
-        android:layout_marginTop="184dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="45dp"
+        android:layout_marginLeft="60dp"
+        android:backgroundTint="#fff"/>
 
     <EditText
         android:id="@+id/passwordText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="12"
         android:hint="Password"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:backgroundTint="#fff"
+        android:layout_marginRight="45dp"
         android:inputType="textPassword"
         android:layout_below="@+id/emailText"
         android:layout_alignStart="@+id/emailText" />
 
     <Button
         android:id="@+id/LoginBt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
         android:text="Login"
         android:onClick="login"
+        android:textSize="23dp"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:background="@drawable/login_button"
         android:layout_below="@+id/passwordText"
         android:layout_centerHorizontal="true" />
 
-    <TextView
+    <Button
         android:id="@+id/regBt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Haven't had an account? Register now"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        android:text="Sign up"
+        android:textSize="23dp"
+        android:textColor="#fff"
+        android:background="@drawable/reg_button"
+        android:textAllCaps="false"
         android:onClick="showReg"
-        android:clickable="true"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/LoginBt"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/loginWarning"
-        android:layout_width="275dp"
-        android:layout_height="20dp"
-        android:textColor="#f00"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/passwordText"
-        android:layout_alignStart="@+id/passwordText" />
-
-    <TextView
         android:id="@+id/loginTitle"
-        android:textSize="34dp"
+        android:textSize="52dp"
+        android:textColor="#fff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp"
-        android:text="Login to CarLease" />
+        android:layout_marginTop="80dp"
+        android:text="AutoLease" />
+
+    <ImageView
+        android:id="@+id/enailImagae"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="208dp"
+        android:layout_marginLeft="20dp"
+        app:srcCompat="@drawable/email_icon" />
+
+    <ImageView
+        android:id="@+id/psdimage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/emailText"
+        android:layout_marginLeft="15dp"
+        app:srcCompat="@drawable/lock" />
 </RelativeLayout>

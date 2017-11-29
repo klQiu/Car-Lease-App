@@ -1,20 +1,62 @@
 package com.example.elvis.carleaseapp;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.view.ViewGroup.LayoutParams;
 
 import com.example.elvis.carleaseapp.BackEnd;
 
+import static java.security.AccessController.getContext;
+
 public class LoginActivity extends AppCompatActivity {
+    PopupWindow popUpWindow;
+    private static final String TAG = LoginActivity.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //set title font
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "Sofia-Regular.otf");
+        TextView title = (TextView)findViewById(R.id.loginTitle);
+        title.setTypeface(myTypeface);
+
+        //adjust hint font for password
+        EditText password = (EditText) findViewById(R.id.passwordText);
+        password.setTypeface(Typeface.DEFAULT);
+        password.setTransformationMethod(new PasswordTransformationMethod());
+
+        //add popup window for warning msg
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View warnLayout = inflater.inflate(R.layout.warn, null);
+        popUpWindow = new PopupWindow(warnLayout,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT,true);
+
+        User savedUser = Current.retrieveUserFromPref(this);
+        if(savedUser != null) {
+            Log.v(TAG, "user has signed in before");
+            Current.addCurUser(savedUser);
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
     }
 
     public void login(View view) {
@@ -22,7 +64,16 @@ public class LoginActivity extends AppCompatActivity {
         EditText passText  = (EditText) findViewById(R.id.passwordText);
         String email = emailText.getText().toString();
         String password = passText.getText().toString();
-        System.out.println(email);
+        if(!email.contains("@") || !email.contains(".")) {
+            emailText.setText("");
+            passText.setText("");
+            //set warning msg
+            TextView warning = (TextView)popUpWindow.getContentView().findViewById(R.id.warnText);
+            warning.setText("Email format is not correct. Please try again.");
+            popUpWindow.showAtLocation(findViewById(R.id.loginLayout), Gravity.TOP, 0, 0);
+            popUpWindow.update(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+            return;
+        }
         User newUser = new User();
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -45,15 +96,17 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        System.out.println("emaial is " + newUser.getEmail());
         if(newUser.getEmail().equals("")) {
             emailText.setText("");
             passText.setText("");
-            TextView warning = (TextView) findViewById(R.id.loginWarning);
-            warning.setText("Failed: Email and Password don't match");
+            //set warning msg
+            TextView warning = (TextView)popUpWindow.getContentView().findViewById(R.id.warnText);
+            warning.setText("Email and Password don't match. Please try again.");
+            popUpWindow.showAtLocation(findViewById(R.id.loginLayout), Gravity.TOP, 0, 0);
+            popUpWindow.update(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
         }
         else{
-            Current.addCurUser(newUser);
+            Current.addCurUser(newUser, getApplicationContext());
             this.finish();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -65,4 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void dismissWarn(View view) {
+            popUpWindow.dismiss();
+    }
 }
