@@ -141,8 +141,7 @@ public class EditPostActivity extends AppCompatActivity {
                 if(!EMAIL_ADDRESS_PATTERN.matcher(((EditText)findViewById(R.id.UpdateEmail)).getText().toString()).matches()){
                     Toast.makeText(getApplicationContext(), "Please enter an email address.", Toast.LENGTH_LONG).show();
                 }
-                else if( //((EditText)findViewById(R.id.UpdateTitle)).getText().toString().trim().length() == 0 ||
-                        ((EditText)findViewById(R.id.UpdateYear)).getText().toString().trim().length() == 0 ||
+                else if(((EditText)findViewById(R.id.UpdateYear)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateBrand)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateColour)).getText().toString().trim().length() == 0 ||
                         ((EditText)findViewById(R.id.UpdateMileage)).getText().toString().trim().length() == 0 ||
