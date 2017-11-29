@@ -89,7 +89,6 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.postTime.setText(((Post) rowItems.get(position)).getPostTime());
         holder.email.setText(((Post) rowItems.get(position)).getEmail());
         holder.telephone.setText(((Post) rowItems.get(position)).getTelephone());
-        holder.rentTime.setText(((Post) rowItems.get(position)).getRentTime());
     }
 
     private void configureImgViewHolder(ImgViewHolder holder, int position) {
@@ -103,6 +102,7 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
            item 0 is image bytes
          */
         holder.carBrand.setText(((Post) rowItems.get(1)).getBrand());
+        holder.rentTime.setText(((Post) rowItems.get(1)).getRentTime());
 
         String postPrice = "";
         if (((Post) rowItems.get(1)).getPrice() != 0) {
@@ -131,6 +131,7 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static class ImgViewHolder extends RecyclerView.ViewHolder {
         private ImageView img;
         private TextView carBrand;
+        private TextView rentTime;
         private TextView carPrice;
 
         private ImgViewHolder(View itemView) {
@@ -138,6 +139,7 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             this.img = (ImageView) itemView.findViewById(R.id.car_img);
             this.carBrand = (TextView) itemView.findViewById(R.id.car_brand);
             this.carPrice = (TextView) itemView.findViewById(R.id.car_price);
+            this.rentTime = (TextView) itemView.findViewById(R.id.car_rentTime);
         }
     }
 
@@ -147,7 +149,6 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //private TextView carColor;
         private TextView carYear;
         private TextView carMileage;
-        private TextView rentTime;
         private TextView postTime;
         private TextView telephone;
         private TextView email;
@@ -159,7 +160,6 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //this.carColor = (TextView) itemLayoutView.findViewById(R.id.car_color);
             this.carYear = (TextView) itemLayoutView.findViewById(R.id.car_year);
             this.carMileage = (TextView) itemLayoutView.findViewById(R.id.car_mileage);
-            this.rentTime = (TextView) itemLayoutView.findViewById(R.id.car_rentTime);
             this.postTime = (TextView) itemLayoutView.findViewById(R.id.car_postTime);
             this.telephone = (TextView) itemLayoutView.findViewById(R.id.car_telephone);
             this.email = (TextView) itemLayoutView.findViewById(R.id.car_email);
