@@ -27,10 +27,20 @@ public class BackEnd {
 
     private static final String TAG = BackEnd.class.getSimpleName();
 
-   static public void addUser(User user) {
+   static public boolean addUser(User user) {
+       Statement stmt = null;
         try {
             Class.forName(DRIVER_NAME);
             Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            stmt = myConn.createStatement();
+            String sql = ("SELECT * FROM userinfo WHERE email='" + user.getEmail() + "'");
+            ResultSet rs = stmt.executeQuery(sql);
+            int count = 0;
+            while (rs.next()){
+                count++;
+            }
+            if(count>0)
+                return false;
             PreparedStatement st =  myConn.prepareStatement("insert into userinfo values (?,?,NULL)");
 
             st.setString(1, user.getEmail());
@@ -42,6 +52,7 @@ public class BackEnd {
         catch (Exception exc) {
             exc.printStackTrace();
         }
+       return true;
     }
 
     static public void deleteUser(User user) {
