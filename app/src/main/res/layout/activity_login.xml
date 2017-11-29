@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="12dp"
-    android:background="@drawable/gb"
+    android:background="@drawable/bg2"
     tools:context="com.example.elvis.carleaseapp.LoginActivity">
 
 
@@ -42,13 +43,14 @@
         android:layout_height="45dp"
         android:layout_marginRight="35dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
         android:text="Login"
         android:onClick="login"
         android:textSize="23dp"
         android:textColor="@color/colorPrimary"
         android:textAllCaps="false"
         android:background="@drawable/login_button"
-        android:layout_below="@+id/loginWarning"
+        android:layout_below="@+id/passwordText"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -65,15 +67,6 @@
         android:onClick="showReg"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/LoginBt"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/loginWarning"
-        android:layout_width="275dp"
-        android:layout_height="20dp"
-        android:textColor="#f00"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/passwordText"
         android:layout_centerHorizontal="true" />
 
     <TextView
