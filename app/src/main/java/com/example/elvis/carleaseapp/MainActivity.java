@@ -2,6 +2,7 @@ package com.example.elvis.carleaseapp;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private String location = ""; // the location where the user wants to lease a car
 
     private RecyclerView.OnScrollListener mOnScrollListener;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean scrollListenerEnabled = true;
     
     @Override
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 getFragmentManager().findFragmentById(R.id.search_autocomplete_fragment);
 
         // listener for selecting current location
+        autocompleteFragment.setHint(getText(R.string.autocomplete_search));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
@@ -173,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
+        initRefreshLayout();
     }
 
     @Override
@@ -181,6 +185,27 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    private void initRefreshLayout() {
+        /*
+         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
+         * performs a swipe-to-refresh gesture.
+         */
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+
+                        // This method performs the actual data-refresh operation.
+                        // The method calls setRefreshing(false) when it's finished.
+                        new ChangeListUponFilterTask(0, INITIAL_LIST_SIZE).execute();
+                    }
+                }
+        );
+    }
+
 
     public void showLogin(MenuItem mi) {
         if(Current.getCurUser() == null) {
@@ -252,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             if(result) {
                 postListAdapter.updateInnerList(postList);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
             if(!scrollListenerEnabled)
                 scrollListenerEnabled = true;
