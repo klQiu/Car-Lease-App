@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //set title font
-        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "Sofia-Regular.otf");
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "bgothm.ttf");
         TextView title = (TextView)findViewById(R.id.loginTitle);
         title.setTypeface(myTypeface);
 
