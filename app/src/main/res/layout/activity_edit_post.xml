@@ -65,7 +65,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter when the car's bought."
                 android:inputType="numberDecimal"
                 android:maxLength="4" />
         </LinearLayout>
@@ -91,7 +90,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the brand."
                 android:inputType="textPersonName"
                 android:maxLength="15" />
         </LinearLayout>
@@ -117,7 +115,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the colour."
                 android:inputType="textPersonName"
                 android:maxLength="20" />
         </LinearLayout>
@@ -143,7 +140,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the mileage."
                 android:inputType="numberDecimal"
                 android:maxLength="10" />
         </LinearLayout>
@@ -169,7 +165,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the price per month."
                 android:inputType="numberDecimal"
                 android:maxLength="10" />
         </LinearLayout>
@@ -218,7 +213,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the email."
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -243,7 +237,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the phone number."
                 android:inputType="numberDecimal"
                 android:maxLength="20" />
 
@@ -258,6 +251,7 @@
                 android:id="@+id/Updateloadimage"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="false"
                 android:onClick="selectFromGallery"
                 android:text="Change Image" />
 

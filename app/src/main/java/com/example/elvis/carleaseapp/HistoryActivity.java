@@ -1,5 +1,6 @@
 package com.example.elvis.carleaseapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,13 +16,15 @@ public class HistoryActivity extends AppCompatActivity {
     private List<Post> postList;
     private GridLayoutManager gridLayoutManager;
     private static final String TAG = HistoryActivity.class.getSimpleName();
+    private int mode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
         this.postList = new ArrayList<>();
-
+        Intent mIntent = getIntent();
+        mode = mIntent.getIntExtra("intVariableName", 0);
         /*--------- setting up recycler view --------*/
         RecyclerView recyclerView;
         recyclerView = (RecyclerView) findViewById(R.id.historyRecyclerView);
@@ -39,7 +42,15 @@ public class HistoryActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             //User user = new User("hehe", "111", 0);
             User user = Current.getCurUser();
-            List<Post> newList = BackEnd.getHisPost(user);
+            List<Post> newList;
+            if(mode == 0){
+                newList = BackEnd.getHisPost(user);
+                postListAdapter.setMode(mode);
+            }
+            else{
+                newList = BackEnd.getStarPost(user);
+                postListAdapter.setMode(mode);
+            }
             postList.addAll(newList);
             //todo return false for database error
             return true;

@@ -20,6 +20,11 @@ import java.util.List;
 
 public class PostHistoryAdapter extends RecyclerView.Adapter<PostHistoryAdapter.ViewHolder> {
     private List<Post> postList;
+    private int mode;
+
+    public void setMode(int i){
+        mode = i;
+    }
 
     public PostHistoryAdapter(List<Post> postList) {
         this.postList = postList;
@@ -74,7 +79,8 @@ public class PostHistoryAdapter extends RecyclerView.Adapter<PostHistoryAdapter.
             this.price = (TextView) itemLayoutView.findViewById(R.id.txtCarPrice);
             this.carBrand = (TextView) itemLayoutView.findViewById(R.id.txtCarBrand);
             this.carImg = (ImageView) itemLayoutView.findViewById(R.id.imgCar);
-            itemLayoutView.setOnClickListener(this);
+            if(mode == 0)
+                itemLayoutView.setOnClickListener(this);
         }
 
         @Override
