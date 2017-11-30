@@ -27,6 +27,7 @@ import com.example.elvis.carleaseapp.BackEnd;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.elvis.carleaseapp.PostFormActivity.EMAIL_ADDRESS_PATTERN;
 import static java.security.AccessController.getContext;
 
 public class LoginActivity extends AppCompatActivity {
@@ -69,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText passText  = (EditText) findViewById(R.id.passwordText);
         String email = emailText.getText().toString();
         String password = passText.getText().toString();
-        if(!email.contains("@") || !email.contains(".")) {
+        if(!EMAIL_ADDRESS_PATTERN.matcher(email).matches()) {
             emailText.setText("");
             passText.setText("");
             //set warning msg
