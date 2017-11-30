@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/changePsdLayout"
     tools:context="com.example.elvis.carleaseapp.ChangePsdActivity">
 
     <TextView
@@ -42,7 +43,7 @@
         android:id="@+id/conNewPsdText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Confrim New password"
+        android:hint="Confrim New Password"
         android:ems="12"
         android:inputType="textPassword"
         android:layout_below="@+id/newPsdText"
@@ -55,16 +56,9 @@
         android:layout_below="@+id/conNewPsdText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp"
+        android:textAllCaps="false"
         android:onClick="subNewPsd"
         android:text="Submit" />
 
-    <TextView
-        android:id="@+id/changePsdMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/conNewPsdText"
-        android:textColor="#f00"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp" />
 
 </RelativeLayout>
