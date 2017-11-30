@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,7 +20,8 @@
             <TextView
                 android:id="@+id/TitleView"
                 android:layout_width="wrap_content"
-                android:layout_height="34dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Location"
                 android:textColor="#000000"
                 android:textSize="20sp"
@@ -27,19 +29,18 @@
 
             <fragment
                 android:id="@+id/editTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <!--<EditText-->
-                <!--android:id="@+id/editTitle"-->
-                <!--android:layout_width="250dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.25"-->
-                <!--android:ems="10"-->
-                <!--android:hint="Please enter your car name"-->
-                <!--android:inputType="textPersonName"-->
-                <!--android:maxLength="25" />-->
+            <!--android:id="@+id/editTitle"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.25"-->
+            <!--android:ems="10"-->
+            <!--android:hint="Please enter your car name"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:maxLength="25" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter years that the car is bought"
+                android:hint="Please enter when the car's bought."
                 android:inputType="numberDecimal"
                 android:maxLength="4" />
         </LinearLayout>
@@ -89,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the brand"
+                android:hint="Please enter the brand."
                 android:inputType="textPersonName"
                 android:maxLength="15" />
         </LinearLayout>
@@ -115,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the colour"
+                android:hint="Please enter the colour."
                 android:inputType="textPersonName"
                 android:maxLength="20" />
         </LinearLayout>
@@ -141,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the mileage of your car"
+                android:hint="Please enter the mileage."
                 android:inputType="numberDecimal"
                 android:maxLength="10" />
         </LinearLayout>
@@ -167,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the price per month"
+                android:hint="Please enter the price per month."
                 android:inputType="numberDecimal"
                 android:maxLength="10" />
         </LinearLayout>
@@ -182,7 +183,7 @@
                 android:id="@+id/rentTimeView"
                 android:layout_width="94dp"
                 android:layout_height="wrap_content"
-                android:text="RentTime"
+                android:text="Rent Time"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -216,7 +217,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the contact's email"
+                android:hint="Please enter the email."
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -241,32 +242,29 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the contact's telephone number"
+                android:hint="Please enter the phone number."
                 android:inputType="numberDecimal"
                 android:maxLength="20" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/loadimage"
-                android:onClick="selectFromGallery"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Upload Image"
-                />
+                android:onClick="selectFromGallery"
+                android:text="Upload Image" />
 
             <ImageView
                 android:id="@+id/car_image"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                />
+                android:layout_height="200dp" />
         </LinearLayout>
-
 
 
         <Button
