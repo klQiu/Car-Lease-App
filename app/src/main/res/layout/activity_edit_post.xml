@@ -11,6 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:weightSum="1">
 
         <LinearLayout
@@ -20,7 +23,7 @@
 
             <TextView
                 android:id="@+id/UpdateTitleView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Location"
@@ -51,7 +54,7 @@
 
             <TextView
                 android:id="@+id/UpdateYearView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Year"
@@ -65,7 +68,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter when the car's bought."
                 android:inputType="numberDecimal"
                 android:maxLength="4" />
         </LinearLayout>
@@ -77,7 +79,7 @@
 
             <TextView
                 android:id="@+id/UpdateBrandView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Brand"
@@ -91,7 +93,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the brand."
                 android:inputType="textPersonName"
                 android:maxLength="15" />
         </LinearLayout>
@@ -103,7 +104,7 @@
 
             <TextView
                 android:id="@+id/UpdateColourView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Colour"
@@ -117,7 +118,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the colour."
                 android:inputType="textPersonName"
                 android:maxLength="20" />
         </LinearLayout>
@@ -129,7 +129,7 @@
 
             <TextView
                 android:id="@+id/UpdateMileageView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Mileage"
@@ -143,7 +143,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the mileage."
                 android:inputType="numberDecimal"
                 android:maxLength="10" />
         </LinearLayout>
@@ -155,7 +154,7 @@
 
             <TextView
                 android:id="@+id/UpdatePriceView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Price"
@@ -169,7 +168,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the price per month."
                 android:inputType="numberDecimal"
                 android:maxLength="10" />
         </LinearLayout>
@@ -204,7 +202,7 @@
 
             <TextView
                 android:id="@+id/UpdateEmailView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Email"
@@ -218,7 +216,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the email."
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -230,9 +227,9 @@
 
             <TextView
                 android:id="@+id/UpdateTelephoneView"
-                android:layout_width="wrap_content"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
-                android:text="Telephone"
+                android:text="Phone"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -243,7 +240,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the phone number."
                 android:inputType="numberDecimal"
                 android:maxLength="20" />
 
@@ -259,6 +255,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:onClick="selectFromGallery"
+                android:textAllCaps="false"
                 android:text="Change Image" />
 
             <ImageView
@@ -270,21 +267,25 @@
 
         <Button
             android:id="@+id/Update_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="bottom|right"
+            android:textAllCaps="false"
             android:text="Update" />
 
         <Button
             android:id="@+id/Delete_button"
-            android:layout_width="131dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="bottom|right"
             android:layout_weight="0.44"
+            android:textAllCaps="false"
+            android:background="#a50000"
+            android:textColor="#fff"
             android:text="Delete  Post" />
 
 
