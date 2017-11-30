@@ -14,7 +14,7 @@
         android:layout_height="45dp"
         android:textAllCaps="false"
         android:gravity="left|center_vertical"
-        android:background="@drawable/hisbt"
+        android:background="@drawable/hisbt_selector"
         android:textSize="18dp"
         android:onClick="viewHistory"
         android:text="             View Post History"
@@ -27,21 +27,22 @@
         android:textAllCaps="false"
         android:textSize="18dp"
         android:gravity="left|center_vertical"
-        android:background="@drawable/editbt"
+        android:background="@drawable/editbt_selector"
         android:text="             Change Password"
         android:layout_below="@+id/lovedBt"
         android:onClick="changePsd"/>
 
     <Button
         android:id="@+id/signOutBt"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="Sign Out"
-        android:textSize="18dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="signOut"/>
+        android:onClick="signOut"
+        android:text="Sign Out"
+        android:textAllCaps="false"
+        android:textSize="18dp" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -57,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:textAllCaps="false"
-        android:background="@drawable/starbt"
+        android:background="@drawable/starbt_selector"
         android:textSize="18dp"
         android:gravity="left|center_vertical"
         android:onClick="viewSaved"

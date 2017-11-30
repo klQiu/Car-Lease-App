@@ -41,17 +41,17 @@
         android:id="@+id/LoginBt"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="10dp"
-        android:text="Login"
-        android:onClick="login"
-        android:textSize="23dp"
-        android:textColor="@color/colorPrimary"
-        android:textAllCaps="false"
-        android:background="@drawable/login_button"
         android:layout_below="@+id/passwordText"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/login_button"
+        android:onClick="login"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="23dp" />
 
     <Button
         android:id="@+id/regBt"
