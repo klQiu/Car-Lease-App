@@ -445,7 +445,7 @@ public class BackEnd {
             }
 
             for(int i=0; i < postId.size(); i++) {
-                query = SELECT_ALL_FROM + POST_TABLE + "WHERE post_id = " + postId.get(i);
+                query = SELECT_ALL_FROM + POST_TABLE + "WHERE postId = " + postId.get(i);
                 rs = stmt.executeQuery(query);
                 while(rs.next()){
                     Post post = getPostFromRs(rs);

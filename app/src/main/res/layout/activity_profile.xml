@@ -4,38 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/profile_bg"
     tools:context="com.example.elvis.carleaseapp.ProfileActivity">
 
-    <ImageView
-        android:id="@+id/profileBg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/profile"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="-5dp"/>
 
     <Button
         android:id="@+id/hisBt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:textAllCaps="false"
         android:gravity="left|center_vertical"
-        android:drawableLeft="@drawable/history_1"
+        android:background="@drawable/hisbt"
         android:textSize="18dp"
         android:onClick="viewHistory"
-        android:text="   View Post History"
-        android:layout_below="@+id/profileBg"/>
+        android:text="             View Post History"
+        android:layout_marginTop="230dp"/>
 
     <Button
         android:id="@+id/psdBt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:textAllCaps="false"
         android:textSize="18dp"
         android:gravity="left|center_vertical"
-        android:drawableLeft="@drawable/change_psd"
-        android:text="   Change Password"
+        android:background="@drawable/editbt"
+        android:text="             Change Password"
         android:layout_below="@+id/lovedBt"
         android:onClick="changePsd"/>
 
@@ -52,22 +45,22 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/user"
-        android:layout_marginBottom="60dp"
-        android:layout_above="@+id/hisBt"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/profile_user"
+        android:layout_marginTop="46dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/lovedBt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:textAllCaps="false"
-        android:drawableLeft="@drawable/love"
+        android:background="@drawable/starbt"
         android:textSize="18dp"
         android:gravity="left|center_vertical"
-        android:text="   Loved"
+        android:text="             Saved"
         android:layout_below="@+id/hisBt"
         android:layout_alignParentStart="true" />
 </RelativeLayout>
