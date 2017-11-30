@@ -2,4 +2,6 @@
     <string name="app_name">Car Lease App</string>
     <string name="action_settings">Settings</string>
     <string name="autocomplete_search">Choose your city</string>
+    <string name="new_post_loaded">New posts loaded</string>
+    <string name="end_of_list">You have reached end of list</string>
 </resources>
