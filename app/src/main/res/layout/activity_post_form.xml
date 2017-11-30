@@ -273,6 +273,7 @@
             android:layout_alignParentEnd="true"
             android:layout_gravity="bottom|right"
             android:textAllCaps="false"
+            android:layout_marginBottom="20dp"
             android:text="Post" />
 
 
