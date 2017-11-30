@@ -106,7 +106,7 @@ public class EditPostActivity extends AppCompatActivity {
 
                         int position = spinner.getSelectedItemPosition();
                         if (position != 0)
-                            Toast.makeText(getApplicationContext(),"You have selected "+timeFilter[+position],Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"You have selected "+timeFilter[+position],Toast.LENGTH_SHORT).show();
                         rentTime = spinner.getSelectedItem().toString();
                     }
 

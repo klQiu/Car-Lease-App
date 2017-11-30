@@ -60,6 +60,7 @@
         android:background="@drawable/starbt"
         android:textSize="18dp"
         android:gravity="left|center_vertical"
+        android:onClick="viewSaved"
         android:text="             Saved"
         android:layout_below="@+id/hisBt"
         android:layout_alignParentStart="true" />

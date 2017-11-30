@@ -26,7 +26,14 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void viewHistory(View view) {
-        startActivity(new Intent(this, HistoryActivity.class));
+        Intent myIntent = new Intent(this, HistoryActivity.class);
+        myIntent.putExtra("intVariableName", 0);
+        startActivity(myIntent);
+    }
 
+    public void viewSaved(View view) {
+        Intent myIntent = new Intent(this, HistoryActivity.class);
+        myIntent.putExtra("intVariableName", 1);
+        startActivity(myIntent);
     }
 }
