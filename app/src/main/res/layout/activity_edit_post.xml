@@ -256,7 +256,6 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:onClick="selectFromGallery"
-                android:textAllCaps="false"
                 android:text="Change Image" />
 
             <ImageView
