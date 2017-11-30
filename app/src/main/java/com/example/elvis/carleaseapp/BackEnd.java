@@ -396,6 +396,7 @@ public class BackEnd {
         post.setPostTime(rs.getDate("postTime").toString());
         post.setTelephone(rs.getString("telephone"));
         post.setEmail(rs.getString("email"));
+        post.setPostId(rs.getInt("postId"));
 
         /* get image blob */
         Blob blob = rs.getBlob("imgBytes");
@@ -410,7 +411,7 @@ public class BackEnd {
         try {
             Class.forName(DRIVER_NAME);
             Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
-            PreparedStatement st =  myConn.prepareStatement("insert into starRelation values (?,?)");
+            PreparedStatement st =  myConn.prepareStatement("insert into starRelation values (?,?,NULL)");
 
             st.setInt(1, user.getID());
             st.setInt(2, post.getPostId());
@@ -423,34 +424,41 @@ public class BackEnd {
         }
     }
 
+    static public void unStar(User user, Post post) {
+        Connection myConn = null;
+        Statement stmt = null;
+        try {
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            stmt = myConn.createStatement();
+            String query = "delete from starRelation where user_id = " +  user.getID() + " AND post_id = " + post.getPostId();
+            stmt.executeUpdate(query);
+            myConn.close();
+            stmt.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
     static public List<Post> getStarPost(User user) {
         Connection myConn = null;
         Statement stmt = null;
         List<Post> postList = new ArrayList<>();
-        List<Integer> postId = new ArrayList<>();
-        int id;
         try {
             Class.forName(DRIVER_NAME);
             myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
             stmt = myConn.createStatement();
 
             String query = SELECT_ALL_FROM +
-                    "starRelation" +
-                    " WHERE user_id = " + user.getID();
+                    POST_TABLE +
+                    " WHERE postId IN (SELECT DISTINCT post_id From starRelation WHERE user_id = " + user.getID() + ")";
 
+            Log.v(TAG, query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                id = rs.getInt("post_id");
-                postId.add(id);
-            }
-
-            for(int i=0; i < postId.size(); i++) {
-                query = SELECT_ALL_FROM + POST_TABLE + "WHERE postId = " + postId.get(i);
-                rs = stmt.executeQuery(query);
-                while(rs.next()){
-                    Post post = getPostFromRs(rs);
-                    postList.add(post);
-                }
+                Post post = getPostFromRs(rs);
+                postList.add(post);
             }
             rs.close();
             myConn.close();

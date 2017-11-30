@@ -14,6 +14,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,8 +22,9 @@
 
             <TextView
                 android:id="@+id/TitleView"
-                android:layout_width="80dp"
-                android:layout_height="34dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Location"
                 android:textColor="#000000"
                 android:textSize="20sp"
@@ -30,19 +32,18 @@
 
             <fragment
                 android:id="@+id/editTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <!--<EditText-->
-                <!--android:id="@+id/editTitle"-->
-                <!--android:layout_width="250dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.25"-->
-                <!--android:ems="10"-->
-                <!--android:hint="Please enter your car name"-->
-                <!--android:inputType="textPersonName"-->
-                <!--android:maxLength="25" />-->
+            <!--android:id="@+id/editTitle"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.25"-->
+            <!--android:ems="10"-->
+            <!--android:hint="Please enter your car name"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:maxLength="25" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -181,7 +182,7 @@
                 android:id="@+id/rentTimeView"
                 android:layout_width="94dp"
                 android:layout_height="wrap_content"
-                android:text="RentTime"
+                android:text="Rent Time"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -243,26 +244,24 @@
                 android:maxLength="20" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/loadimage"
-                android:onClick="selectFromGallery"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="Upload Image"
-                />
+                android:onClick="selectFromGallery"
+                android:text="Upload Image" />
 
             <ImageView
                 android:id="@+id/car_image"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                />
+                android:layout_height="200dp" />
         </LinearLayout>
 
 
