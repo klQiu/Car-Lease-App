@@ -10,6 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -50,7 +53,7 @@
 
             <TextView
                 android:id="@+id/YearView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Year"
@@ -64,8 +67,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter when the car's bought."
                 android:inputType="numberDecimal"
+                android:hint="Year of manufacture "
                 android:maxLength="4" />
         </LinearLayout>
 
@@ -76,7 +79,7 @@
 
             <TextView
                 android:id="@+id/BrandView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Brand"
@@ -90,7 +93,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the brand."
                 android:inputType="textPersonName"
                 android:maxLength="15" />
         </LinearLayout>
@@ -102,7 +104,7 @@
 
             <TextView
                 android:id="@+id/ColourView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Colour"
@@ -116,7 +118,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the colour."
                 android:inputType="textPersonName"
                 android:maxLength="20" />
         </LinearLayout>
@@ -128,7 +129,7 @@
 
             <TextView
                 android:id="@+id/MileageView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Mileage"
@@ -142,7 +143,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the mileage."
                 android:inputType="numberDecimal"
                 android:maxLength="10" />
         </LinearLayout>
@@ -154,7 +154,7 @@
 
             <TextView
                 android:id="@+id/PriceView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Price"
@@ -168,7 +168,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the price per month."
                 android:inputType="numberDecimal"
                 android:maxLength="10" />
         </LinearLayout>
@@ -203,7 +202,7 @@
 
             <TextView
                 android:id="@+id/EmailView"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:text="Email"
@@ -217,7 +216,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the email."
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -229,7 +227,7 @@
 
             <TextView
                 android:id="@+id/TelephoneView"
-                android:layout_width="wrap_content"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
                 android:text="Telephone"
                 android:textColor="#000000"
@@ -242,7 +240,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:ems="10"
-                android:hint="Please enter the phone number."
                 android:inputType="numberDecimal"
                 android:maxLength="20" />
 
@@ -257,6 +254,7 @@
                 android:id="@+id/loadimage"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="false"
                 android:onClick="selectFromGallery"
                 android:text="Upload Image" />
 
@@ -269,11 +267,12 @@
 
         <Button
             android:id="@+id/submit_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="bottom|right"
+            android:textAllCaps="false"
             android:text="Post" />
 
 
