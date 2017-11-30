@@ -396,6 +396,7 @@ public class BackEnd {
         post.setPostTime(rs.getDate("postTime").toString());
         post.setTelephone(rs.getString("telephone"));
         post.setEmail(rs.getString("email"));
+        post.setPostId(rs.getInt("postId"));
 
         /* get image blob */
         Blob blob = rs.getBlob("imgBytes");
@@ -410,7 +411,7 @@ public class BackEnd {
         try {
             Class.forName(DRIVER_NAME);
             Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
-            PreparedStatement st =  myConn.prepareStatement("insert into starRelation values (?,?)");
+            PreparedStatement st =  myConn.prepareStatement("insert into starRelation values (?,?,NULL)");
 
             st.setInt(1, user.getID());
             st.setInt(2, post.getPostId());
@@ -424,16 +425,16 @@ public class BackEnd {
     }
 
     static public void unStar(User user, Post post) {
+        Connection myConn = null;
+        Statement stmt = null;
         try {
             Class.forName(DRIVER_NAME);
-            Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
-            PreparedStatement st =  myConn.prepareStatement("delete * from starRelation where user_id = ? AND post_id = ?");
-
-            st.setInt(1, user.getID());
-            st.setInt(2, post.getPostId());
-            st.execute();
-            st.close();
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            stmt = myConn.createStatement();
+            String query = "delete from starRelation where user_id = " +  user.getID() + " AND post_id = " + post.getPostId();
+            stmt.executeUpdate(query);
             myConn.close();
+            stmt.close();
         }
         catch (Exception exc) {
             exc.printStackTrace();

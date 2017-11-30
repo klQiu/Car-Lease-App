@@ -1,12 +1,21 @@
 package com.example.elvis.carleaseapp;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
 
     private String email;
     private String password;
     private int userID;
+
+    private List<String> starredPostIds = new ArrayList<>();
+
+    private static final String TAG = User.class.getSimpleName();
 
     public User(){
         this.email = "";
@@ -45,6 +54,13 @@ public class User {
         this.password = password;
     }
 
+    public void setStarredPostId(List<String> starredPostIds) {
+        this.starredPostIds = starredPostIds;
+    }
+
+    public List<String> getStarredPostIds() {
+        return this.starredPostIds;
+    }
 
     public static User createUser(String json) {
         Gson gson = new Gson();
