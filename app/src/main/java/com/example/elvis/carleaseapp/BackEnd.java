@@ -423,6 +423,23 @@ public class BackEnd {
         }
     }
 
+    static public void unStar(User user, Post post) {
+        try {
+            Class.forName(DRIVER_NAME);
+            Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            PreparedStatement st =  myConn.prepareStatement("delete * from starRelation where user_id = ? AND post_id = ?");
+
+            st.setInt(1, user.getID());
+            st.setInt(2, post.getPostId());
+            st.execute();
+            st.close();
+            myConn.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
     static public List<Post> getStarPost(User user) {
         Connection myConn = null;
         Statement stmt = null;
