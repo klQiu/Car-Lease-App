@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Post> postList;
     private static final int SCROLL_DOWN = 1;
     private static final int INITIAL_LIST_SIZE = 5;
+    private static final int ITEMS_TO_LOAD = 2;
     private String filter = "postTime";
     private String order = "DESC";
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 /* test if user scrolled to the end of list */
                 if (!recyclerView.canScrollVertically(SCROLL_DOWN) && scrollListenerEnabled) {
                     Log.v(TAG, "loading more items... post list size is " + postList.size());
-                    new DisplayListTask(postList.size(), postList.size() + 2).execute();
+                    new DisplayListTask(postList.size(), postList.size() + ITEMS_TO_LOAD).execute();
                 }
             }
         };
@@ -268,6 +269,10 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             if(result) {
                 postListAdapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(), R.string.new_post_loaded, Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(getApplicationContext(), R.string.end_of_list, Toast.LENGTH_SHORT).show();
             }
         }
     }
