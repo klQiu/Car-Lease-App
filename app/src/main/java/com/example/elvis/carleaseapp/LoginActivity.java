@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         View warnLayout = inflater.inflate(R.layout.warn, null);
         popUpWindow = new PopupWindow(warnLayout,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT,true);
 
+        //check if user has logged in before
         User savedUser = Current.retrieveUserFromPref(this);
         if(savedUser != null) {
             Log.v(TAG, "user has signed in before");

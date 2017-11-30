@@ -42,6 +42,10 @@ public class Current {
         saveUserToPref(null, context);
     }
 
+    /**
+     * Returns null if user is not logged in
+     * @return
+     */
     public static User getCurUser(){
         return curUser;
     }

@@ -23,15 +23,6 @@
             android:layout_height="200dp"
             android:layout_alignParentTop="true"/>
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text=""-->
-            <!--android:textSize="30sp"-->
-            <!--android:layout_alignBottom="@+id/car_img"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:background="#96e9dcdc"/>-->
-
         <TextView
             android:id="@+id/car_brand"
             android:layout_width="wrap_content"
@@ -44,6 +35,29 @@
             android:layout_marginStart="20dp"
             android:layout_centerHorizontal="true"
             />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/star_layout"
+            android:clickable="true"
+            android:layout_margin="10dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/star_img"
+                android:visibility="invisible"
+                android:background="@drawable/gold_star"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/star_img_border"
+                android:background="@drawable/black_star_border"
+                android:backgroundTint="@color/colorStarBorder"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -64,7 +78,7 @@
                 android:id="@+id/car_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:textColor="#000000"
                 android:textSize="25sp"
                 android:layout_toEndOf="@+id/car_price_txt"
@@ -74,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="for"
+                android:text="/ month for"
                 android:layout_toEndOf="@+id/car_price"
                 android:textSize="15sp"
                 android:layout_alignBottom="@+id/car_price"

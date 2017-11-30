@@ -5,8 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.bumptech.glide.Glide;
 
@@ -109,6 +113,13 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             postPrice = Integer.toString(((Post) rowItems.get(1)).getPrice());
         }
         holder.carPrice.setText(postPrice);
+
+        /* Check if user is logged in to determine whether to show star */
+        User user = Current.getCurUser();
+        if(user == null) {
+            holder.star.setVisibility(View.INVISIBLE);
+            holder.starBorder.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -133,6 +144,8 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private TextView carBrand;
         private TextView rentTime;
         private TextView carPrice;
+        private ImageView star;
+        private ImageView starBorder;
 
         private ImgViewHolder(View itemView) {
             super(itemView);
@@ -140,6 +153,17 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             this.carBrand = (TextView) itemView.findViewById(R.id.car_brand);
             this.carPrice = (TextView) itemView.findViewById(R.id.car_price);
             this.rentTime = (TextView) itemView.findViewById(R.id.car_rentTime);
+
+            /*------------ setting up stars --------------*/
+            this.star = (ImageView) itemView.findViewById(R.id.star_img);
+            this.starBorder = (ImageView) itemView.findViewById(R.id.star_img_border);
+            RelativeLayout starLayout = (RelativeLayout) itemView.findViewById(R.id.star_layout);
+            starLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    star.setVisibility(View.VISIBLE);
+                }
+            });
         }
     }
 
