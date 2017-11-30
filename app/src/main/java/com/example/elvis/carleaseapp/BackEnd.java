@@ -411,13 +411,30 @@ public class BackEnd {
         try {
             Class.forName(DRIVER_NAME);
             Connection myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
-            PreparedStatement st =  myConn.prepareStatement("insert into starRelation values (?,?)");
+            PreparedStatement st =  myConn.prepareStatement("insert into starRelation values (?,?,NULL)");
 
             st.setInt(1, user.getID());
             st.setInt(2, post.getPostId());
             st.execute();
             st.close();
             myConn.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    static public void unStar(User user, Post post) {
+        Connection myConn = null;
+        Statement stmt = null;
+        try {
+            Class.forName(DRIVER_NAME);
+            myConn = DriverManager.getConnection(SERVER, USER_NAME, PASSWORD);
+            stmt = myConn.createStatement();
+            String query = "delete from starRelation where user_id = " +  user.getID() + " AND post_id = " + post.getPostId();
+            stmt.executeUpdate(query);
+            myConn.close();
+            stmt.close();
         }
         catch (Exception exc) {
             exc.printStackTrace();

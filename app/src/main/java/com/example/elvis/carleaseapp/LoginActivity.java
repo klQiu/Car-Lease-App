@@ -133,11 +133,8 @@ public class LoginActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            //remember user for this session
 
-            for(String postId: newUser.getStarredPostIds()) {
-                Log.v(TAG, "logged in user's post id " + postId);
-            }
+            //remember user for this session
             Current.addCurUser(newUser, getApplicationContext());
             this.finish();
             Intent intent = new Intent(this, MainActivity.class);

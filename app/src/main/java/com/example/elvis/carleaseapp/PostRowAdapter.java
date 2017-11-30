@@ -1,20 +1,17 @@
 package com.example.elvis.carleaseapp;
 
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,16 +24,12 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final String TAG = PostRowAdapter.class.getSimpleName();
     // The items to display in your RecyclerView
     private List<Object> rowItems;
-    private List<String> starredPostIds;
 
-    private static final int POST = 0, IMAGE = 1;
+    private static final int POST = 0, IMAGE = 1; //view type encodings
+    private static final int POST_OBJ_POS = 1, IMAGE_OBJ_POS = 0;
 
     public PostRowAdapter(List<Object> items) {
         this.rowItems = items;
-    }
-
-    public void setStarredPostIds(List<String> starredPostIds) {
-        this.starredPostIds = starredPostIds;
     }
 
     @Override
@@ -110,7 +103,7 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         /* We know that item 1 in rowItems is the post object,
            item 0 is image bytes
          */
-        Post post = (Post) rowItems.get(1);
+        Post post = (Post) rowItems.get(POST_OBJ_POS);
         holder.carBrand.setText(post.getBrand());
         holder.rentTime.setText(post.getRentTime());
 
@@ -148,13 +141,13 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    private static class ImgViewHolder extends RecyclerView.ViewHolder {
+    private class ImgViewHolder extends RecyclerView.ViewHolder {
         private ImageView img;
         private TextView carBrand;
         private TextView rentTime;
         private TextView carPrice;
         private ImageView star;
-        private ImageView starBorder;
+
 
         private ImgViewHolder(View itemView) {
             super(itemView);
@@ -165,12 +158,16 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             /*------------ setting up stars --------------*/
             this.star = (ImageView) itemView.findViewById(R.id.star_img);
-            this.starBorder = (ImageView) itemView.findViewById(R.id.star_img_border);
             RelativeLayout starLayout = (RelativeLayout) itemView.findViewById(R.id.star_layout);
             starLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    star.setVisibility(View.VISIBLE);
+                    if(star.getVisibility() == View.VISIBLE) {
+                        removeStarredPost();
+                    }
+                    else {
+                        starAPost();
+                    }
                 }
             });
 
@@ -180,9 +177,68 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 starLayout.setVisibility(View.VISIBLE);
             }
         }
+
+        private void removeStarredPost() {
+            Post post = (Post) rowItems.get(POST_OBJ_POS);
+            if(Current.getCurUser() != null)
+                new RemoveStarTask(Current.getCurUser(), post).execute();
+        }
+
+        private void starAPost() {
+            Post post = (Post) rowItems.get(POST_OBJ_POS);
+            if(Current.getCurUser() != null)
+                new StarringTask(Current.getCurUser(), post).execute();
+        }
+
+        private class StarringTask extends AsyncTask<Void, Void, Boolean> {
+            User user;
+            Post post;
+            StarringTask(User user, Post post) {
+                this.user = user;
+                this.post = post;
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                BackEnd.star(user, post);
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if(result) {
+                    star.setVisibility(View.VISIBLE);
+                    Current.getCurUser().getStarredPostIds().add(Integer.toString(post.getPostId()));
+                }
+            }
+        }
+
+        private class RemoveStarTask extends AsyncTask<Void, Void, Boolean> {
+            User user;
+            Post post;
+            RemoveStarTask(User user, Post post) {
+                this.user = user;
+                this.post = post;
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                BackEnd.unStar(user, post);
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if(result) {
+                    star.setVisibility(View.INVISIBLE);
+                    Current.getCurUser().getStarredPostIds().remove(Integer.toString(post.getPostId()));
+                }
+            }
+        }
+
     }
 
-    private static class PostViewHolder extends RecyclerView.ViewHolder {
+    private class PostViewHolder extends RecyclerView.ViewHolder {
 
         private TextView location;
         //private TextView carColor;
