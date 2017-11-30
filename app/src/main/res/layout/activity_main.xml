@@ -70,7 +70,8 @@
         android:layout_marginTop="15dp"
         android:clickable="true"
         android:onClick="post"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:backgroundTint="@color/colorAccent"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 
 
 </RelativeLayout>
