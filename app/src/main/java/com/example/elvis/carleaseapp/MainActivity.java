@@ -5,13 +5,14 @@ import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -40,7 +41,14 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.OnScrollListener mOnScrollListener;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean scrollListenerEnabled = true;
-    
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.v(TAG, "in on stop, saving user to pref");
+        Current.saveUserToPref(Current.getCurUser(), this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +185,14 @@ public class MainActivity extends AppCompatActivity {
         );
 
         initRefreshLayout();
+
+        /*--------------- check if the user has logged in before ------------*/
+        //check if user has logged in before
+        User savedUser = Current.retrieveUserFromPref(this);
+        if(savedUser != null) {
+            Log.v(TAG, "user has signed in before");
+            Current.addCurUser(savedUser);
+        }
     }
 
     @Override

@@ -22,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         //set title font
-        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "Sofia-Regular.otf");
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "bgothm.ttf");
         TextView title = (TextView)findViewById(R.id.RegTitle);
         title.setTypeface(myTypeface);
 

@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/miProfile"
-        android:icon="@drawable/user"
+        android:icon="@drawable/user_w"
         android:title="Profile"
         android:onClick="showLogin"
         app:showAsAction="always"></item>
