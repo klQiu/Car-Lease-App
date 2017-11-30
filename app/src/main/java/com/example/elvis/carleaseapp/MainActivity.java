@@ -38,7 +38,14 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView.OnScrollListener mOnScrollListener;
     private boolean scrollListenerEnabled = true;
-    
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.v(TAG, "in on stop, saving user to pref");
+        Current.saveUserToPref(Current.getCurUser(), this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,6 +179,14 @@ public class MainActivity extends AppCompatActivity {
 
                 }
         );
+
+        /*--------------- check if the user has logged in before ------------*/
+        //check if user has logged in before
+        User savedUser = Current.retrieveUserFromPref(this);
+        if(savedUser != null) {
+            Log.v(TAG, "user has signed in before");
+            Current.addCurUser(savedUser);
+        }
     }
 
     @Override
