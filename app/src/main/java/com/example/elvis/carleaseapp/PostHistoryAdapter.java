@@ -79,7 +79,7 @@ public class PostHistoryAdapter extends RecyclerView.Adapter<PostHistoryAdapter.
             this.price = (TextView) itemLayoutView.findViewById(R.id.txtCarPrice);
             this.carBrand = (TextView) itemLayoutView.findViewById(R.id.txtCarBrand);
             this.carImg = (ImageView) itemLayoutView.findViewById(R.id.imgCar);
-            if(mode == 0)
+            //if(mode == 0)
                 itemLayoutView.setOnClickListener(this);
         }
 
@@ -88,11 +88,20 @@ public class PostHistoryAdapter extends RecyclerView.Adapter<PostHistoryAdapter.
             Log.v(TAG, "in on click");
             int itemPos = getLayoutPosition();
             Post post = postList.get(itemPos);
-            Intent mIntent = new Intent(view.getContext(), EditPostActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("post_to_edit", post);
-            mIntent.putExtras(bundle);
-            view.getContext().startActivity(mIntent);
+            if(mode == 0) {
+                Intent mIntent = new Intent(view.getContext(), EditPostActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("post_to_edit", post);
+                mIntent.putExtras(bundle);
+                view.getContext().startActivity(mIntent);
+            }
+            else {
+                Intent mIntent = new Intent(view.getContext(), saveActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("saved_post", post);
+                mIntent.putExtras(bundle);
+                view.getContext().startActivity(mIntent);
+            }
         }
 
     }

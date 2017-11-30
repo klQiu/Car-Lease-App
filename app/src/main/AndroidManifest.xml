@@ -15,8 +15,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:label="Car Lease">
-        </activity>
+            android:label="Car Lease" />
         <activity
             android:name=".LoginActivity"
             android:label="Login" />
@@ -33,13 +32,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC9aVYf0Tm-jAZQi5f-cQUtIuc7ydSC9pg" />
 
-        <activity
-            android:name=".HomeActivity">
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".saveActivity"></activity>
     </application>
 
 </manifest>
