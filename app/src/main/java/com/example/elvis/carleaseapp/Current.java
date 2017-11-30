@@ -18,6 +18,7 @@ public class Current {
     public static void addCurUser(User user, Context context){
         Log.v(TAG, "adding cur user with shared pref");
         curUser = new User(user.getEmail(), user.getPassword(), user.getID());
+        curUser.setStarredPostId(user.getStarredPostIds());
         saveUserToPref(curUser, context);
     }
 
@@ -42,10 +43,6 @@ public class Current {
         saveUserToPref(null, context);
     }
 
-    /**
-     * Returns null if user is not logged in
-     * @return
-     */
     public static User getCurUser(){
         return curUser;
     }

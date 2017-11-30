@@ -14,6 +14,7 @@ import android.widget.ViewSwitcher;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final String TAG = PostRowAdapter.class.getSimpleName();
     // The items to display in your RecyclerView
     private List<Object> rowItems;
+    private List<String> starredPostIds;
 
     private static final int POST = 0, IMAGE = 1;
 
@@ -33,6 +35,9 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.rowItems = items;
     }
 
+    public void setStarredPostIds(List<String> starredPostIds) {
+        this.starredPostIds = starredPostIds;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -105,20 +110,24 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         /* We know that item 1 in rowItems is the post object,
            item 0 is image bytes
          */
-        holder.carBrand.setText(((Post) rowItems.get(1)).getBrand());
-        holder.rentTime.setText(((Post) rowItems.get(1)).getRentTime());
+        Post post = (Post) rowItems.get(1);
+        holder.carBrand.setText(post.getBrand());
+        holder.rentTime.setText(post.getRentTime());
 
         String postPrice = "";
-        if (((Post) rowItems.get(1)).getPrice() != 0) {
-            postPrice = Integer.toString(((Post) rowItems.get(1)).getPrice());
+        if (post.getPrice() != 0) {
+            postPrice = Integer.toString(post.getPrice());
         }
         holder.carPrice.setText(postPrice);
 
-        /* Check if user is logged in to determine whether to show star */
         User user = Current.getCurUser();
-        if(user == null) {
-            holder.star.setVisibility(View.INVISIBLE);
-            holder.starBorder.setVisibility(View.INVISIBLE);
+        if(user != null) {
+            if(user.getStarredPostIds().contains(Integer.toString(post.getPostId()))) {
+                holder.star.setVisibility(View.VISIBLE);
+            }
+            else {
+                holder.star.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -164,6 +173,12 @@ public class PostRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     star.setVisibility(View.VISIBLE);
                 }
             });
+
+            /* Check if user is logged in to determine whether to show star */
+            User user = Current.getCurUser();
+            if(user != null) {
+                starLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 

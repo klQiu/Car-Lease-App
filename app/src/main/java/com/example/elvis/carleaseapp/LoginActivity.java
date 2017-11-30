@@ -24,6 +24,9 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.example.elvis.carleaseapp.BackEnd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.security.AccessController.getContext;
 
 public class LoginActivity extends AppCompatActivity {
@@ -57,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.v(TAG, "user has signed in before");
             Current.addCurUser(savedUser);
             startActivity(new Intent(this, ProfileActivity.class));
+            finish();
         }
     }
 
@@ -107,6 +111,33 @@ public class LoginActivity extends AppCompatActivity {
             popUpWindow.update(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
         }
         else{
+            /* Login success, safe to use the returned user object */
+
+            //query from database the posts starred by the logged in user
+            Thread getStarredPostThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    List<Post> starredPosts = BackEnd.getStarPost(newUser);
+                    Log.v(TAG, "got starred posts for user " + newUser.getEmail());
+                    List<String> starredPostIds = new ArrayList<>();
+                    for(Post post : starredPosts) {
+                        starredPostIds.add(Integer.toString(post.getPostId()));
+                    }
+                    newUser.setStarredPostId(starredPostIds);
+                }
+            });
+
+            getStarredPostThread.start();
+            try {
+                getStarredPostThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //remember user for this session
+
+            for(String postId: newUser.getStarredPostIds()) {
+                Log.v(TAG, "logged in user's post id " + postId);
+            }
             Current.addCurUser(newUser, getApplicationContext());
             this.finish();
             Intent intent = new Intent(this, MainActivity.class);

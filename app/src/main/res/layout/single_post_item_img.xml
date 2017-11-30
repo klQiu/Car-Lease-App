@@ -43,6 +43,7 @@
             android:layout_alignParentEnd="true"
             android:id="@+id/star_layout"
             android:clickable="true"
+            android:visibility="invisible"
             android:layout_margin="10dp">
             <ImageView
                 android:layout_width="30dp"
